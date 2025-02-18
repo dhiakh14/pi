@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+    <label for="name">Task Name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="task.name" required />
+  
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" [(ngModel)]="task.description" required />
+  
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" [(ngModel)]="task.startDate" required />
+  
+    <label for="plannedEndDate">Planned End Date:</label>
+    <input type="date" id="plannedEndDate" name="plannedEndDate" [(ngModel)]="task.planned_end_date" required />
+  
+    <label for="status">Status:</label>
+    <select id="status" name="status" [(ngModel)]="task.status" required>
+      <option value="PENDING">Pending</option>
+      <option value="IN_PROGRESS">In Progress</option>
+      <option value="COMPLETED">Completed</option>
+    </select>
+  
+    <button type="submit" [disabled]="taskForm.invalid">Add Task</button>
+  </form>
+  

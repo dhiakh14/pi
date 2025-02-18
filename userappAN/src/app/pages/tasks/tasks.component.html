@@ -1,0 +1,39 @@
+<div *ngIf="tasks.length > 0; else noTasks">
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Task Name</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>Planned End Date</th>
+          <th>Actual End Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>
+            <input 
+              type="checkbox" 
+              [checked]="selectedTaskIds.has(task.idTask!)" 
+              (change)="toggleSelection(task.idTask!)">
+          </td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.startDate | date }}</td>
+          <td>{{ task.planned_end_date | date }}</td>
+          <td>{{ task.actual_end_date | date }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
+  </div>
+  
+  <ng-template #noTasks>
+    <p class="no-tasks-message">No tasks available.</p>
+  </ng-template>
+  
+  <div id="gantt-container" class="gantt-chart"></div>
+  
