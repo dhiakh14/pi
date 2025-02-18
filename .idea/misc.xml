@@ -10,11 +10,14 @@
         <option value="$PROJECT_DIR$/userM/pom.xml" />
         <option value="$PROJECT_DIR$/tacheEtLivrable/pom.xml" />
         <option value="$PROJECT_DIR$/userMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Pi4/pom.xml" />
+        <option value="$PROJECT_DIR$/GestionPlanning/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/userM/pom.xml" />
+        <option value="$PROJECT_DIR$/userMS/pom.xml" />
       </set>
     </option>
   </component>
