@@ -15,6 +15,8 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { AddTaskComponent } from './pages/add-task/add-task.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,7 +33,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     FooterComponent,
     AddTaskComponent,
-    TasksComponent
+    TasksComponent,
+    SidebarComponent,
+    AffecterRoleComponent
   ],
   imports: [
     BrowserModule,

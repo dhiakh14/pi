@@ -8,12 +8,14 @@ import { authGuard } from './guards/auth.guard';
 import { nonAdminGuardGuard } from './guards/non-admin-guard.guard';
 import { AddTaskComponent } from './pages/add-task/add-task.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
+import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'tasks', component: TasksComponent },
+  { path: 'roles', component: AffecterRoleComponent },
   {
     path: 'activate-account',
     component: ActivateAccountComponent

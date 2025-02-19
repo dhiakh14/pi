@@ -1,11 +1,18 @@
 <div class="profile-container">
-    <h2>Welcome, {{ fullName }}!</h2>
-  
-    <div class="profile-card">
-      <p><strong>Role:</strong> {{ userRole }}</p>
-      <p><strong>Date Of Birth:</strong> {{ dateOfBirth }}</p>
-    </div>
-  
-    <button class="logout-btn" (click)="logout()">Logout</button>
+  <h2>Welcome, {{ fullName }}!</h2>
+
+  <div class="profile-card">
+    <p><strong>Role:</strong> {{ userRole }}</p>
+    <p><strong>Date Of Birth:</strong> {{ dateOfBirth | date:'yyyy-MM-dd' }}</p>
   </div>
-  
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
+
+
+
+
+
+<ng-template #noUsers>
+  <p>No other users found.</p>
+</ng-template>

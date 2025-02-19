@@ -171,6 +171,63 @@
                 }
             }
         },
+        "/users/all-except-me": {
+            "get": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "getAllUsersExceptMe",
+                "parameters": [
+                    {
+                        "name": "currentUserId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles/getRoles": {
+            "get": {
+                "tags": [
+                    "role-controller"
+                ],
+                "operationId": "getRoles",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/auth/activate-account": {
             "get": {
                 "tags": [
@@ -224,6 +281,7 @@
             },
             "RegistrationRequest": {
                 "required": [
+                    "dateOfBirth",
                     "email",
                     "firstName",
                     "lastName",
@@ -236,6 +294,10 @@
                     },
                     "lastName": {
                         "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
                     },
                     "email": {
                         "type": "string"
@@ -322,22 +384,22 @@
                     "name": {
                         "type": "string"
                     },
+                    "username": {
+                        "type": "string"
+                    },
                     "authorities": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/GrantedAuthority"
                         }
                     },
-                    "username": {
-                        "type": "string"
-                    },
                     "accountNonLocked": {
                         "type": "boolean"
                     },
-                    "credentialsNonExpired": {
+                    "accountNonExpired": {
                         "type": "boolean"
                     },
-                    "accountNonExpired": {
+                    "credentialsNonExpired": {
                         "type": "boolean"
                     }
                 }

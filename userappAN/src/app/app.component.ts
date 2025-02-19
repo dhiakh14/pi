@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,6 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'userappAN';
+  isSidebarVisible = false;
+
+  toggleSidebar(isVisible: boolean) {
+    this.isSidebarVisible = isVisible;
+  }
   
 
  

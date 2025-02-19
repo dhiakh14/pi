@@ -13,6 +13,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { assignRoleToUser } from '../fn/user-controller/assign-role-to-user';
 import { AssignRoleToUser$Params } from '../fn/user-controller/assign-role-to-user';
+import { getAllUsersExceptMe } from '../fn/user-controller/get-all-users-except-me';
+import { GetAllUsersExceptMe$Params } from '../fn/user-controller/get-all-users-except-me';
 import { getProfile } from '../fn/user-controller/get-profile';
 import { GetProfile$Params } from '../fn/user-controller/get-profile';
 import { User } from '../models/user';
@@ -70,6 +72,31 @@ export class UserControllerService extends BaseService {
   getProfile(params: GetProfile$Params, context?: HttpContext): Observable<User> {
     return this.getProfile$Response(params, context).pipe(
       map((r: StrictHttpResponse<User>): User => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllUsersExceptMe()` */
+  static readonly GetAllUsersExceptMePath = '/users/all-except-me';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllUsersExceptMe()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllUsersExceptMe$Response(params: GetAllUsersExceptMe$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<User>>> {
+    return getAllUsersExceptMe(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllUsersExceptMe$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllUsersExceptMe(params: GetAllUsersExceptMe$Params, context?: HttpContext): Observable<Array<User>> {
+    return this.getAllUsersExceptMe$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<User>>): Array<User> => r.body)
     );
   }
 
