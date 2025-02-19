@@ -35,4 +35,16 @@ public class UserController {
         return userService.getAllUsersExcept(currentUserId);
     }
 
+
+    @PostMapping("/{idUser}/assignAndReplaceRoleToUser")
+    public ResponseEntity<String> assignAndReplaceRoleToUser(@PathVariable Long idUser, @RequestParam String roleName) {
+        try {
+            userService.assignAndReplaceRoleToUser(idUser, roleName);
+            return ResponseEntity.ok("Role '" + roleName + "' assigned to user successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+
     }

@@ -11,6 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { assignAndReplaceRoleToUser } from '../fn/user-controller/assign-and-replace-role-to-user';
+import { AssignAndReplaceRoleToUser$Params } from '../fn/user-controller/assign-and-replace-role-to-user';
 import { assignRoleToUser } from '../fn/user-controller/assign-role-to-user';
 import { AssignRoleToUser$Params } from '../fn/user-controller/assign-role-to-user';
 import { getAllUsersExceptMe } from '../fn/user-controller/get-all-users-except-me';
@@ -23,6 +25,31 @@ import { User } from '../models/user';
 export class UserControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `assignAndReplaceRoleToUser()` */
+  static readonly AssignAndReplaceRoleToUserPath = '/users/{idUser}/assignAndReplaceRoleToUser';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `assignAndReplaceRoleToUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignAndReplaceRoleToUser$Response(params: AssignAndReplaceRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return assignAndReplaceRoleToUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `assignAndReplaceRoleToUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignAndReplaceRoleToUser(params: AssignAndReplaceRoleToUser$Params, context?: HttpContext): Observable<string> {
+    return this.assignAndReplaceRoleToUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
   }
 
   /** Path part for operation `assignRoleToUser()` */

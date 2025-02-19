@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'tasks', component: TasksComponent },
-  { path: 'roles', component: AffecterRoleComponent },
+  { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
   {
     path: 'activate-account',
     component: ActivateAccountComponent

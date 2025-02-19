@@ -11,6 +11,45 @@
         }
     ],
     "paths": {
+        "/users/{idUser}/assignAndReplaceRoleToUser": {
+            "post": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "assignAndReplaceRoleToUser",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "roleName",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/{idUser}/assign-role": {
             "post": {
                 "tags": [
@@ -393,13 +432,13 @@
                             "$ref": "#/components/schemas/GrantedAuthority"
                         }
                     },
-                    "accountNonLocked": {
-                        "type": "boolean"
-                    },
                     "accountNonExpired": {
                         "type": "boolean"
                     },
                     "credentialsNonExpired": {
+                        "type": "boolean"
+                    },
+                    "accountNonLocked": {
                         "type": "boolean"
                     }
                 }

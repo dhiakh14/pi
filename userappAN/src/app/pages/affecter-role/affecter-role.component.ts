@@ -4,6 +4,7 @@ import { RoleControllerService, UserControllerService } from 'src/app/services/s
 import { TokenService } from 'src/app/token/token.service';
 import { User } from 'src/app/services/models';
 import { Role } from 'src/app/services/models/role';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-affecter-role',
@@ -18,9 +19,10 @@ export class AffecterRoleComponent implements OnInit {
   users: User[] = [];  
   userId!: number;
   roles: Role[] = [];
-  selectedRole: Role | undefined; 
+  selectedRole: { [userId: number]: Role | undefined } = {}; 
   flippedState: { [userId: number]: boolean } = {};
-  showRoleSelection: { [userId: number]: boolean } = {}; // Store visibility for each user
+  showRoleSelection: { [userId: number]: boolean } = {}; 
+  replaceExistingRole: { [userId: number]: boolean } = {}; 
 
   constructor(
     private router: Router,
@@ -37,14 +39,11 @@ export class AffecterRoleComponent implements OnInit {
       this.dateOfBirth = decodedToken.dateOfBirth; 
       this.userId = decodedToken.idUser;  
       this.getUsersExceptMe();
-      this.getRoles(); // Fetch roles on component initialization
+      this.getRoles();
     }
   }
-  toggleRoleSelection(userId: number, event: MouseEvent): void {
-    // Prevent the event from bubbling up to the card flip
-    event.stopPropagation();
-    this.showRoleSelection[userId] = !this.showRoleSelection[userId]; // Toggle visibility for specific user
-  }
+
+  
 
   getUsersExceptMe() {
     const decodedToken = this.tokenService.getDecodedToken();
@@ -69,7 +68,7 @@ export class AffecterRoleComponent implements OnInit {
   getRoles() {
     this.roleService.getRoles().subscribe({
       next: (data: Role[]) => {
-        this.roles = data; // Set the fetched roles
+        this.roles = data; 
       },
       error: (err) => {
         console.error('Error fetching roles:', err);
@@ -78,50 +77,66 @@ export class AffecterRoleComponent implements OnInit {
   }
 
   flipCard(userId: number, event: MouseEvent): void {
-    // Check if the click is inside the role selection (or other areas we want to prevent flipping)
     if (event && event.target && (event.target as HTMLElement).closest('.role-selection')) {
-      return;  // Prevent flip if clicked inside the role selection
+      return;  
     }
-  
+
     if (userId !== undefined) {
-      this.flippedState[userId] = !this.flippedState[userId];  // Toggle flip state for this user
+      this.flippedState[userId] = !this.flippedState[userId];  
     }
   }
-  
 
   getRoleNames(user: User): string {
     return user.roles ? user.roles.map(role => role.name).join(', ') : 'No role assigned';
   }
 
-  onRoleChange(userId: number): void {
-    // Log the selected role name
-    console.log(`Selected role for user ${userId}: ${this.selectedRole?.name}`);
+  onRoleChange(userId: number, selectedRole: Role | undefined): void {
+    if (!selectedRole) {
+        console.error('Selected role is undefined');
+        return;
+    }
+    this.selectedRole[userId] = selectedRole;
+    console.log(`Selected role for user ${userId}: ${selectedRole.name}`);
   }
 
-  assignRole(userId: number): void {
-    if (!this.selectedRole || !this.selectedRole.name) {
+  assignOrReplaceRole(userId: number, role: Role | undefined, replaceExisting: boolean) {
+    if (!role) {
       console.error('No role selected');
       return;
     }
-  
-    const roleName: string = this.selectedRole.name;
-  
-    // Call the service to assign the role
-    this.userService.assignRoleToUser({ idUser: userId, roleName }).subscribe({
-      next: (response: string) => {
-        console.log(`Role ${roleName} assigned to user ${userId}: ${response}`);
-        
-        alert(response);
-        this.getUsersExceptMe();  
-      },
-      error: (err) => {
-        console.error('Error assigning role:', err);
-      }
-    });
+
+    const roleName = role?.name ?? '';  // Ensure roleName is a string, fallback to empty string if undefined
+
+    if (replaceExisting) {
+      // Call assignAndReplaceRoleToUser method if checkbox is checked
+      this.userService.assignAndReplaceRoleToUser({ idUser: userId, roleName }).subscribe(
+        (response) => {
+          console.log('Role replaced successfully', response);
+        },
+        (error) => {
+          console.error('Error replacing role', error);
+        }
+      );
+    } else {
+      // Call assignRoleToUser method if checkbox is not checked
+      this.userService.assignRoleToUser({ idUser: userId, roleName }).subscribe(
+        (response) => {
+          console.log('Role assigned successfully', response);
+        },
+        (error) => {
+          console.error('Error assigning role', error);
+        }
+      );
+    }
   }
-  
-  
-  
+
+
+  // Toggle role selection panel visibility
+  toggleRoleSelection(userId: number, event: Event) {
+    event.stopPropagation();
+    this.showRoleSelection[userId] = !this.showRoleSelection[userId];
+  }
+
   logout() {
     this.tokenService.clearToken();
     this.router.navigate(['/login']);

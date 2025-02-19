@@ -34,6 +34,20 @@ public class UserService {
         }
     }
 
+    public void assignAndReplaceRoleToUser(Long idUser, String roleName) {
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Role role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.getRoles().clear();
+
+        user.getRoles().add(role);
+        userRepository.save(user);
+    }
+
+
     public User getProfile(Long idUser){
         return userRepository.findById(idUser).orElse(null);
     }
