@@ -46,7 +46,6 @@ public class AuthenticationService {
 
 
     public void register(RegistrationRequest request, List<String> roleNames) throws MessagingException {
-        // Fetch roles dynamically based on the passed role names
         List<Role> roles = roleNames.stream()
                 .map(roleName -> role.findByName(roleName.toUpperCase())
                         .orElseThrow(() -> new IllegalStateException("Role " + roleName + " was not initialized")))

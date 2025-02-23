@@ -13,7 +13,7 @@ export class SidebarComponent implements OnInit {
   userId: number | null = null;
 
   isVisible = false; 
-  isAdmin = false;  // A boolean to check if the user is an admin
+  isAdmin = false;  
 
   constructor(private tokenService: TokenService, private router: Router) {}
 

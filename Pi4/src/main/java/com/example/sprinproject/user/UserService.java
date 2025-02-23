@@ -55,4 +55,26 @@ public class UserService {
     public List<User> getAllUsersExcept(Long currentUserId) {
         return userRepository.findAllExcept(currentUserId);
     }
+
+    public void DeleteUser(Long idUser){
+        userRepository.deleteById(idUser);
+    }
+
+    public User updateUser(Long idUser, User updatedUser) {
+        return userRepository.findById(idUser).map(user -> {
+            user.setFirstName(updatedUser.getFirstName());
+            user.setLastName(updatedUser.getLastName());
+            user.setEmail(updatedUser.getEmail());
+            user.setDateOfBirth(updatedUser.getDateOfBirth());
+            return userRepository.save(user);
+        }).orElseThrow(() -> new RuntimeException("User not found with ID: " + idUser));
+    }
+
+    public User updatePassword(Long idUser, User updatedUser) {
+        return userRepository.findById(idUser).map(user -> {
+            user.setPassword(updatedUser.getPassword());
+
+            return userRepository.save(user);
+        }).orElseThrow(() -> new RuntimeException("User not found with ID: " + idUser));
+    }
 }

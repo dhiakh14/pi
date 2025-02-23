@@ -1,18 +1,29 @@
-<div class="profile-container">
-  <h2>Welcome, {{ fullName }}!</h2>
+<div class="full-screen-background d-flex justify-content-center align-items-center min-vh-100">
+  <div class="profile-container">
+  <!-- Full Name -->
+  <h2 class="full-name">{{ fullName }}</h2>
 
-  <div class="profile-card">
-    <p><strong>Role:</strong> {{ userRole }}</p>
-    <p><strong>Date Of Birth:</strong> {{ dateOfBirth | date:'yyyy-MM-dd' }}</p>
+  <!-- Role in a Circle -->
+  <div class="role-circle">
+    <span>{{ userRole }}</span>
   </div>
 
-  <button class="logout-btn" (click)="logout()">Logout</button>
+  <!-- Additional Information -->
+  <div class="profile-info">
+    <div class="info-item">
+      <i class="fas fa-birthday-cake"></i>
+      <p><strong>Date Of Birth:</strong> {{ dateOfBirth | date:'yyyy-MM-dd' }}</p>
+    </div>
+    <!-- Add more info items here -->
+  </div>
+
+  <!-- Logout Button -->
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</div>
 </div>
 
-
-
-
-
 <ng-template #noUsers>
-  <p>No other users found.</p>
+  <p class="no-users">No other users found.</p>
 </ng-template>

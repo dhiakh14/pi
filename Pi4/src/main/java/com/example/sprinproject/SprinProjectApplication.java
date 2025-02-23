@@ -28,6 +28,12 @@ public class SprinProjectApplication {
         return args -> {
             if (rolerepo.findByName("USER").isEmpty()){
                 rolerepo.save(Role.builder().name("USER").build());
+            } if (rolerepo.findByName("CHEF").isEmpty()) {
+                rolerepo.save(Role.builder().name("CHEF").build());
+
+            }
+            if (rolerepo.findByName("ADMIN").isEmpty()){
+                rolerepo.save(Role.builder().name("ADMIN").build());
             }
         };
     }

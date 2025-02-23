@@ -12,18 +12,21 @@ declare const gantt: any;
 })
 export class TasksComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+
   selectedTaskIds: Set<number> = new Set();
+  searchQuery: string = ''; 
 
   constructor(private taskService: TaskControllerService) {}
-
-  ngOnInit(): void {
-    this.loadTasks();
-  }
 
   ngAfterViewInit(): void {
     gantt.init('gantt-container');
   }
 
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+  
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe(
       (response) => {
@@ -34,6 +37,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
               const jsonResponse = JSON.parse(reader.result as string);
               if (Array.isArray(jsonResponse)) {
                 this.tasks = jsonResponse;
+                this.filteredTasks = [...this.tasks]; // Make sure to set filteredTasks as well
               } else {
                 console.error('Expected an array of tasks, but received:', jsonResponse);
               }
@@ -44,6 +48,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
           reader.readAsText(response);
         } else if (Array.isArray(response)) {
           this.tasks = response;
+          this.filteredTasks = [...this.tasks]; // Make sure to set filteredTasks as well
         } else {
           console.error('Unexpected response format:', response);
         }
@@ -53,6 +58,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
 
   toggleSelection(taskId: number): void {
     if (this.selectedTaskIds.has(taskId)) {
@@ -114,4 +120,31 @@ export class TasksComponent implements OnInit, AfterViewInit {
     if (status === 'IN_PROGRESS') return 0.5; 
     return 0; 
   }
+
+  deleteTask(taskId: number): void {
+    if (confirm('Are you sure you want to delete this task?')) {
+      this.taskService.deleteTask({ id: taskId }).subscribe(
+        () => {
+          this.tasks = this.tasks.filter(task => task.idTask !== taskId);
+          console.log(`Task ${taskId} deleted successfully.`);
+        },
+        (error) => {
+          console.error(`Error deleting task ${taskId}:`, error);
+        }
+      );
+    }
+  }
+  filterTasks(): void {
+    if (!this.searchQuery) {
+      this.filteredTasks = this.tasks;
+    } else {
+      this.filteredTasks = this.tasks.filter(task =>
+        (task.name?.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (task.description?.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      );
+    }
+  }
+  
+  
+  
 }

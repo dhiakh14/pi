@@ -1,4 +1,14 @@
-<div *ngIf="tasks.length > 0; else noTasks">
+<div class="background-container">
+  <div *ngIf="tasks.length > 0; else noTasks">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="filterTasks()" 
+        placeholder="Search by task name or description" 
+        class="search-input" />
+    </div>
+
     <table class="task-table">
       <thead>
         <tr>
@@ -9,10 +19,11 @@
           <th>Planned End Date</th>
           <th>Actual End Date</th>
           <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of tasks">
+        <tr *ngFor="let task of filteredTasks">
           <td>
             <input 
               type="checkbox" 
@@ -25,15 +36,19 @@
           <td>{{ task.planned_end_date | date }}</td>
           <td>{{ task.actual_end_date | date }}</td>
           <td>{{ task.status }}</td>
+          <td>
+            <button (click)="deleteTask(task.idTask!)" class="delete-btn">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
+
     <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
   </div>
-  
+
   <ng-template #noTasks>
     <p class="no-tasks-message">No tasks available.</p>
   </ng-template>
-  
+
   <div id="gantt-container" class="gantt-chart"></div>
-  
+</div>

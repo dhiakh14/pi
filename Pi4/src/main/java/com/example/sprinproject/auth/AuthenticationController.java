@@ -18,10 +18,10 @@ public class AuthenticationController {
     private final AuthenticationService authService;
 
 
-        @PostMapping("/Register")
+    @PostMapping("/Register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) throws MessagingException {
-            List<String> roles = List.of("USER");
+        List<String> roles = List.of("USER");
         authService.register(request, roles);
         return ResponseEntity.accepted().build();
 
@@ -36,6 +36,6 @@ public class AuthenticationController {
     public void confirm(
             @RequestParam String token
     ) throws MessagingException {
-            authService.activateaccount(token);
+        authService.activateaccount(token);
     }
 }
