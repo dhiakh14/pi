@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
 
@@ -8,40 +9,86 @@ import { TaskControllerService } from 'src/app/services1/services';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent {
-
   task: Partial<Task> = {
     status: 'PENDING' // Default status
   };
+  isEditMode: boolean = false; // Flag to indicate whether we are in edit mode
+  taskId?: number; // ID of the task being edited
 
-  constructor(private taskService: TaskControllerService) {}
+  constructor(
+    private taskService: TaskControllerService, // Service to interact with backend
+    private router: Router,
+    private route: ActivatedRoute // To fetch the task ID from the URL
+  ) {}
 
-  onSubmit() {
+  ngOnInit(): void {
+    // Get task ID from the route parameters
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id'); // Get 'id' param from the route
+      if (id) {
+        this.taskId = +id; // Convert to number and store the task ID
+        this.isEditMode = true; // Set edit mode to true since we are editing
+        this.loadTask(this.taskId); // Fetch the task data using the task ID
+      }
+    });
+  }
+
+  // Fetch task data from the backend
+  loadTask(id: number): void {
+    this.taskService.getTaskById({ id }).subscribe({
+      next: (task) => {
+        this.task = task; // Populate task data for editing
+        console.log('Task loaded:', this.task); // For debugging purposes
+      },
+      error: (err) => console.error('Error loading task:', err)
+    });
+  }
+
+  // Handle form submission
+  onSubmit(): void {
     if (!this.task.name || !this.task.description || !this.task.startDate || !this.task.planned_end_date) {
       alert('Please fill in all fields.');
       return;
     }
 
-    // Convert dates to ISO 8601 format
+    // Convert dates to ISO format before saving
     this.task.startDate = this.convertToISO(this.task.startDate);
     this.task.planned_end_date = this.convertToISO(this.task.planned_end_date);
 
-    // Send task to backend
-    this.taskService.addTask({ body: this.task }).subscribe({
-      next: (response) => {
-        console.log('Task added successfully:', response);
-        alert('Task added successfully!');
-        this.task = { status: 'PENDING' }; // Reset task form
-      },
-      error: (error) => {
-        console.error('Error adding task:', error);
-        alert('Failed to add task.');
-      }
-    });
+    // Check if we're editing or adding a new task
+    if (this.isEditMode && this.taskId) {
+      // Update task if in edit mode
+      this.taskService.updateTask({ idTask: this.taskId, body: this.task }).subscribe({
+        next: (response) => {
+          console.log('Task updated successfully:', response);
+          alert('Task updated successfully!');
+          this.router.navigate(['/tasks']); // Redirect to task list
+        },
+        error: (error) => {
+          console.error('Error updating task:', error);
+          alert('Failed to update task.');
+        }
+      });
+    } else {
+      // Add task if not in edit mode
+      this.taskService.addTask({ body: this.task }).subscribe({
+        next: (response) => {
+          console.log('Task added successfully:', response);
+          alert('Task added successfully!');
+          this.task = { status: 'PENDING' }; // Reset task form
+          this.router.navigate(['/tasks']); // Redirect to task list
+        },
+        error: (error) => {
+          console.error('Error adding task:', error);
+          alert('Failed to add task.');
+        }
+      });
+    }
   }
 
-  // Helper function to convert date to ISO 8601 format
+  // Convert date to ISO format
   private convertToISO(date: any): string {
     const parsedDate = new Date(date);
-    return parsedDate.toISOString(); // Converts date to ISO string
+    return parsedDate.toISOString(); // Ensure date is in ISO format
   }
 }

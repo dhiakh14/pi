@@ -1,145 +1,200 @@
-/* Container Styles */
-.container {
-    padding: 20px;
-    text-align: center;
+/* Global Settings */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* User Card Styles */
-.user-card {
-    display: inline-block;
-    width: 100%;
-    max-width: 200px; /* Smaller width for the card */
-    height: 250px; /* Smaller height */
-    margin: 10px;
-    perspective: 1000px; /* Create a 3D space for flip effect */
-    cursor: pointer;
-    position: relative;
-    border-radius: 10px; /* Rounded corners for the card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    overflow: hidden;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeaea;
+    color: #333;
 }
 
-/* Card Flip Effect */
-.card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d; /* Keep the 3D space for the front and back */
-    transition: transform 0.6s ease-in-out; /* Smooth flip transition */
-}
-
-/* Flip the card */
-.card-inner.flipped {
-    transform: rotateY(180deg); /* Flip the card when class 'flipped' is added */
-}
-
-/* Front of the Card */
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden; /* Hide the back face when flipped */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box; /* Include padding in width and height */
+/* Background Container */
+.full-screen-background {
+    padding: 40px;
+    background-color: #ffffff;
     border-radius: 10px;
-    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #f7f9fc, #d8e3e7);
 }
 
-/* Front Card Styling */
-.card-front {
-    background-color: #f2f2f2;
+/* Header Styling */
+h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #3498db;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Table Styling */
+.user-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+/* Table Layout */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th, .user-table td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+    color: #666;
+    font-size: 1rem;
+}
+
+.user-table th {
+    background-color: #3498db;
+    color: white;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-table td {
+    background-color: #f9f9f9;
+}
+
+.user-table-row:hover {
+    background-color: #ecf0f1;
+}
+
+.user-table tr:nth-child(even) td {
+    background-color: #f5f5f5;
+}
+
+.user-table td button {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.user-table td button:hover {
+    background-color: #2ecc71;
+}
+
+.user-table td button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Role Selection Styling */
+.role-selection {
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #f4f7fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.role-selection label {
+    font-weight: bold;
     color: #333;
-    border: 1px solid #ccc;
-    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.role-selection select {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    font-size: 1rem;
+}
+
+.replace-role-checkbox {
+    margin-bottom: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-/* Back Card Styling */
-.card-back {
-    background-color: #e0e0e0;
-    color: #333;
-    transform: rotateY(180deg); /* Initially place the back side behind */
-    font-size: 12px;
-    padding: 5px; /* Reduced padding to bring elements closer */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly; /* Use space-evenly to reduce gaps */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease-in-out; /* Smooth opacity transition */
-    box-sizing: border-box; /* Prevent padding overflow */
+.replace-role-checkbox input {
+    margin-right: 10px;
 }
 
-/* When the card is flipped, show the back */
-.card-inner.flipped .card-back {
-    opacity: 1;
+.replace-role-checkbox label {
+    font-size: 0.9rem;
+    color: #555;
 }
 
-/* Back Card Box Styling (lines inside boxes) */
-.card-back p {
-    background-color: #fff;
-    padding: 5px;
-    margin: 0; /* Reduced margin to remove space between boxes */
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Rounded borders for each line */
-    width: 100%;
-    text-align: center;
-}
-
-/* Button Styling */
-button {
-    margin-top: 20px;
-    padding: 8px 16px; /* Smaller padding for a smaller button */
-    background-color: #ff6600;
+.role-selection button {
+    background-color: #8e44ad;
     color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1rem;
+    transition: all 0.3s;
 }
 
-button:hover {
-    background-color: #e68900;
-    transform: scale(1.05);
+.role-selection button:hover {
+    background-color: #9b59b6;
 }
 
-/* Responsive Design */
+/* Logout Button Styling */
+.logout-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    margin-top: 40px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
+}
+
+.logout-button:focus {
+    outline: none;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .user-card {
-        width: 100%; /* Make the card take up full width on small screens */
-        max-width: none;
-        height: auto;
+    .user-table th, .user-table td {
+        padding: 12px 15px;
     }
 
-    .card-front, .card-back {
-        padding: 8px; /* Reduce padding for smaller devices */
-        font-size: 12px; /* Adjust font size */
+    .user-table td button {
+        font-size: 0.85rem;
+        padding: 8px 12px;
     }
 
-    button {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .user-card {
-        width: 100%;
-        height: auto;
+    .role-selection select {
+        font-size: 0.9rem;
     }
 
-    .card-front, .card-back {
-        font-size: 10px; /* Further reduce font size for very small devices */
-        padding: 6px;
-    }
-
-    button {
-        padding: 5px 10px;
-        font-size: 10px;
+    .role-selection button {
+        font-size: 0.95rem;
     }
 }

@@ -100,7 +100,10 @@ export class TaskControllerService extends BaseService {
    */
   getTaskById(params: GetTaskById$Params, context?: HttpContext): Observable<Task> {
     return this.getTaskById$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Task>): Task => r.body)
+      map((r: StrictHttpResponse<Task>): Task => {
+        console.log('Response body:', r.body);  // Check if the response body is in the right format
+        return r.body;
+      })
     );
   }
 

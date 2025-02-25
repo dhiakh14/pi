@@ -1,55 +1,59 @@
-<div class="container">
+<div class="full-screen-background">
     <h2>Welcome, {{ fullName }}!</h2>
     <h3>Users</h3>
 
     <div *ngIf="users && users.length > 0; else noUsers">
-        <div class="user-card" *ngFor="let user of users" (click)="flipCard(user.idUser ?? 0, $event)">
-            <div class="card-inner" [class.flipped]="flippedState[user.idUser ?? 0]">
-                <!-- Front of the card -->
-                <div class="card-front">
-                    <h4>{{ user.firstName }} {{ user.lastName }}</h4>
-                </div>
-
-                <!-- Back of the card (Details) -->
-                <div class="card-back">
-                    <p><strong>Roles:</strong> {{ getRoleNames(user) }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>Date of Birth:</strong> {{ user.dateOfBirth }}</p>
-
-                    <!-- Icon to toggle role selection -->
-                    <i class="fas fa-edit" (click)="toggleRoleSelection(user.idUser ?? 0, $event)"></i>
-
-                    <!-- Role Selection and Replace Role Option -->
-                    <div *ngIf="showRoleSelection[user.idUser ?? 0]" class="role-selection">
-                        <label for="roleSelect">Assign Role:</label>
-                        <select id="roleSelect" [(ngModel)]="selectedRole[user.idUser ?? 0]"
-                            (change)="onRoleChange(user.idUser ?? 0, selectedRole[user.idUser ?? 0])" 
-                            [disabled]="!roles.length">
-                            <option *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
-                        </select>
-
-                        <!-- Replace Existing Role Checkbox -->
-                        <div class="replace-role-checkbox">
-                            <input type="checkbox" id="replaceRole-{{user.idUser}}"
-                                [(ngModel)]="replaceExistingRole[user.idUser ?? 0]" />
-                            <label for="replaceRole-{{user.idUser}}">Replace Existing Role</label>
-                        </div>
-
-                        <!-- Assign Role Button -->
-                        <button (click)="user.idUser ? assignOrReplaceRole(user.idUser, selectedRole[user.idUser], replaceExistingRole[user.idUser]) : null"
-                        [disabled]="!selectedRole[user.idUser ?? 0] || !user.idUser">
-                        Assign/Replace Role
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roles</th>
+                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.firstName }} {{ user.lastName }}</td>
+                    <td>{{ getRoleNames(user) }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.dateOfBirth }}</td>
+                    <td>
+                        <button (click)="toggleRoleSelection(user.idUser ?? 0, $event)" class="edit-btn">
+                            <i class="fas fa-edit"></i> Assign Role
                         </button>
-                    </div>
-                </div>
 
-            </div>
-        </div>
+                        <div *ngIf="showRoleSelection[user.idUser ?? 0]" class="role-selection">
+                            <label for="roleSelect">Assign Role:</label>
+                            <select id="roleSelect" [(ngModel)]="selectedRole[user.idUser ?? 0]"
+                                (change)="onRoleChange(user.idUser ?? 0, selectedRole[user.idUser ?? 0])"
+                                [disabled]="!roles.length">
+                                <option *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
+                            </select>
+
+                            <!-- Replace Existing Role Checkbox -->
+                            <div class="replace-role-checkbox">
+                                <input type="checkbox" id="replaceRole-{{user.idUser}}"
+                                    [(ngModel)]="replaceExistingRole[user.idUser ?? 0]" />
+                                <label for="replaceRole-{{user.idUser}}">Replace Existing Role</label>
+                            </div>
+
+                            <!-- Assign Role Button -->
+                            <button (click)="user.idUser ? assignOrReplaceRole(user.idUser, selectedRole[user.idUser], replaceExistingRole[user.idUser]) : null"
+                                [disabled]="!selectedRole[user.idUser ?? 0] || !user.idUser">
+                                Assign/Replace Role
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <ng-template #noUsers>
         <p>No other users found.</p>
     </ng-template>
 
-    <button (click)="logout()">Logout</button>
+    <button class="logout-button" (click)="logout()">Logout</button>
 </div>

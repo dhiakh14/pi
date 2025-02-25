@@ -17,6 +17,11 @@ import { AddTaskComponent } from './pages/add-task/add-task.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.component';
+import { HomeComponent } from './pages/home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TaskDetailsComponent } from './pages/task-details/task-details.component';
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +40,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddTaskComponent,
     TasksComponent,
     SidebarComponent,
-    AffecterRoleComponent
+    AffecterRoleComponent,
+    HomeComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,15 +50,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     FormsModule,
     CodeInputModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

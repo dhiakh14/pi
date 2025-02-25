@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
 import 'dhtmlx-gantt'; 
+import { Router } from '@angular/router';
 
 declare const gantt: any; 
 
@@ -17,7 +18,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   selectedTaskIds: Set<number> = new Set();
   searchQuery: string = ''; 
 
-  constructor(private taskService: TaskControllerService) {}
+  constructor(private taskService: TaskControllerService,  private router: Router) {}
 
   ngAfterViewInit(): void {
     gantt.init('gantt-container');
@@ -37,7 +38,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
               const jsonResponse = JSON.parse(reader.result as string);
               if (Array.isArray(jsonResponse)) {
                 this.tasks = jsonResponse;
-                this.filteredTasks = [...this.tasks]; // Make sure to set filteredTasks as well
+                this.filteredTasks = [...this.tasks]; 
               } else {
                 console.error('Expected an array of tasks, but received:', jsonResponse);
               }
@@ -48,7 +49,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
           reader.readAsText(response);
         } else if (Array.isArray(response)) {
           this.tasks = response;
-          this.filteredTasks = [...this.tasks]; // Make sure to set filteredTasks as well
+          this.filteredTasks = [...this.tasks]; 
         } else {
           console.error('Unexpected response format:', response);
         }
@@ -58,6 +59,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
   
 
   toggleSelection(taskId: number): void {
@@ -85,7 +87,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
       dependencies: [],
     }));
 
-    gantt.clearAll(); // Clear existing data
+    gantt.clearAll(); 
     gantt.parse({ data: ganttData });
   }
 
@@ -100,7 +102,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     parsedDate.setHours(0, 0, 0, 0);
 
-    // Format the date correctly for Gantt: "dd-MM-yyyy"
     const day = parsedDate.getDate().toString().padStart(2, '0');
     const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
@@ -123,17 +124,25 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   deleteTask(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
+      const originalTasks = [...this.tasks];
+      this.tasks = this.tasks.filter(task => task.idTask !== taskId);
+      this.filteredTasks = this.filteredTasks.filter(task => task.idTask !== taskId);
+  
       this.taskService.deleteTask({ id: taskId }).subscribe(
         () => {
-          this.tasks = this.tasks.filter(task => task.idTask !== taskId);
           console.log(`Task ${taskId} deleted successfully.`);
         },
         (error) => {
           console.error(`Error deleting task ${taskId}:`, error);
+          // Rollback if the delete request fails
+          this.tasks = originalTasks;
+          this.filteredTasks = originalTasks;
+          alert('Failed to delete the task. Please try again.');
         }
       );
     }
   }
+  
   filterTasks(): void {
     if (!this.searchQuery) {
       this.filteredTasks = this.tasks;
@@ -144,7 +153,11 @@ export class TasksComponent implements OnInit, AfterViewInit {
       );
     }
   }
+
+  editTask(task: Task): void {
+    this.router.navigate(['/update-task', task.idTask]);
+  }
   
-  
+ 
   
 }

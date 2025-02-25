@@ -1,8 +1,7 @@
+<app-sidebar (toggle)="toggleSidebar($event)"></app-sidebar>
 
 <div class="main-content" [class.shrink]="isSidebarVisible">
   <app-header></app-header>
-  <app-sidebar (toggle)="toggleSidebar($event)"></app-sidebar>
-
   <router-outlet></router-outlet>
   
   <app-footer></app-footer>

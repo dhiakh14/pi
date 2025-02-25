@@ -105,10 +105,9 @@ export class AffecterRoleComponent implements OnInit {
       return;
     }
 
-    const roleName = role?.name ?? '';  // Ensure roleName is a string, fallback to empty string if undefined
+    const roleName = role?.name ?? '';  
 
     if (replaceExisting) {
-      // Call assignAndReplaceRoleToUser method if checkbox is checked
       this.userService.assignAndReplaceRoleToUser({ idUser: userId, roleName }).subscribe(
         (response) => {
           console.log('Role replaced successfully', response);
@@ -118,7 +117,6 @@ export class AffecterRoleComponent implements OnInit {
         }
       );
     } else {
-      // Call assignRoleToUser method if checkbox is not checked
       this.userService.assignRoleToUser({ idUser: userId, roleName }).subscribe(
         (response) => {
           console.log('Role assigned successfully', response);
@@ -131,7 +129,6 @@ export class AffecterRoleComponent implements OnInit {
   }
 
 
-  // Toggle role selection panel visibility
   toggleRoleSelection(userId: number, event: Event) {
     event.stopPropagation();
     this.showRoleSelection[userId] = !this.showRoleSelection[userId];
