@@ -1,0 +1,61 @@
+<div class="background-container">
+  <div *ngIf="tasks.length > 0; else noTasks">
+    <!-- Search Section -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="filterTasks()" 
+        placeholder="Search by task name or description" 
+        class="search-input" />
+    </div>
+
+    <!-- Task Table -->
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Task Name</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>Planned End Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filteredTasks" [routerLink]="['/task-details', task.idTask]" class="clickable-row">
+          <td>
+            <input 
+              type="checkbox" 
+              [checked]="selectedTaskIds.has(task.idTask!)" 
+              (click)="$event.stopPropagation()" 
+              (change)="toggleSelection(task.idTask!)">
+          </td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.startDate | date }}</td>
+          <td>{{ task.planned_end_date | date }}</td>
+          <td>{{ task.status }}</td>
+          <td>
+            <button (click)="deleteTask(task.idTask!); $event.stopPropagation()" class="delete-btn">Delete</button>
+            <button (click)="editTask(task); $event.stopPropagation()" class="edit-btn">
+              <a [routerLink]="['/tasks/edit', task.idTask]">Edit</a>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Generate Gantt Chart Button -->
+    <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
+  </div>
+
+  <!-- No Tasks Message -->
+  <ng-template #noTasks>
+    <p class="no-tasks-message">No tasks available.</p>
+  </ng-template>
+
+  <!-- Gantt Chart Section -->
+  <div id="gantt-container" class="gantt-chart"></div>
+</div>

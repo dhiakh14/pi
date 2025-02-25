@@ -1,0 +1,163 @@
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Task } from 'src/app/services1/models';
+import { TaskControllerService } from 'src/app/services1/services';
+import 'dhtmlx-gantt'; 
+import { Router } from '@angular/router';
+
+declare const gantt: any; 
+
+@Component({
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css']
+})
+export class TasksComponent implements OnInit, AfterViewInit {
+  tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+
+  selectedTaskIds: Set<number> = new Set();
+  searchQuery: string = ''; 
+
+  constructor(private taskService: TaskControllerService,  private router: Router) {}
+
+  ngAfterViewInit(): void {
+    gantt.init('gantt-container');
+  }
+
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+  
+  loadTasks(): void {
+    this.taskService.getAllTasks().subscribe(
+      (response) => {
+        if (response instanceof Blob) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              const jsonResponse = JSON.parse(reader.result as string);
+              if (Array.isArray(jsonResponse)) {
+                this.tasks = jsonResponse;
+                this.filteredTasks = [...this.tasks]; 
+              } else {
+                console.error('Expected an array of tasks, but received:', jsonResponse);
+              }
+            } catch (error) {
+              console.error('Error parsing JSON from Blob:', error);
+            }
+          };
+          reader.readAsText(response);
+        } else if (Array.isArray(response)) {
+          this.tasks = response;
+          this.filteredTasks = [...this.tasks]; 
+        } else {
+          console.error('Unexpected response format:', response);
+        }
+      },
+      (error) => {
+        console.error('Error fetching tasks:', error);
+      }
+    );
+  }
+  
+  
+
+  toggleSelection(taskId: number): void {
+    if (this.selectedTaskIds.has(taskId)) {
+      this.selectedTaskIds.delete(taskId);
+    } else {
+      this.selectedTaskIds.add(taskId);
+    }
+  }
+
+  generateGanttChart(): void {
+    const selectedTasks = this.tasks.filter(task => this.selectedTaskIds.has(task.idTask!));
+
+    if (selectedTasks.length === 0) {
+      console.warn('No tasks selected for Gantt chart.');
+      return;
+    }
+
+    const ganttData = selectedTasks.map(task => ({
+      id: task.idTask,
+      text: task.name,
+      start_date: this.convertToGanttDateFormat(task.startDate || ''),
+      duration: this.calculateDuration(task.startDate || '', task.planned_end_date || ''),
+      progress: this.calculateProgress(task.status ?? 'PENDING'),
+      dependencies: [],
+    }));
+
+    gantt.clearAll(); 
+    gantt.parse({ data: ganttData });
+  }
+
+  private convertToGanttDateFormat(date: string): string {
+    if (!date) return '';
+    const parsedDate = new Date(date);
+
+    if (isNaN(parsedDate.getTime())) {
+        console.error('Invalid date:', date);
+        return '';
+    }
+
+    parsedDate.setHours(0, 0, 0, 0);
+
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = parsedDate.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+  private calculateDuration(startDate: string, endDate: string): number {
+    if (!startDate || !endDate) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); 
+  }
+
+  private calculateProgress(status: string): number {
+    if (status === 'COMPLETED') return 1; 
+    if (status === 'IN_PROGRESS') return 0.5; 
+    return 0; 
+  }
+
+  deleteTask(taskId: number): void {
+    if (confirm('Are you sure you want to delete this task?')) {
+      const originalTasks = [...this.tasks];
+      this.tasks = this.tasks.filter(task => task.idTask !== taskId);
+      this.filteredTasks = this.filteredTasks.filter(task => task.idTask !== taskId);
+  
+      this.taskService.deleteTask({ id: taskId }).subscribe(
+        () => {
+          console.log(`Task ${taskId} deleted successfully.`);
+        },
+        (error) => {
+          console.error(`Error deleting task ${taskId}:`, error);
+          // Rollback if the delete request fails
+          this.tasks = originalTasks;
+          this.filteredTasks = originalTasks;
+          alert('Failed to delete the task. Please try again.');
+        }
+      );
+    }
+  }
+  
+  filterTasks(): void {
+    if (!this.searchQuery) {
+      this.filteredTasks = this.tasks;
+    } else {
+      this.filteredTasks = this.tasks.filter(task =>
+        (task.name?.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (task.description?.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      );
+    }
+  }
+
+  editTask(task: Task): void {
+    this.router.navigate(['/update-task', task.idTask]);
+  }
+  
+ 
+  
+}
