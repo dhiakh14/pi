@@ -5,11 +5,14 @@
     padding: 0;
 }
 
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #eaeaea;
     color: #333;
 }
+
+
 
 /* Background Container */
 .full-screen-background {
@@ -42,6 +45,7 @@ h3 {
     overflow-x: auto;
     margin-top: 20px;
 }
+
 
 /* Table Layout */
 .user-table {
@@ -156,28 +160,80 @@ h3 {
     background-color: #9b59b6;
 }
 
-/* Logout Button Styling */
-.logout-button {
-    background-color: #e74c3c;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    cursor: pointer;
+/* Button Styles */
+button {
+    padding: 10px 20px;
     border: none;
-    margin-top: 40px;
-    width: 100%;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button i {
+    font-size: 1rem;
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Blue gradient */
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.edit-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.ban-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b); /* Red gradient */
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(231, 76, 60, 0.2);
+}
+
+.ban-btn:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.unban-btn {
+    background: linear-gradient(135deg, #2ecc71, #27ae60); /* Green gradient */
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+}
+
+.unban-btn:hover {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
+}
+
+.logout-button {
+    background: linear-gradient(135deg, #34495e, #2c3e50); /* Dark blue gradient */
+    color: #ffffff;
+    margin-top: 30px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(52, 73, 94, 0.2);
 }
 
 .logout-button:hover {
-    background-color: #c0392b;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 73, 94, 0.3);
 }
 
-.logout-button:focus {
-    outline: none;
-}
+.toast-container {
+    font-size: 16px;
+    max-width: 400px;
+  }
+  
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -197,4 +253,5 @@ h3 {
     .role-selection button {
         font-size: 0.95rem;
     }
+    
 }

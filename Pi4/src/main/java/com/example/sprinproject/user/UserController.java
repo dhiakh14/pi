@@ -46,5 +46,11 @@ public class UserController {
         }
     }
 
+    @PutMapping("/{idUser}/ban")
+    public ResponseEntity<String> banUser(@PathVariable Long idUser, @RequestParam boolean lockStatus) {
+        userService.banUser(idUser, lockStatus);
+        return ResponseEntity.ok("User account lock status updated");
+    }
+
 
     }

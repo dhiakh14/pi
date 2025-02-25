@@ -15,6 +15,8 @@ import { assignAndReplaceRoleToUser } from '../fn/user-controller/assign-and-rep
 import { AssignAndReplaceRoleToUser$Params } from '../fn/user-controller/assign-and-replace-role-to-user';
 import { assignRoleToUser } from '../fn/user-controller/assign-role-to-user';
 import { AssignRoleToUser$Params } from '../fn/user-controller/assign-role-to-user';
+import { banUser } from '../fn/user-controller/ban-user';
+import { BanUser$Params } from '../fn/user-controller/ban-user';
 import { getAllUsersExceptMe } from '../fn/user-controller/get-all-users-except-me';
 import { GetAllUsersExceptMe$Params } from '../fn/user-controller/get-all-users-except-me';
 import { getProfile } from '../fn/user-controller/get-profile';
@@ -25,6 +27,31 @@ import { User } from '../models/user';
 export class UserControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `banUser()` */
+  static readonly BanUserPath = '/users/{idUser}/ban';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `banUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  banUser$Response(params: BanUser$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return banUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `banUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  banUser(params: BanUser$Params, context?: HttpContext): Observable<string> {
+    return this.banUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
   }
 
   /** Path part for operation `assignAndReplaceRoleToUser()` */

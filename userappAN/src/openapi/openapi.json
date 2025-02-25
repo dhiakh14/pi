@@ -11,6 +11,45 @@
         }
     ],
     "paths": {
+        "/users/{idUser}/ban": {
+            "put": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "banUser",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "lockStatus",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/{idUser}/assignAndReplaceRoleToUser": {
             "post": {
                 "tags": [
@@ -432,13 +471,13 @@
                             "$ref": "#/components/schemas/GrantedAuthority"
                         }
                     },
-                    "accountNonExpired": {
+                    "accountNonLocked": {
                         "type": "boolean"
                     },
                     "credentialsNonExpired": {
                         "type": "boolean"
                     },
-                    "accountNonLocked": {
+                    "accountNonExpired": {
                         "type": "boolean"
                     }
                 }

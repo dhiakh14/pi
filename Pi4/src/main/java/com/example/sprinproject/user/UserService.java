@@ -77,4 +77,14 @@ public class UserService {
             return userRepository.save(user);
         }).orElseThrow(() -> new RuntimeException("User not found with ID: " + idUser));
     }
+
+    public void banUser(Long idUser, boolean lockStatus) {
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Set accountLocked to the given lockStatus (true to lock, false to unlock)
+        user.setAccountLocked(lockStatus);
+        userRepository.save(user); // Save the updated user to the database
+    }
+
 }

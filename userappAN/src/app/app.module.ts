@@ -21,6 +21,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 
 
@@ -58,7 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
 

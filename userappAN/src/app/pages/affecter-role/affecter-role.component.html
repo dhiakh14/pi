@@ -20,6 +20,7 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.dateOfBirth }}</td>
                     <td>
+                        <!-- Assign Role Button -->
                         <button (click)="toggleRoleSelection(user.idUser ?? 0, $event)" class="edit-btn">
                             <i class="fas fa-edit"></i> Assign Role
                         </button>
@@ -45,6 +46,18 @@
                                 Assign/Replace Role
                             </button>
                         </div>
+
+                        <button *ngIf="user.idUser && user.accountLocked"
+                                (click)="banUser(user.idUser, false)"
+                                class="unban-btn">
+                            <i class="fas fa-unlock-alt"></i> Unban User
+                        </button>
+                        <button *ngIf="user.idUser && !user.accountLocked"
+                                (click)="banUser(user.idUser, true)"
+                                class="ban-btn">
+                            <i class="fas fa-ban"></i> Ban User
+                        </button>
+
                     </td>
                 </tr>
             </tbody>

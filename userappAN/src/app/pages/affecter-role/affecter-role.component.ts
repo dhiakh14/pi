@@ -5,6 +5,8 @@ import { TokenService } from 'src/app/token/token.service';
 import { User } from 'src/app/services/models';
 import { Role } from 'src/app/services/models/role';
 import { HttpParams } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-affecter-role',
@@ -23,12 +25,15 @@ export class AffecterRoleComponent implements OnInit {
   flippedState: { [userId: number]: boolean } = {};
   showRoleSelection: { [userId: number]: boolean } = {}; 
   replaceExistingRole: { [userId: number]: boolean } = {}; 
+  userBanStatus: { [userId: number]: boolean } = {};  
+
 
   constructor(
     private router: Router,
     private tokenService: TokenService,
     private userService: UserControllerService,
-    private roleService: RoleControllerService 
+    private roleService: RoleControllerService,
+    private toastr: ToastrService 
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +47,32 @@ export class AffecterRoleComponent implements OnInit {
       this.getRoles();
     }
   }
+
+  banUser(userId: number, lockStatus: boolean): void {
+    console.log(`Banning user with ID: ${userId} and lockStatus: ${lockStatus}`);
+
+    this.userService.banUser({ idUser: userId, lockStatus: lockStatus }).subscribe(
+      response => {
+        console.log('User banned successfully:', response);
+        this.toastr.success('User has been banned successfully', 'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 3000
+        });
+  
+        const user = this.users.find(u => u.idUser === userId);
+        if (user) {
+          user.accountLocked = lockStatus;  
+        }
+      },
+      error => {
+        console.error('Error banning user:', error);
+        // Show error toast message
+        this.toastr.error('An error occurred while processing the action', 'Error');
+      }
+    );
+  }
+  
+  
 
   
 
