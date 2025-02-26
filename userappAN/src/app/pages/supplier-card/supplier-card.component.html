@@ -1,0 +1,9 @@
+<div class="card">
+    <h3>{{ supplier.name }}</h3>
+    <p>Material: {{ supplier.materialResource?.firstName }}</p>
+    <button [routerLink]="['/supplier', supplier.idSupplier]" class="btn btn-primary">View Details</button>
+    <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+
+    <button (click)="router.navigate(['/supplier/update', supplier.idSupplier])" class="btn btn-warning">Edit</button>
+</div>
+  

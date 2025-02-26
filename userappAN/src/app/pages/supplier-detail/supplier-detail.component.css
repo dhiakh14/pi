@@ -1,0 +1,86 @@
+.supplier-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .details p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #555;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .active {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .inactive {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .btn-edit {
+    padding: 10px;
+    background: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 45%;
+  }
+  
+  .btn-edit:hover {
+    background: #e0a800;
+  }
+  
+  .btn-delete {
+    padding: 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 45%;
+  }
+  
+  .btn-delete:hover {
+    background: #c82333;  /* ✅ Corrected color */
+  }
+  
+  

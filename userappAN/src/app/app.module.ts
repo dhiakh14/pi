@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,6 +22,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
+import { SupplierAddComponent } from './pages/supplier-add/supplier-add.component';
+import { SupplierCardComponent } from './pages/supplier-card/supplier-card.component';
+import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
+
 
 
 
@@ -45,6 +52,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AffecterRoleComponent,
     HomeComponent,
     TaskDetailsComponent,
+    SupplierListComponent,
+    SupplierCardComponent,
+    SupplierDetailComponent,
+    SupplierUpdateComponent,
+    SupplierAddComponent
+
   ],
   imports: [
     BrowserModule,
@@ -53,6 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     CodeInputModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    RouterModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

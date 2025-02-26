@@ -1,0 +1,25 @@
+<div class="supplier-details-container">
+  <div class="card">
+    <h2>{{ supplier.name }}</h2>
+
+    <div class="details">
+      <p><strong>📍 Address:</strong> {{ supplier.address }}</p>
+      <p><strong>📞 Phone:</strong> {{ supplier.phoneNumber }}</p>
+      <p><strong>📧 Email:</strong> {{ supplier.email }}</p>
+      <p><strong>🔘 Status:</strong> 
+        <span class="status" [ngClass]="{'active': supplier.status === 'ACTIVE', 'inactive': supplier.status === 'INACTIVE'}">
+          {{ supplier.status }}
+        </span>
+      </p>
+      <p><strong>📝 Notes:</strong> {{ supplier.notes || 'No notes available' }}</p>
+      <p><strong>🔧 Material Resource:</strong> {{ supplier.materialResource?.firstName || 'Not assigned' }}</p>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-edit" (click)="editSupplier()">✏ Edit</button>
+      <button class="btn-delete" (click)="deleteSupplier()">🗑 Delete</button>
+    </div>
+
+    <button class="btn-back" (click)="goBack()">⬅ Back to Suppliers</button>
+  </div>
+</div>

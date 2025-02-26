@@ -1,0 +1,66 @@
+package com.example.supplier.service;
+
+import com.example.supplier.model.Supplier;
+import com.example.supplier.model.MaterialResource;
+import com.example.supplier.repository.SupplierRepository;
+import com.example.supplier.repository.MaterialResourceRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class SupplierService {
+
+    private final SupplierRepository supplierRepository;
+    private final MaterialResourceRepository materialResourceRepository;
+
+    public SupplierService(SupplierRepository supplierRepository, MaterialResourceRepository materialResourceRepository) {
+        this.supplierRepository = supplierRepository;
+        this.materialResourceRepository = materialResourceRepository;
+    }
+
+    public List<Supplier> getAllSuppliers() {
+        return supplierRepository.findAll();
+    }
+
+    public Optional<Supplier> getSupplierById(Long id) {
+        return supplierRepository.findById(id);
+    }
+
+    public Supplier createSupplier(Supplier supplier) {
+        if (supplier.getMaterialResource() == null || supplier.getMaterialResource().getIdMR() == null) {
+            throw new IllegalArgumentException("Material Resource ID is required.");
+        }
+        return materialResourceRepository.findById(supplier.getMaterialResource().getIdMR())
+                .map(materialResource -> {
+                    supplier.setMaterialResource(materialResource);
+                    return supplierRepository.save(supplier);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Material Resource not found"));
+    }
+
+    public Supplier updateSupplier(Long id, Supplier supplierDetails) {
+        return supplierRepository.findById(id).map(supplier -> {
+            supplier.setName(supplierDetails.getName());
+            supplier.setAddress(supplierDetails.getAddress());
+            supplier.setPhoneNumber(supplierDetails.getPhoneNumber());
+            supplier.setEmail(supplierDetails.getEmail());
+            supplier.setStatus(supplierDetails.getStatus());
+            supplier.setNotes(supplierDetails.getNotes());
+            if (supplierDetails.getMaterialResource() != null && supplierDetails.getMaterialResource().getIdMR() != null) {
+                materialResourceRepository.findById(supplierDetails.getMaterialResource().getIdMR())
+                        .ifPresent(supplier::setMaterialResource);
+            }
+            return supplierRepository.save(supplier);
+        }).orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
+    }
+
+    public void deleteSupplier(Long id) {
+        supplierRepository.deleteById(id);
+    }
+
+    public List<MaterialResource> getAllMaterialResources() {
+        return materialResourceRepository.findAll();
+    }
+}

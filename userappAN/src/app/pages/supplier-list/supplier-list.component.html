@@ -1,0 +1,30 @@
+<div class="supplier-list-container">
+  <h1>📋 Supplier List</h1>
+
+  <!-- Show loading message -->
+  <p *ngIf="isLoading" class="loading">Loading suppliers...</p>
+
+  <!-- Show error message if API fails -->
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <!-- Supplier Grid -->
+  <div class="supplier-grid">
+    <div class="supplier-card" *ngFor="let supplier of suppliers">
+      <h3>{{ supplier.name }}</h3>
+      <p><strong>📍 Address:</strong> {{ supplier.address }}</p>
+      <p><strong>🔧 Material:</strong> {{ supplier.materialResource?.firstName || 'Not Assigned' }}</p>
+
+      <div class="status-badge" [ngClass]="{'active': supplier.status === 'ACTIVE', 'inactive': supplier.status === 'INACTIVE'}">
+        {{ supplier.status }}
+      </div>
+
+      <div class="button-group">
+        <button class="btn-view" (click)="viewSupplier(supplier.idSupplier)">👁 View</button>
+        <button class="btn-delete" (click)="deleteSupplier(supplier.idSupplier)">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Add Supplier Button -->
+  <button class="btn-add" (click)="navigateToAddSupplier()">➕ Add Supplier</button>
+</div>

@@ -11,6 +11,10 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
+import { SupplierAddComponent } from './pages/supplier-add/supplier-add.component';
+import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 
 
 const routes: Routes = [
@@ -29,6 +33,10 @@ const routes: Routes = [
   { path: 'notadminusers', component: ProfileComponent, canActivate: [nonAdminGuardGuard] },
   { path: 'addtask', component: AddTaskComponent },
   { path: 'tasks/edit/:id', component: AddTaskComponent },
+  { path: 'suppliers', component: SupplierListComponent },
+  { path: 'supplier/:id', component: SupplierDetailComponent },
+  { path: 'supplier/update/:id', component: SupplierUpdateComponent },
+  { path: 'add-supplier', component: SupplierAddComponent },
 
 ];
 

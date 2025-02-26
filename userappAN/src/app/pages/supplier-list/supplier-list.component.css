@@ -1,0 +1,117 @@
+.supplier-list-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.loading, .error {
+  font-size: 18px;
+  color: red;
+}
+
+.supplier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.supplier-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s;
+}
+
+.supplier-card:hover {
+  transform: scale(1.02);
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: #555;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.inactive {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.btn-view, .btn-delete {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 14px;
+}
+
+.btn-view {
+  background: #007bff;
+  color: white;
+}
+
+.btn-view:hover {
+  background: #0056b3;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+/* Floating Add Button */
+.btn-add {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  font-size: 16px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add:hover {
+  background: #218838;
+}
