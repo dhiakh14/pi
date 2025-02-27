@@ -8,18 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Task } from '../../models/task';
+import { GanttChart } from '../../models/gantt-chart';
 
-export interface UpdateTask$Params {
-  idTask: number;
-      body: Task
+export interface GetAllGanttCharts$Params {
 }
 
-export function updateTask(http: HttpClient, rootUrl: string, params: UpdateTask$Params, context?: HttpContext): Observable<StrictHttpResponse<Task>> {
-  const rb = new RequestBuilder(rootUrl, updateTask.PATH, 'put');
+export function getAllGanttCharts(http: HttpClient, rootUrl: string, params?: GetAllGanttCharts$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<GanttChart>>> {
+  const rb = new RequestBuilder(rootUrl, getAllGanttCharts.PATH, 'get');
   if (params) {
-    rb.path('idTask', params.idTask, {});
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -27,9 +23,9 @@ export function updateTask(http: HttpClient, rootUrl: string, params: UpdateTask
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Task>;
+      return r as StrictHttpResponse<Array<GanttChart>>;
     })
   );
 }
 
-updateTask.PATH = '/Task/updateTask/{idTask}';
+getAllGanttCharts.PATH = '/gantt-chart/all';

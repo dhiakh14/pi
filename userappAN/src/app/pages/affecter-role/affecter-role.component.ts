@@ -66,7 +66,6 @@ export class AffecterRoleComponent implements OnInit {
       },
       error => {
         console.error('Error banning user:', error);
-        // Show error toast message
         this.toastr.error('An error occurred while processing the action', 'Error');
       }
     );

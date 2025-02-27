@@ -10,26 +10,24 @@ import { RequestBuilder } from '../../request-builder';
 
 import { Task } from '../../models/task';
 
-export interface UpdateTask$Params {
-  idTask: number;
-      body: Task
+export interface GetTasksByGanttChartId$Params {
+  ganttChartId: number;
 }
 
-export function updateTask(http: HttpClient, rootUrl: string, params: UpdateTask$Params, context?: HttpContext): Observable<StrictHttpResponse<Task>> {
-  const rb = new RequestBuilder(rootUrl, updateTask.PATH, 'put');
+export function getTasksByGanttChartId(http: HttpClient, rootUrl: string, params: GetTasksByGanttChartId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+  const rb = new RequestBuilder(rootUrl, getTasksByGanttChartId.PATH, 'get');
   if (params) {
-    rb.path('idTask', params.idTask, {});
-    rb.body(params.body, 'application/json');
+    rb.path('ganttChartId', params.ganttChartId, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: '*/*', context })
+    rb.build({ responseType: 'blob', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Task>;
+      return r as StrictHttpResponse<Array<Task>>;
     })
   );
 }
 
-updateTask.PATH = '/Task/updateTask/{idTask}';
+getTasksByGanttChartId.PATH = '/gantt-chart/{ganttChartId}/tasks';

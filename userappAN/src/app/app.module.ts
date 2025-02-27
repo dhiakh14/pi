@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { ToastrModule } from 'ngx-toastr';
+import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
 
 
 
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AffecterRoleComponent,
     HomeComponent,
     TaskDetailsComponent,
+    GanttChartListComponent,
   ],
   imports: [
     BrowserModule,

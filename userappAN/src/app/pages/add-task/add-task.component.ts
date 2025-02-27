@@ -10,19 +10,18 @@ import { TaskControllerService } from 'src/app/services1/services';
 })
 export class AddTaskComponent {
   task: Partial<Task> = {
-    status: 'PENDING' // Default status
+    status: 'PENDING' 
   };
-  isEditMode: boolean = false; // Flag to indicate whether we are in edit mode
-  taskId?: number; // ID of the task being edited
+  isEditMode: boolean = false; 
+  taskId?: number;
 
   constructor(
-    private taskService: TaskControllerService, // Service to interact with backend
+    private taskService: TaskControllerService,
     private router: Router,
     private route: ActivatedRoute // To fetch the task ID from the URL
   ) {}
 
   ngOnInit(): void {
-    // Get task ID from the route parameters
     this.route.paramMap.subscribe(params => {
       const id = params.get('id'); // Get 'id' param from the route
       if (id) {
@@ -70,13 +69,12 @@ export class AddTaskComponent {
         }
       });
     } else {
-      // Add task if not in edit mode
       this.taskService.addTask({ body: this.task }).subscribe({
         next: (response) => {
           console.log('Task added successfully:', response);
           alert('Task added successfully!');
-          this.task = { status: 'PENDING' }; // Reset task form
-          this.router.navigate(['/tasks']); // Redirect to task list
+          this.task = { status: 'PENDING' }; 
+          this.router.navigate(['/tasks']); 
         },
         error: (error) => {
           console.error('Error adding task:', error);
@@ -86,9 +84,12 @@ export class AddTaskComponent {
     }
   }
 
-  // Convert date to ISO format
   private convertToISO(date: any): string {
     const parsedDate = new Date(date);
-    return parsedDate.toISOString(); // Ensure date is in ISO format
+    return parsedDate.toISOString(); 
+  }
+
+  Back(): void{
+    this.router.navigate(['/tasks'])
   }
 }

@@ -11,6 +11,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
+import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent },
   { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
   { path: 'task-details/:idTask', component: TaskDetailsComponent },
+  {path: 'gantt' , component:GanttChartListComponent},
 
   {
     path: 'activate-account',

@@ -65,6 +65,36 @@
   outline: none;
 }
 
+.back-btn {
+  position: absolute; /* Position the button absolutely */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+  background-color: #6c757d; /* Neutral color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+.back-btn:hover {
+  background-color: #5a6268; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+.back-btn:active {
+  transform: translateY(0);
+}
+
+.fas.fa-arrow-left {
+  font-size: 18px; /* Adjust icon size */
+}
+
 .full-screen-background form .form-control::placeholder {
   color: #999;
   font-style: italic;

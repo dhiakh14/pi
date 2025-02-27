@@ -1,4 +1,7 @@
 <div class="full-screen-background d-flex justify-content-center align-items-center min-vh-100">
+  <button (click)="Back()" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back
+  </button>
   <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="p-4 border rounded bg-light">
     <div class="mb-3">
       <label for="name">Task Name:</label>
@@ -40,4 +43,6 @@
       {{ isEditMode ? 'Update Task' : 'Add Task' }}
     </button>
   </form>
+  
 </div>
+

@@ -1,5 +1,6 @@
 package com.example.sprinproject.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +12,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 
 public class Task {
 
@@ -27,8 +27,23 @@ public class Task {
     private Status Status;
 
     @ManyToOne
-    @JoinColumn(name = "planning_id")
+    @JoinColumn(name = "gantt_chart_id")
     @JsonIgnore
-    private Planning planning;
+    private GanttChart ganttChart;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "idTask=" + idTask +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", planned_end_date=" + planned_end_date +
+                ", actual_end_date=" + actual_end_date +
+                ", status=" + Status +
+                '}';
+    }
+
+
 
 }

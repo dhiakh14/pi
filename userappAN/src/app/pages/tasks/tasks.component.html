@@ -1,6 +1,10 @@
 <div class="background-container">
+  <div class="add-task-container">
+    <button (click)="addTask()" class="add-task-btn">
+      <i class="fas fa-plus-circle"></i> Add Task
+    </button>
+  </div>
   <div *ngIf="tasks.length > 0; else noTasks">
-    <!-- Search Section -->
     <div class="search-container">
       <input 
         type="text" 
@@ -10,7 +14,6 @@
         class="search-input" />
     </div>
 
-    <!-- Task Table -->
     <table class="task-table">
       <thead>
         <tr>
@@ -47,15 +50,14 @@
       </tbody>
     </table>
 
-    <!-- Generate Gantt Chart Button -->
     <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
+
+    <button (click)="saveGanttChart(ganttData)" class="save-gantt-btn">Save Gantt Chart</button>
   </div>
 
-  <!-- No Tasks Message -->
   <ng-template #noTasks>
     <p class="no-tasks-message">No tasks available.</p>
   </ng-template>
 
-  <!-- Gantt Chart Section -->
   <div id="gantt-container" class="gantt-chart"></div>
 </div>

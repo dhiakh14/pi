@@ -1,0 +1,139 @@
+/* Professional and Modern Gantt Chart CSS */
+
+/* General Styling */
+.gantt-chart-list {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Sidebar List Styling */
+  .chart-list {
+    width: 30%;
+    background: rgba(35, 35, 35, 0.95);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+  }
+  
+  .chart-list:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .chart-list h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #ffffff;
+    border-bottom: 3px solid #ff9800;
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  .chart-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .chart-list li {
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid #555;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .chart-list li:hover {
+    background: #ff9800;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .chart-list li.active {
+    background: #d35400;
+    color: white;
+    border-color: #d35400;
+    font-weight: bold;
+  }
+  
+  /* Main Gantt Chart Container */
+  .gantt-container {
+    width: 70%;
+    padding: 20px;
+    background: rgba(35, 35, 35, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+  }
+  
+  .gantt-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .gantt-container h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #ffffff;
+    border-bottom: 3px solid #ff9800;
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  /* Gantt Chart Display */
+  #gantt-container {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background: rgba(50, 50, 50, 0.95);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #gantt-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* No Tasks Message */
+  .gantt-container p {
+    text-align: center;
+    color: #bbb;
+    font-style: italic;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  /* Fade-in Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .gantt-container {
+    animation: fadeIn 0.6s ease-out;
+  }
+  

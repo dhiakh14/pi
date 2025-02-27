@@ -5,10 +5,13 @@
   <ul>
     <li><a routerLink="/tasks">📋 Tasks</a></li>
     
-    <li *ngIf="isAdmin"><a routerLink="/roles">⚙️ Roles</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/roles">⚙️ Users</a></li>
     
     <li>
       <a (click)="navigateToProfile()">👤 Profile</a>
     </li>
+    <li><a routerLink="/gantt"> 📆 Planning</a></li>
+
+    
   </ul>
 </div>

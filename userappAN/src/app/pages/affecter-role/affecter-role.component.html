@@ -1,6 +1,6 @@
 <div class="full-screen-background">
-    <h2>Welcome, {{ fullName }}!</h2>
-    <h3>Users</h3>
+    <h2>Welcome, {{ fullName }}</h2>
+    
 
     <div *ngIf="users && users.length > 0; else noUsers">
         <table class="user-table">
@@ -20,7 +20,6 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.dateOfBirth }}</td>
                     <td>
-                        <!-- Assign Role Button -->
                         <button (click)="toggleRoleSelection(user.idUser ?? 0, $event)" class="edit-btn">
                             <i class="fas fa-edit"></i> Assign Role
                         </button>
@@ -33,14 +32,12 @@
                                 <option *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
                             </select>
 
-                            <!-- Replace Existing Role Checkbox -->
                             <div class="replace-role-checkbox">
                                 <input type="checkbox" id="replaceRole-{{user.idUser}}"
                                     [(ngModel)]="replaceExistingRole[user.idUser ?? 0]" />
                                 <label for="replaceRole-{{user.idUser}}">Replace Existing Role</label>
                             </div>
 
-                            <!-- Assign Role Button -->
                             <button (click)="user.idUser ? assignOrReplaceRole(user.idUser, selectedRole[user.idUser], replaceExistingRole[user.idUser]) : null"
                                 [disabled]="!selectedRole[user.idUser ?? 0] || !user.idUser">
                                 Assign/Replace Role

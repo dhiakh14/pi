@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
-import 'dhtmlx-gantt'; 
-import { Router } from '@angular/router';
-
-declare const gantt: any; 
+import { GanttChartControllerService, SaveGanttChart$Params } from 'src/app/services1/services/gantt-chart-controller.service';
+import 'dhtmlx-gantt'; // Import the Gantt library
+declare const gantt: any; // Declare the Gantt library
 
 @Component({
   selector: 'app-tasks',
@@ -12,22 +12,29 @@ declare const gantt: any;
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit, AfterViewInit {
-  tasks: Task[] = [];
-  filteredTasks: Task[] = [];
+  tasks: Task[] = []; // List of all tasks
+  filteredTasks: Task[] = []; // List of filtered tasks based on search
+  selectedTaskIds: Set<number> = new Set(); // Set of selected task IDs
+  searchQuery: string = ''; // Search query for filtering tasks
+  ganttData: any; // Variable to store Gantt chart data
 
-  selectedTaskIds: Set<number> = new Set();
-  searchQuery: string = ''; 
+  constructor(
+    private taskService: TaskControllerService,
+    private ganttChartService: GanttChartControllerService, // Inject Gantt chart service
+    private router: Router
+  ) {}
 
-  constructor(private taskService: TaskControllerService,  private router: Router) {}
-
+  // Initialize the Gantt chart after the view is loaded
   ngAfterViewInit(): void {
     gantt.init('gantt-container');
   }
 
+  // Load tasks when the component initializes
   ngOnInit(): void {
     this.loadTasks();
   }
-  
+
+  // Fetch all tasks from the backend
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe(
       (response) => {
@@ -38,7 +45,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
               const jsonResponse = JSON.parse(reader.result as string);
               if (Array.isArray(jsonResponse)) {
                 this.tasks = jsonResponse;
-                this.filteredTasks = [...this.tasks]; 
+                this.filteredTasks = [...this.tasks];
               } else {
                 console.error('Expected an array of tasks, but received:', jsonResponse);
               }
@@ -49,7 +56,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
           reader.readAsText(response);
         } else if (Array.isArray(response)) {
           this.tasks = response;
-          this.filteredTasks = [...this.tasks]; 
+          this.filteredTasks = [...this.tasks];
         } else {
           console.error('Unexpected response format:', response);
         }
@@ -59,9 +66,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  
-  
 
+  // Toggle selection of a task
   toggleSelection(taskId: number): void {
     if (this.selectedTaskIds.has(taskId)) {
       this.selectedTaskIds.delete(taskId);
@@ -72,32 +78,122 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   generateGanttChart(): void {
     const selectedTasks = this.tasks.filter(task => this.selectedTaskIds.has(task.idTask!));
-
+  
     if (selectedTasks.length === 0) {
       console.warn('No tasks selected for Gantt chart.');
+      alert('Please select at least one task to generate the Gantt chart.');
       return;
     }
-
-    const ganttData = selectedTasks.map(task => ({
+  
+    // Prepare the Gantt chart data
+    this.ganttData = {
+      taskName: 'Generated Gantt Chart', // Example name
+      startDate: this.convertToBackendDateFormat(selectedTasks[0].startDate || ''), // Use the first task's start date
+      endDate: this.convertToBackendDateFormat(selectedTasks[selectedTasks.length - 1].planned_end_date || ''), // Use the last task's end date
+      progress: this.calculateAverageProgress(selectedTasks), // Calculate average progress
+      tasks: selectedTasks.map(task => ({
+        idTask: task.idTask,
+        name: task.name,
+        description: task.description || '', // Ensure description is not null
+        startDate: this.convertToBackendDateFormat(task.startDate || ''),
+        planned_end_date: this.convertToBackendDateFormat(task.planned_end_date || ''),
+        actual_end_date: this.convertToBackendDateFormat(task.actual_end_date || ''), // Ensure actual_end_date is not null
+        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+      }))
+    };
+  
+    console.log('Generated Gantt Data:', JSON.stringify(this.ganttData, null, 2));
+  
+    gantt.clearAll();
+    gantt.parse({ data: selectedTasks.map(task => ({
       id: task.idTask,
       text: task.name,
       start_date: this.convertToGanttDateFormat(task.startDate || ''),
       duration: this.calculateDuration(task.startDate || '', task.planned_end_date || ''),
       progress: this.calculateProgress(task.status ?? 'PENDING'),
       dependencies: [],
-    }));
-
-    gantt.clearAll(); 
-    gantt.parse({ data: ganttData });
+    })) });
+  }
+  
+  private convertToBackendDateFormat(date: string): string {
+    if (!date) return '';
+    const parsedDate = new Date(date);
+  
+    if (isNaN(parsedDate.getTime())) {
+      console.error('Invalid date:', date);
+      return '';
+    }
+  
+    const year = parsedDate.getFullYear();
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
+  
+  // Calculate average progress for selected tasks
+  private calculateAverageProgress(tasks: Task[]): number {
+    if (tasks.length === 0) return 0;
+    const totalProgress = tasks.reduce((sum, task) => sum + this.calculateProgress(task.status ?? 'PENDING'), 0);
+    return totalProgress / tasks.length;
   }
 
+ 
+  saveGanttChart(ganttData: any): void {
+    if (!ganttData) {
+      alert('No Gantt chart data to save. Please generate the Gantt chart first.');
+      return;
+    }
+  
+    // Prepare the Gantt chart data in the Swagger-compatible format
+    const swaggerCompatibleGanttData = {
+      id: 0, // Set to 0 or omit if the backend generates the ID
+      taskName: ganttData.taskName,
+      startDate: ganttData.startDate,
+      endDate: ganttData.endDate,
+      progress: ganttData.progress,
+      tasks: ganttData.tasks.map((task: { idTask: any; name: any; description: any; startDate: any; planned_end_date: any; actual_end_date: any; status: any; }) => ({
+        idTask: task.idTask,
+        name: task.name,
+        description: task.description || '', // Ensure description is not null
+        startDate: task.startDate,
+        planned_end_date: task.planned_end_date,
+        actual_end_date: task.actual_end_date || null, // Ensure actual_end_date is not null
+        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+      }))
+    };
+  
+    // Log the Gantt chart data being sent
+    console.log('Gantt Data to be saved:', JSON.stringify(swaggerCompatibleGanttData, null, 2)); // Pretty-print the payload
+  
+    const saveParams: SaveGanttChart$Params = {
+      body: swaggerCompatibleGanttData // Pass the Gantt chart data as the request body
+    };
+  
+    // Log the saveParams object
+    console.log('Save Params:', JSON.stringify(saveParams, null, 2));
+  
+    this.ganttChartService.saveGanttChart(saveParams).subscribe({
+      next: (response) => {
+        console.log('Gantt chart saved successfully:', JSON.stringify(response, null, 2)); // Pretty-print the response
+        alert('Gantt chart saved successfully!');
+      },
+      error: (error) => {
+        console.error('Error saving Gantt chart:', error);
+        console.error('Full error response:', JSON.stringify(error, null, 2)); // Pretty-print the error
+        alert('Failed to save Gantt chart. Check the console for details.');
+      }
+    });
+  }
+
+  // Convert date to Gantt chart format (DD-MM-YYYY)
   private convertToGanttDateFormat(date: string): string {
     if (!date) return '';
     const parsedDate = new Date(date);
 
     if (isNaN(parsedDate.getTime())) {
-        console.error('Invalid date:', date);
-        return '';
+      console.error('Invalid date:', date);
+      return '';
     }
 
     parsedDate.setHours(0, 0, 0, 0);
@@ -107,27 +203,30 @@ export class TasksComponent implements OnInit, AfterViewInit {
     const year = parsedDate.getFullYear();
 
     return `${day}-${month}-${year}`;
-}
+  }
 
+  // Calculate duration between two dates in days
   private calculateDuration(startDate: string, endDate: string): number {
     if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); 
+    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); // Duration in days
   }
 
+  // Calculate progress based on task status
   private calculateProgress(status: string): number {
-    if (status === 'COMPLETED') return 1; 
-    if (status === 'IN_PROGRESS') return 0.5; 
-    return 0; 
+    if (status === 'COMPLETED') return 1; // 100% progress
+    if (status === 'IN_PROGRESS') return 0.5; // 50% progress
+    return 0; // 0% progress
   }
 
+  // Delete a task
   deleteTask(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       const originalTasks = [...this.tasks];
       this.tasks = this.tasks.filter(task => task.idTask !== taskId);
       this.filteredTasks = this.filteredTasks.filter(task => task.idTask !== taskId);
-  
+
       this.taskService.deleteTask({ id: taskId }).subscribe(
         () => {
           console.log(`Task ${taskId} deleted successfully.`);
@@ -142,7 +241,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
       );
     }
   }
-  
+
+  // Filter tasks based on search query
   filterTasks(): void {
     if (!this.searchQuery) {
       this.filteredTasks = this.tasks;
@@ -154,10 +254,12 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // Navigate to the edit task page
   editTask(task: Task): void {
     this.router.navigate(['/update-task', task.idTask]);
   }
-  
- 
-  
+
+  addTask(): void{
+    this.router.navigate(['/addtask'])
+  }
 }

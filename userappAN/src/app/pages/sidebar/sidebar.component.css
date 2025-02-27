@@ -1,94 +1,123 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Sidebar styling */
+/* Sidebar container */
 .sidebar {
   position: fixed;
-  left: 0;
+  left: -250px; /* Initially hidden */
   top: 0;
-  width: 200px; /* Sidebar width */
-  height: 100vh; /* Full height */
-  background: rgba(20, 20, 20, 0); /* Transparent by default */
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(135deg, #2c3e50, #34495e); /* Gradient background */
   color: white;
-  padding-top: 15px; /* Padding at the top */
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  transform: translateX(-100%); /* Hide sidebar by default */
-  box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-  z-index: 999; /* Ensure it's above other content */
+  transition: left 0.3s ease-in-out;
+  padding-top: 80px; /* Increased padding for better spacing */
+  box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  z-index: 1000; /* Ensures sidebar is above other elements */
+  overflow-y: auto; /* Enable scrolling if content overflows */
 }
 
+/* Show sidebar when visible */
 .sidebar.visible {
-  background: rgba(20, 20, 20, 0.9); /* Darker and more opaque when visible */
-  transform: translateX(0); /* Show sidebar */
+  left: 0;
 }
 
 /* Menu title */
 .menu-title {
   text-align: center;
-  margin-bottom: 10px; /* Spacing below the title */
-  font-size: 18px; /* Font size */
+  font-size: 1.5em;
+  margin-bottom: 30px; /* Increased margin for better spacing */
   font-weight: bold;
-  opacity: 0.85; /* Slightly transparent */
-  color: #ff9800; /* Orange color for contrast */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Adds a professional touch */
+  color: #ecf0f1; /* Lighter shade for better contrast */
+  position: relative;
 }
 
-/* Sidebar list */
+.menu-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #e67e22; /* Accent color */
+  margin: 10px auto 0; /* Center the line */
+  border-radius: 2px;
+}
+
+/* Sidebar menu items */
 .sidebar ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .sidebar ul li {
-  padding: 8px 15px; /* Padding for list items */
-  transition: background 0.3s ease; /* Smooth background transition */
+  padding: 15px 20px; /* Increased padding for better spacing */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.sidebar ul li:last-child {
+  border-bottom: none; /* Remove border from the last item */
 }
 
 .sidebar ul li a {
-  text-decoration: none;
   color: white;
-  font-size: 14px; /* Font size */
-  display: block; /* Make links block-level for full clickable area */
-  transition: color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-}
-
-.sidebar ul li:hover {
-  background: rgba(255, 255, 255, 0.15); /* Subtle hover effect */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Increased gap between icon and text */
+  font-size: 1.1em;
+  transition: color 0.3s ease, padding-left 0.3s ease; /* Smooth transitions */
 }
 
 .sidebar ul li a:hover {
-  color: #ff9800; /* Orange color on hover */
-  transform: translateX(3px); /* Slight movement on hover */
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle hover effect */
+  padding-left: 15px; /* Indent on hover */
+  color: #e67e22; /* Highlight color on hover */
 }
 
-/* Toggle button */
+.sidebar ul li:hover {
+  transform: translateX(5px); /* Slight move effect on hover */
+}
+
 .toggle-btn {
   position: fixed;
-  left: 10px;
-  top: 10px;
-  background: rgba(20, 20, 20, 0.8); /* Semi-transparent background */
+  left: 20px; 
+  top: 10px; 
+  background-color: #e67e22; /* Orange background */
+  color: white;
   border: none;
-  color: #ff9800; /* Orange color */
-  font-size: 18px; /* Font size */
+  padding: 9px 12px; /* Slightly larger padding */
+  font-size: 1.5em;
   cursor: pointer;
-  padding: 8px 12px; /* Padding */
-  border-radius: 6px; /* Rounded corners */
-  z-index: 1000; /* Ensure it's above the sidebar */
-  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  z-index: 1100; /* Ensures button is above the header */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 .toggle-btn:hover {
-  background: rgba(20, 20, 20, 1); /* Solid background on hover */
-  color: #e68900; /* Darker orange on hover */
-  transform: scale(1.05); /* Slight scale effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  background-color: #d35400; /* Darker orange on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
-/* Adjust toggle button position when sidebar is visible */
-.sidebar.visible + .toggle-btn {
-  left: 210px; /* Adjusted position */
+.toggle-btn:active {
+  transform: scale(0.95);
 }
 
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}

@@ -40,7 +40,6 @@ public class TaskService {
             task.setPlanned_end_date(updatedTask.getPlanned_end_date());
             task.setActual_end_date(updatedTask.getActual_end_date());
             task.setStatus(updatedTask.getStatus());
-            task.setPlanning(updatedTask.getPlanning());
             return taskRepo.save(task);
         }).orElseThrow(() -> new RuntimeException("Task not found with ID: " + idTask));
     }

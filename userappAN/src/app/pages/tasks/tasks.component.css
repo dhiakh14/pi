@@ -174,14 +174,44 @@ button:hover {
   animation: none; /* Stop animation on hover */
 }
 
+.add-task-container {
+  margin-bottom: 20px;
+  text-align: right; /* Align the button to the right */
+}
+
+.add-task-btn {
+  background-color: #007bff; /* Primary color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+.add-task-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+.add-task-btn:active {
+  transform: translateY(0);
+}
+
+.fas.fa-plus-circle {
+  font-size: 18px; /* Adjust icon size */
+}
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
-/* ==================== */
-/* No Tasks Message     */
-/* ==================== */
+
 .no-tasks-message {
   text-align: center;
   font-size: 18px;

@@ -6,8 +6,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { GanttChartControllerService } from './services/gantt-chart-controller.service';
 import { TaskControllerService } from './services/task-controller.service';
-import { PlanningControllerService } from './services/planning-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -17,8 +17,8 @@ import { PlanningControllerService } from './services/planning-controller.servic
   exports: [],
   declarations: [],
   providers: [
+    GanttChartControllerService,
     TaskControllerService,
-    PlanningControllerService,
     ApiConfiguration
   ],
 })
