@@ -1,0 +1,27 @@
+.chart-container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .btn-back {
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .btn-back:hover {
+    background: #c82333;
+  }
+  

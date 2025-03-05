@@ -7,6 +7,9 @@ export interface Supplier {
   status: 'ACTIVE' | 'INACTIVE';  // ✅ Add status field
   notes: string;  // ✅ Add notes field
   materialResource?: MaterialResource;
+  clickCount: number;
+
+
 }
 
 export interface MaterialResource {

@@ -27,6 +27,9 @@ public class Supplier {
     private Status status;
 
     private String notes;
+    @Column(nullable = false)
+    private int clickCount = 0;
+
 
     // Reference to MaterialResource
     //@JsonIgnore

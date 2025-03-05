@@ -33,9 +33,7 @@ export class SupplierListComponent implements OnInit {
     );
   }
 
-  viewSupplier(id: number): void {
-    this.router.navigate(['/supplier', id]);  // ✅ Navigate to supplier details
-  }
+
 
   deleteSupplier(id: number): void {
     if (confirm('Are you sure you want to delete this supplier?')) {
@@ -60,4 +58,13 @@ export class SupplierListComponent implements OnInit {
   navigateToAddSupplier(): void {
     this.router.navigate(['/add-supplier']);  // ✅ Navigate to add supplier page
   }
+  viewSupplier(id: number): void {
+    this.supplierService.incrementClickCount(id).subscribe(() => {
+      this.router.navigate(['/supplier', id]); // Navigate to details page
+    });
+  }
+  navigateToChart(): void {
+    this.router.navigate(['/supplier-chart']);
+  }
+  
 }

@@ -36,5 +36,16 @@ export class SupplierService {
   getAllMaterialResources(): Observable<MaterialResource[]> {
     return this.http.get<MaterialResource[]>(this.materialResourceUrl);
   }
+
+  incrementClickCount(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/increment-click`, {});
+  }
+
+  getTopSuppliers(): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(`${this.apiUrl}/top-suppliers`);
+  }
+  
+  
+  
   
 }

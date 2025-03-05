@@ -12,6 +12,8 @@ export class SupplierAddComponent implements OnInit {
   supplierForm!: FormGroup;
   materialResources: any[] = [];
   submitted = false; // Flag to check if form was submitted
+  loading = false; // ✅ Added loading state
+  errorMessage = ''; // ✅ Added error message state
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +37,9 @@ export class SupplierAddComponent implements OnInit {
       this.materialResources = data;
     });
   }
+
+  /////
+  
 
   onSubmit(): void {
     this.submitted = true;

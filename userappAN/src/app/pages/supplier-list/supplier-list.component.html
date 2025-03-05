@@ -13,6 +13,8 @@
 
   <!-- Show error message if API fails -->
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  <button class="btn-chart" (click)="navigateToChart()">📊 View Supplier Chart</button>
+
 
   <!-- Supplier Grid -->
   <div class="supplier-grid">
@@ -37,5 +39,6 @@
   </div>
 </div>
 
+
 <!-- Floating Add Supplier Button -->
-<button class="btn-add" (click)="navigateToAddSupplier()">➕</button>
+<button class="btn-add" (click)="navigateToAddSupplier()">Add Supplier ➕</button>

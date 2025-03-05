@@ -5,9 +5,14 @@ import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
 import com.example.supplier.service.SupplierService;
 import com.example.supplier.repository.MaterialResourceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +30,8 @@ public class SupplierController {
 
     @Autowired
     private SupplierRepository supplierRepository;
+    private static final Logger logger = LoggerFactory.getLogger(SupplierController.class);
+
 
     // Get all suppliers
     @GetMapping
@@ -35,10 +42,19 @@ public class SupplierController {
     // Get supplier by ID
     @GetMapping("/{id}")
     public ResponseEntity<Supplier> getById(@PathVariable Long id) {
-        return supplierService.getSupplierById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
+
+        if (optionalSupplier.isPresent()) {
+            Supplier supplier = optionalSupplier.get();
+            supplier.setClickCount(supplier.getClickCount() + 1); // 🔥 Increment click count
+            supplierRepository.save(supplier); // ✅ Save updated click count
+            return ResponseEntity.ok(supplier);
+        }
+
+        return ResponseEntity.notFound().build();
     }
+
+
 
     @PostMapping
     public ResponseEntity<Supplier> create(@RequestBody Supplier supplier) {
@@ -93,5 +109,17 @@ public class SupplierController {
         }
         return ResponseEntity.ok(resources);
     }
+
+    @PutMapping("/{id}/increment-click")
+    public ResponseEntity<Void> incrementClick(@PathVariable Long id) {
+        supplierService.incrementClickCount(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/top-suppliers")
+    public List<Supplier> getTopSuppliers() {
+        return supplierRepository.findTop5ByOrderByClickCountDesc();
+    }
+
 
 }

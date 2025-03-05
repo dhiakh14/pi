@@ -63,4 +63,11 @@ public class SupplierService {
     public List<MaterialResource> getAllMaterialResources() {
         return materialResourceRepository.findAll();
     }
+    public void incrementClickCount(Long id) {
+        supplierRepository.findById(id).ifPresent(supplier -> {
+            supplier.setClickCount(supplier.getClickCount() + 1);
+            supplierRepository.save(supplier);
+        });
+    }
+
 }

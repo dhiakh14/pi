@@ -15,6 +15,8 @@ import { SupplierAddComponent } from './pages/supplier-add/supplier-add.componen
 import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
+import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
+
 
 
 const routes: Routes = [
@@ -24,6 +26,9 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent },
   { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
   { path: 'task-details/:idTask', component: TaskDetailsComponent },
+  { path: 'supplier-chart', component: SupplierChartComponent },  // ✅ Add this
+  
+
 
   {
     path: 'activate-account',

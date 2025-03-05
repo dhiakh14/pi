@@ -28,10 +28,8 @@ import { SupplierCardComponent } from './pages/supplier-card/supplier-card.compo
 import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
-
-
-
-
+import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
+import { NgChartsModule } from 'ng2-charts'; // ✅ Import Charts Module
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,8 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierCardComponent,
     SupplierDetailComponent,
     SupplierUpdateComponent,
-    SupplierAddComponent
-
+    SupplierAddComponent,
+    SupplierChartComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     ReactiveFormsModule,
     RouterModule,
+    NgChartsModule, // ✅ Add NgChartsModule for Charts
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -79,7 +79,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToastrModule.forRoot(),
   ],
   providers: [],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

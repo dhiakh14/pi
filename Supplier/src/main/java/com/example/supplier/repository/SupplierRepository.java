@@ -12,4 +12,7 @@ import java.util.List;
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
     @Query("SELECT DISTINCT s.materialResource FROM Supplier s")
     List<MaterialResource> findAllMaterialResources();
+    List<Supplier> findTop5ByOrderByClickCountDesc();
+
+
 }
