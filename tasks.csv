@@ -1,0 +1,240 @@
+"Name","Description","Start Date","Planned End Date","Status"
+"Demolition","Demolish existing structures on the construction site.","2023-01-01","2023-01-05","COMPLETED"
+"Soil Testing","Conduct soil tests to determine foundation requirements.","2023-01-06","2023-01-07","COMPLETED"
+"Foundation Design","Design the foundation based on soil test results.","2023-01-08","2023-01-10","COMPLETED"
+"Steel Reinforcement","Install steel reinforcement for the foundation.","2023-01-11","2023-01-13","COMPLETED"
+"Concrete Curing","Allow the foundation concrete to cure properly.","2023-01-14","2023-01-21","COMPLETED"
+"Wall Construction","Construct walls using bricks and mortar.","2023-01-22","2023-02-05","COMPLETED"
+"Roof Insulation","Install insulation material in the roof.","2023-02-06","2023-02-08","COMPLETED"
+"Exterior Cladding","Install exterior cladding for weather protection.","2023-02-09","2023-02-15","COMPLETED"
+"Interior Partitioning","Create interior partitions using drywall.","2023-02-16","2023-02-20","COMPLETED"
+"Ceiling Installation","Install ceilings in all rooms.","2023-02-21","2023-02-25","COMPLETED"
+"Floor Leveling","Level the floors before installing flooring materials.","2023-02-26","2023-02-28","COMPLETED"
+"Tile Installation","Install tiles in bathrooms and kitchens.","2023-03-01","2023-03-05","COMPLETED"
+"Carpentry Work","Install wooden fixtures like cabinets and shelves.","2023-03-06","2023-03-10","COMPLETED"
+"Glass Installation","Install glass panels for windows and doors.","2023-03-11","2023-03-15","COMPLETED"
+"Fire Safety Systems","Install fire alarms and sprinkler systems.","2023-03-16","2023-03-20","COMPLETED"
+"Elevator Installation","Install elevators for multi-story buildings.","2023-03-21","2023-03-25","COMPLETED"
+"Security Systems","Install security cameras and access control systems.","2023-03-26","2023-03-30","COMPLETED"
+"Pest Control","Apply pest control treatments to the building.","2023-03-31","2023-04-01","COMPLETED"
+"Final Cleaning","Clean the entire building before handover.","2023-04-02","2023-04-05","COMPLETED"
+"Handover Preparation","Prepare documents and finalize handover procedures.","2023-04-06","2023-04-07","COMPLETED"
+"Site Preparation","Clear and level the construction site.","2023-01-01","2023-01-07","COMPLETED"
+"Foundation Excavation","Excavate the area for the foundation.","2023-01-08","2023-01-15","COMPLETED"
+"Foundation Pouring","Pour concrete for the foundation.","2023-01-16","2023-01-18","COMPLETED"
+"Framing","Erect the structural framework of the building.","2023-01-19","2023-02-05","COMPLETED"
+"Roofing","Install the roof structure and shingles.","2023-02-06","2023-02-15","COMPLETED"
+"Electrical Wiring","Install electrical wiring throughout the building.","2023-02-16","2023-02-25","COMPLETED"
+"Plumbing Installation","Install plumbing systems for water supply and drainage.","2023-02-26","2023-03-05","COMPLETED"
+"HVAC Installation","Install heating, ventilation, and air conditioning systems.","2023-03-06","2023-03-15","COMPLETED"
+"Drywall Installation","Install drywall for interior walls and ceilings.","2023-03-16","2023-03-25","COMPLETED"
+"Painting","Paint interior and exterior walls.","2023-03-26","2023-04-05","COMPLETED"
+"Flooring Installation","Install flooring materials (tiles, hardwood, etc.).","2023-04-06","2023-04-15","COMPLETED"
+"Window Installation","Install windows and glass panels.","2023-04-16","2023-04-20","COMPLETED"
+"Door Installation","Install interior and exterior doors.","2023-04-21","2023-04-25","COMPLETED"
+"Landscaping","Plant trees, shrubs, and grass; install outdoor lighting.","2023-04-26","2023-05-05","COMPLETED"
+"Final Inspection","Conduct a final inspection to ensure compliance with building codes.","2023-05-06","2023-05-07","COMPLETED"
+"Site Cleanup","Clean up the construction site and remove debris.","2023-05-08","2023-05-10","COMPLETED"
+"Utilities Connection","Connect the building to water, electricity, and gas utilities.","2023-05-11","2023-05-15","COMPLETED"
+"Interior Finishing","Install fixtures, cabinets, and final touches for interior spaces.","2023-05-16","2023-05-25","COMPLETED"
+"Exterior Finishing","Apply final touches to the exterior, including siding and trim.","2023-05-26","2023-06-05","COMPLETED"
+"Asphalt Paving","Pave the driveway and parking areas.","2023-06-06","2023-06-10","COMPLETED"
+"Site Preparation","Clear and level the construction site.","2025-03-01","2025-03-07","PENDING"
+"Foundation Excavation","Excavate the area for the foundation.","2025-03-08","2025-03-15","PENDING"
+"Foundation Pouring","Pour concrete for the foundation.","2025-03-16","2025-03-18","PENDING"
+"Framing","Erect the structural framework of the building.","2025-03-19","2025-04-05","PENDING"
+"Roofing","Install the roof structure and shingles.","2025-04-06","2025-04-15","PENDING"
+"Electrical Wiring","Install electrical wiring throughout the building.","2025-04-16","2025-04-25","PENDING"
+"Plumbing Installation","Install plumbing systems for water supply and drainage.","2025-04-26","2025-05-05","PENDING"
+"HVAC Installation","Install heating, ventilation, and air conditioning systems.","2025-05-06","2025-05-15","PENDING"
+"Drywall Installation","Install drywall for interior walls and ceilings.","2025-05-16","2025-05-25","PENDING"
+"Painting","Paint interior and exterior walls.","2025-05-26","2025-06-05","PENDING"
+"Flooring Installation","Install flooring materials (tiles, hardwood, etc.).","2025-06-06","2025-06-15","PENDING"
+"Window Installation","Install windows and glass panels.","2025-06-16","2025-06-20","PENDING"
+"Door Installation","Install interior and exterior doors.","2025-06-21","2025-06-25","PENDING"
+"Landscaping","Plant trees, shrubs, and grass; install outdoor lighting.","2025-06-26","2025-07-05","PENDING"
+"Final Inspection","Conduct a final inspection to ensure compliance with building codes.","2025-07-06","2025-07-07","PENDING"
+"Site Cleanup","Clean up the construction site and remove debris.","2025-07-08","2025-07-10","PENDING"
+"Utilities Connection","Connect the building to water, electricity, and gas utilities.","2025-07-11","2025-07-15","PENDING"
+"Interior Finishing","Install fixtures, cabinets, and final touches for interior spaces.","2025-07-16","2025-07-25","PENDING"
+"Exterior Finishing","Apply final touches to the exterior, including siding and trim.","2025-07-26","2025-08-05","PENDING"
+"Asphalt Paving","Pave the driveway and parking areas.","2025-08-06","2025-08-10","PENDING"
+"Demolition","Demolish existing structures on the construction site.","2025-08-11","2025-08-15","PENDING"
+"Soil Testing","Conduct soil tests to determine foundation requirements.","2025-08-16","2025-08-17","PENDING"
+"Foundation Design","Design the foundation based on soil test results.","2025-08-18","2025-08-20","PENDING"
+"Steel Reinforcement","Install steel reinforcement for the foundation.","2025-08-21","2025-08-23","PENDING"
+"Concrete Curing","Allow the foundation concrete to cure properly.","2025-08-24","2025-08-31","PENDING"
+"Wall Construction","Construct walls using bricks and mortar.","2025-09-01","2025-09-15","PENDING"
+"Roof Insulation","Install insulation material in the roof.","2025-09-16","2025-09-18","PENDING"
+"Exterior Cladding","Install exterior cladding for weather protection.","2025-09-19","2025-09-25","PENDING"
+"Interior Partitioning","Create interior partitions using drywall.","2025-09-26","2025-09-30","PENDING"
+"Ceiling Installation","Install ceilings in all rooms.","2025-10-01","2025-10-05","PENDING"
+"Floor Leveling","Level the floors before installing flooring materials.","2025-10-06","2025-10-08","PENDING"
+"Tile Installation","Install tiles in bathrooms and kitchens.","2025-10-09","2025-10-13","PENDING"
+"Carpentry Work","Install wooden fixtures like cabinets and shelves.","2025-10-14","2025-10-18","PENDING"
+"Glass Installation","Install glass panels for windows and doors.","2025-10-19","2025-10-23","PENDING"
+"Fire Safety Systems","Install fire alarms and sprinkler systems.","2025-10-24","2025-10-28","PENDING"
+"Elevator Installation","Install elevators for multi-story buildings.","2025-10-29","2025-11-02","PENDING"
+"Security Systems","Install security cameras and access control systems.","2025-11-03","2025-11-07","PENDING"
+"Pest Control","Apply pest control treatments to the building.","2025-11-08","2025-11-09","PENDING"
+"Final Cleaning","Clean the entire building before handover.","2025-11-10","2025-11-13","PENDING"
+"Handover Preparation","Prepare documents and finalize handover procedures.","2025-11-14","2025-11-15","PENDING"
+"Site Survey","Conduct a detailed survey of the construction site.","2023-01-01","2023-01-02","COMPLETED"
+"Permit Acquisition","Obtain necessary construction permits from local authorities.","2023-01-03","2023-01-05","COMPLETED"
+"Temporary Utilities Setup","Set up temporary water and electricity for the construction site.","2023-01-06","2023-01-07","COMPLETED"
+"Material Procurement","Purchase and deliver construction materials to the site.","2023-01-08","2023-01-12","COMPLETED"
+"Scaffolding Installation","Install scaffolding for safe access during construction.","2023-01-13","2023-01-15","COMPLETED"
+"Waterproofing","Apply waterproofing materials to the foundation and walls.","2023-01-16","2023-01-18","COMPLETED"
+"Staircase Construction","Build staircases for multi-story buildings.","2023-01-19","2023-01-25","COMPLETED"
+"Balcony Installation","Install balconies for residential units.","2023-01-26","2023-01-30","COMPLETED"
+"Driveway Construction","Construct the driveway for vehicle access.","2023-01-31","2023-02-05","COMPLETED"
+"Parking Lot Paving","Pave the parking lot for the building.","2023-02-06","2023-02-10","COMPLETED"
+"Lighting Installation","Install indoor and outdoor lighting fixtures.","2023-02-11","2023-02-15","COMPLETED"
+"Signage Installation","Install signage for the building and parking areas.","2023-02-16","2023-02-18","COMPLETED"
+"Fence Installation","Install fencing around the construction site.","2023-02-19","2023-02-21","COMPLETED"
+"Waste Management Setup","Set up waste disposal systems for the construction site.","2023-02-22","2023-02-23","COMPLETED"
+"Safety Inspections","Conduct regular safety inspections during construction.","2023-02-24","2023-02-25","COMPLETED"
+"Green Space Development","Develop green spaces and gardens around the building.","2023-02-26","2023-03-05","COMPLETED"
+"Playground Installation","Install playground equipment for residential projects.","2023-03-06","2023-03-10","COMPLETED"
+"Swimming Pool Construction","Construct a swimming pool for the residential complex.","2023-03-11","2023-03-20","COMPLETED"
+"Gym Setup","Set up a gymnasium for the residential complex.","2023-03-21","2023-03-25","COMPLETED"
+"Community Hall Construction","Build a community hall for events and gatherings.","2023-03-26","2023-04-05","COMPLETED"
+"Solar Panel Installation","Install solar panels for energy efficiency.","2023-04-06","2023-04-10","COMPLETED"
+"Rainwater Harvesting System","Set up a rainwater harvesting system.","2023-04-11","2023-04-15","COMPLETED"
+"Wastewater Treatment Plant","Construct a wastewater treatment plant for the building.","2023-04-16","2023-04-25","COMPLETED"
+"Fire Hydrant Installation","Install fire hydrants around the building.","2023-04-26","2023-04-28","COMPLETED"
+"Emergency Exit Setup","Set up emergency exits and signage.","2023-04-29","2023-04-30","COMPLETED"
+"Site Survey","Conduct a detailed survey of the construction site.","2025-03-01","2025-03-02","PENDING"
+"Permit Acquisition","Obtain necessary construction permits from local authorities.","2025-03-03","2025-03-05","PENDING"
+"Temporary Utilities Setup","Set up temporary water and electricity for the construction site.","2025-03-06","2025-03-07","PENDING"
+"Material Procurement","Purchase and deliver construction materials to the site.","2025-03-08","2025-03-12","PENDING"
+"Scaffolding Installation","Install scaffolding for safe access during construction.","2025-03-13","2025-03-15","PENDING"
+"Waterproofing","Apply waterproofing materials to the foundation and walls.","2025-03-16","2025-03-18","PENDING"
+"Staircase Construction","Build staircases for multi-story buildings.","2025-03-19","2025-03-25","PENDING"
+"Balcony Installation","Install balconies for residential units.","2025-03-26","2025-03-30","PENDING"
+"Driveway Construction","Construct the driveway for vehicle access.","2025-03-31","2025-04-05","PENDING"
+"Parking Lot Paving","Pave the parking lot for the building.","2025-04-06","2025-04-10","PENDING"
+"Lighting Installation","Install indoor and outdoor lighting fixtures.","2025-04-11","2025-04-15","PENDING"
+"Signage Installation","Install signage for the building and parking areas.","2025-04-16","2025-04-18","PENDING"
+"Fence Installation","Install fencing around the construction site.","2025-04-19","2025-04-21","PENDING"
+"Waste Management Setup","Set up waste disposal systems for the construction site.","2025-04-22","2025-04-23","PENDING"
+"Safety Inspections","Conduct regular safety inspections during construction.","2025-04-24","2025-04-25","PENDING"
+"Green Space Development","Develop green spaces and gardens around the building.","2025-04-26","2025-05-05","PENDING"
+"Playground Installation","Install playground equipment for residential projects.","2025-05-06","2025-05-10","PENDING"
+"Swimming Pool Construction","Construct a swimming pool for the residential complex.","2025-05-11","2025-05-20","PENDING"
+"Gym Setup","Set up a gymnasium for the residential complex.","2025-05-21","2025-05-25","PENDING"
+"Community Hall Construction","Build a community hall for events and gatherings.","2025-05-26","2025-06-05","PENDING"
+"Solar Panel Installation","Install solar panels for energy efficiency.","2025-06-06","2025-06-10","PENDING"
+"Rainwater Harvesting System","Set up a rainwater harvesting system.","2025-06-11","2025-06-15","PENDING"
+"Wastewater Treatment Plant","Construct a wastewater treatment plant for the building.","2025-06-16","2025-06-25","PENDING"
+"Fire Hydrant Installation","Install fire hydrants around the building.","2025-06-26","2025-06-28","PENDING"
+"Emergency Exit Setup","Set up emergency exits and signage.","2025-06-29","2025-06-30","PENDING"
+"Site Preparation","Clear and level the construction site.","2025-03-01","2025-03-07","COMPLETED"
+"Foundation Excavation","Excavate the area for the foundation.","2025-03-08","2025-03-15","COMPLETED"
+"Foundation Pouring","Pour concrete for the foundation.","2025-03-16","2025-03-18","COMPLETED"
+"Framing","Erect the structural framework of the building.","2025-03-19","2025-04-05","COMPLETED"
+"Roofing","Install the roof structure and shingles.","2025-04-06","2025-04-15","COMPLETED"
+"Electrical Wiring","Install electrical wiring throughout the building.","2025-04-16","2025-04-25","COMPLETED"
+"Plumbing Installation","Install plumbing systems for water supply and drainage.","2025-04-26","2025-05-05","COMPLETED"
+"HVAC Installation","Install heating, ventilation, and air conditioning systems.","2025-05-06","2025-05-15","COMPLETED"
+"Drywall Installation","Install drywall for interior walls and ceilings.","2025-05-16","2025-05-25","COMPLETED"
+"Painting","Paint interior and exterior walls.","2025-05-26","2025-06-05","COMPLETED"
+"Site Grading","Level and grade the construction site to ensure proper drainage.","2025-07-01","2025-07-05","PENDING"
+
+"Retaining Wall Construction","Build retaining walls to support soil and prevent erosion.","2025-07-06","2025-07-15","PENDING"
+
+"Underground Utilities Installation","Install underground utilities such as sewer lines and electrical conduits.","2025-07-16","2025-07-25","PENDING"
+
+"Concrete Slab Pouring","Pour concrete slabs for floors and other flat surfaces.","2025-07-26","2025-07-30","PENDING"
+
+"Masonry Work","Construct masonry elements such as chimneys and fireplaces.","2025-07-31","2025-08-05","PENDING"
+
+"Insulation Installation","Install insulation in walls, ceilings, and floors.","2025-08-06","2025-08-10","PENDING"
+
+"Soundproofing","Apply soundproofing materials to walls and ceilings.","2025-08-11","2025-08-15","PENDING"
+
+"Elevator Shaft Construction","Construct the elevator shaft for multi-story buildings.","2025-08-16","2025-08-20","PENDING"
+
+"Staircase Railings Installation","Install railings for staircases.","2025-08-21","2025-08-25","PENDING"
+
+"Balcony Railings Installation","Install railings for balconies.","2025-08-26","2025-08-30","PENDING"
+
+"Exterior Painting","Paint the exterior walls and trim.","2025-08-31","2025-09-05","PENDING"
+
+"Interior Painting","Paint the interior walls and ceilings.","2025-09-06","2025-09-10","PENDING"
+
+"Flooring Finishing","Apply finishing touches to flooring materials.","2025-09-11","2025-09-15","PENDING"
+
+"Window Treatments Installation","Install window treatments such as blinds and curtains.","2025-09-16","2025-09-20","PENDING"
+
+"Door Hardware Installation","Install door handles, locks, and other hardware.","2025-09-21","2025-09-25","PENDING"
+
+"Light Fixtures Installation","Install light fixtures throughout the building.","2025-09-26","2025-09-30","PENDING"
+
+"Plumbing Fixtures Installation","Install plumbing fixtures such as sinks, toilets, and showers.","2025-10-01","2025-10-05","PENDING"
+
+"HVAC Ductwork Installation","Install ductwork for the HVAC system.","2025-10-06","2025-10-10","PENDING"
+
+"Ventilation System Installation","Install ventilation systems for kitchens and bathrooms.","2025-10-11","2025-10-15","PENDING"
+
+"Fire Escape Installation","Install fire escape ladders and platforms.","2025-10-16","2025-10-20","PENDING"
+
+"Emergency Lighting Installation","Install emergency lighting systems.","2025-10-21","2025-10-25","PENDING"
+
+"Security Fence Installation","Install security fencing around the property.","2025-10-26","2025-10-30","PENDING"
+
+"Gate Installation","Install gates for driveways and pedestrian access.","2025-10-31","2025-11-05","PENDING"
+
+"Irrigation System Installation","Install an irrigation system for landscaping.","2025-11-06","2025-11-10","PENDING"
+
+"Outdoor Furniture Installation","Install outdoor furniture such as benches and tables.","2025-11-11","2025-11-15","PENDING"
+
+"Pergola Construction","Construct pergolas for outdoor spaces.","2025-11-16","2025-11-20","PENDING"
+
+"Gazebo Construction","Construct gazebos for outdoor spaces.","2025-11-21","2025-11-25","PENDING"
+
+"Outdoor Kitchen Installation","Install outdoor kitchens for residential projects.","2025-11-26","2025-11-30","PENDING"
+
+"BBQ Area Construction","Construct BBQ areas for outdoor cooking.","2025-12-01","2025-12-05","PENDING"
+
+"Fire Pit Installation","Install fire pits for outdoor spaces.","2025-12-06","2025-12-10","PENDING"
+
+"Outdoor Lighting Installation","Install outdoor lighting for pathways and gardens.","2025-12-11","2025-12-15","PENDING"
+
+"Water Feature Installation","Install water features such as fountains and ponds.","2025-12-16","2025-12-20","PENDING"
+
+"Deck Construction","Construct decks for outdoor spaces.","2025-12-21","2025-12-25","PENDING"
+
+"Patio Construction","Construct patios for outdoor spaces.","2025-12-26","2025-12-30","PENDING"
+
+"Walkway Construction","Construct walkways for pedestrian access.","2025-12-31","2026-01-05","PENDING"
+
+"Bike Rack Installation","Install bike racks for the building.","2026-01-06","2026-01-10","PENDING"
+
+"Mailbox Installation","Install mailboxes for residential units.","2026-01-11","2026-01-15","PENDING"
+
+"Trash Enclosure Construction","Construct enclosures for trash and recycling bins.","2026-01-16","2026-01-20","PENDING"
+
+"Loading Dock Construction","Construct loading docks for commercial buildings.","2026-01-21","2026-01-25","PENDING"
+
+"Dock Leveler Installation","Install dock levelers for loading docks.","2026-01-26","2026-01-30","PENDING"
+
+"Overhead Door Installation","Install overhead doors for garages and warehouses.","2026-01-31","2026-02-05","PENDING"
+
+"Roll-Up Door Installation","Install roll-up doors for commercial spaces.","2026-02-06","2026-02-10","PENDING"
+
+"Mezzanine Construction","Construct mezzanine levels for commercial buildings.","2026-02-11","2026-02-15","PENDING"
+
+"Cold Storage Construction","Construct cold storage facilities for commercial use.","2026-02-16","2026-02-20","PENDING"
+
+"Warehouse Racking Installation","Install racking systems for warehouses.","2026-02-21","2026-02-25","PENDING"
+
+"Conveyor System Installation","Install conveyor systems for industrial buildings.","2026-02-26","2026-03-05","PENDING"
+
+"Dust Collection System Installation","Install dust collection systems for industrial use.","2026-03-06","2026-03-10","PENDING"
+
+"Compressed Air System Installation","Install compressed air systems for industrial use.","2026-03-11","2026-03-15","PENDING"
+
+"Industrial Lighting Installation","Install industrial lighting fixtures.","2026-03-16","2026-03-20","PENDING"
+
+"Industrial Flooring Installation","Install industrial flooring materials.","2026-03-21","2026-03-25","PENDING"

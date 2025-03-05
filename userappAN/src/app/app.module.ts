@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { ToastrModule } from 'ngx-toastr';
 import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
+import { AboutComponent } from './pages/about/about.component';
 
 
 
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     TaskDetailsComponent,
     GanttChartListComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

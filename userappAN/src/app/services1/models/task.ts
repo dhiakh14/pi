@@ -9,5 +9,5 @@ export interface Task {
   name?: string;
   planned_end_date?: string;
   startDate?: string;
-  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
+  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'TO_DO';
 }

@@ -2,10 +2,15 @@ package com.example.sprinproject.Controller;
 
 import com.example.sprinproject.Entity.Task;
 import com.example.sprinproject.Service.TaskService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/Task")
@@ -41,6 +46,27 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
     }
+
+    @GetMapping("/export")
+    public String exportTasksToCsv() {
+        try {
+            return taskService.exportTasksToCsv();
+        } catch (IOException e) {
+            return "Failed to export CSV file: " + e.getMessage();
+        }
+    }
+    @PostMapping("/addTasks")
+    public List<Task> addTasks(@RequestBody List<Task> tasks) {
+        return taskService.addTasks(tasks);
+    }
+    @GetMapping("/getTasksByProject/{projectId}")
+    public ResponseEntity<List<Task>> getTasksByProjectId(@PathVariable Long projectId) {
+        List<Task> tasks = taskService.getTasksByProjectId(projectId);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+
+
 
 
 
