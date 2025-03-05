@@ -40,7 +40,6 @@ public class SupplierController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Create a new supplier and associate with a material resource
     @PostMapping
     public ResponseEntity<Supplier> create(@RequestBody Supplier supplier) {
         if (supplier.getMaterialResource() == null || supplier.getMaterialResource().getIdMR() == null) {

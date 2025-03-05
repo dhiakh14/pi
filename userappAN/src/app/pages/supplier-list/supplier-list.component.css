@@ -1,3 +1,27 @@
+/* ✅ Search Box */
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-box:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Supplier List Container */
 .supplier-list-container {
   max-width: 1200px;
   margin: auto;
@@ -5,46 +29,55 @@
   text-align: center;
 }
 
-h1 {
+/* ✅ Updated Title Styling */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
   color: #333;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
+.page-title i {
+  font-size: 2.5rem;
+  color: #007bff;
+}
+
+/* Loading & Error Messages */
 .loading, .error {
   font-size: 18px;
   color: red;
 }
 
+/* ✅ Fix Card Layout - Ensure Cards Appear Side-by-Side */
 .supplier-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
 }
 
+/* Supplier Card Styling */
 .supplier-card {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: left;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease-in-out;
+  width: 300px;
+  max-width: 100%;
+  flex: 1 1 300px;
 }
 
 .supplier-card:hover {
   transform: scale(1.02);
 }
 
-h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 14px;
-  color: #555;
-}
-
+/* Status Badge */
 .status-badge {
   display: inline-block;
   padding: 5px 10px;
@@ -63,40 +96,62 @@ p {
   color: white;
 }
 
+/* ✅ Updated Button Group */
 .button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
 
-.btn-view, .btn-delete {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-size: 14px;
-}
-
+/* ✅ View Button */
 .btn-view {
   background: #007bff;
   color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.btn-view i {
+  font-size: 16px;
 }
 
 .btn-view:hover {
   background: #0056b3;
+  transform: translateY(-2px);
 }
 
+/* ✅ Delete Button */
 .btn-delete {
   background: #dc3545;
   color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.btn-delete i {
+  font-size: 16px;
 }
 
 .btn-delete:hover {
   background: #c82333;
+  transform: translateY(-2px);
 }
 
-/* Floating Add Button */
+/* ✅ Floating Add Supplier Button */
 .btn-add {
   position: fixed;
   bottom: 20px;
@@ -109,7 +164,8 @@ p {
   border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .btn-add:hover {

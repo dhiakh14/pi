@@ -11,6 +11,7 @@ export class SupplierListComponent implements OnInit {
   suppliers: any[] = [];
   isLoading = true;
   errorMessage = '';
+  searchText: string = '';
 
   constructor(private supplierService: SupplierService, private router: Router) {}
 
@@ -46,6 +47,14 @@ export class SupplierListComponent implements OnInit {
         alert('Failed to delete supplier.');
       });
     }
+  }
+
+  filteredSuppliers() {
+    return this.suppliers.filter(supplier =>
+      supplier.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      supplier.address.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      (supplier.materialResource?.firstName && supplier.materialResource.firstName.toLowerCase().includes(this.searchText.toLowerCase()))
+    );
   }
 
   navigateToAddSupplier(): void {

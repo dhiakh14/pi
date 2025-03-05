@@ -1,5 +1,12 @@
 <div class="supplier-list-container">
-  <h1>📋 Supplier List</h1>
+  <h1 class="page-title">
+    <i class="fas fa-boxes"></i> Supplier List
+  </h1>
+
+  <!-- ✅ Search Bar -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchText" placeholder="🔍 Search suppliers..." class="search-box" />
+  </div>
 
   <!-- Show loading message -->
   <p *ngIf="isLoading" class="loading">Loading suppliers...</p>
@@ -9,7 +16,7 @@
 
   <!-- Supplier Grid -->
   <div class="supplier-grid">
-    <div class="supplier-card" *ngFor="let supplier of suppliers">
+    <div class="supplier-card" *ngFor="let supplier of filteredSuppliers()">
       <h3>{{ supplier.name }}</h3>
       <p><strong>📍 Address:</strong> {{ supplier.address }}</p>
       <p><strong>🔧 Material:</strong> {{ supplier.materialResource?.firstName || 'Not Assigned' }}</p>
@@ -19,12 +26,16 @@
       </div>
 
       <div class="button-group">
-        <button class="btn-view" (click)="viewSupplier(supplier.idSupplier)">👁 View</button>
-        <button class="btn-delete" (click)="deleteSupplier(supplier.idSupplier)">🗑 Delete</button>
+        <button class="btn-view" (click)="viewSupplier(supplier.idSupplier)">
+          <i class="fas fa-eye"></i> View
+        </button>
+        <button class="btn-delete" (click)="deleteSupplier(supplier.idSupplier)">
+          <i class="fas fa-trash"></i> Delete
+        </button>
       </div>
     </div>
   </div>
-
-  <!-- Floating Add Supplier Button -->
-  <button class="btn-add" (click)="navigateToAddSupplier()">➕ Add Supplier</button>
 </div>
+
+<!-- Floating Add Supplier Button -->
+<button class="btn-add" (click)="navigateToAddSupplier()">➕</button>

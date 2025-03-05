@@ -9,8 +9,7 @@ import java.util.Optional;
 public interface MaterialResourceRepository extends JpaRepository<MaterialResource, Long> {
     Optional<MaterialResource> findById(Long idMR);
 
-    List<MaterialResource> findByFirstName(String firstName);  // You can adjust this as needed for your use case
+    List<MaterialResource> findByFirstName(String firstName);
 
-    // You can also create a method to retrieve all material resources without any filters
     List<MaterialResource> findAll();
 }
