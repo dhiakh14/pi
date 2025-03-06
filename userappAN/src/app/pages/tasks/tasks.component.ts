@@ -1,10 +1,13 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
-import { GanttChartControllerService, SaveGanttChart$Params } from 'src/app/services1/services/gantt-chart-controller.service';
-import 'dhtmlx-gantt'; // Import the Gantt library
-declare const gantt: any; // Declare the Gantt library
+import { GanttChartControllerService } from 'src/app/services1/services/gantt-chart-controller.service';
+import 'dhtmlx-gantt';
+import * as XLSX from 'xlsx';
+import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controller/save-gantt-chart';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+declare const gantt: any; 
 
 @Component({
   selector: 'app-tasks',
@@ -12,29 +15,120 @@ declare const gantt: any; // Declare the Gantt library
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit, AfterViewInit {
-  tasks: Task[] = []; // List of all tasks
-  filteredTasks: Task[] = []; // List of filtered tasks based on search
-  selectedTaskIds: Set<number> = new Set(); // Set of selected task IDs
-  searchQuery: string = ''; // Search query for filtering tasks
-  ganttData: any; // Variable to store Gantt chart data
+  tasks: Task[] = []; 
+  filteredTasks: Task[] = []; 
+  selectedTaskIds: Set<number> = new Set(); 
+  searchQuery: string = ''; 
+  ganttData: any; 
+  qrCodeData: string = '';
+  currentPage: number = 1; 
+  itemsPerPage: number = 4;
 
   constructor(
     private taskService: TaskControllerService,
-    private ganttChartService: GanttChartControllerService, // Inject Gantt chart service
-    private router: Router
+    private ganttChartService: GanttChartControllerService, 
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
-  // Initialize the Gantt chart after the view is loaded
   ngAfterViewInit(): void {
     gantt.init('gantt-container');
   }
 
-  // Load tasks when the component initializes
   ngOnInit(): void {
     this.loadTasks();
   }
 
-  // Fetch all tasks from the backend
+  
+
+  startVoiceSearch(): void {
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        console.log('Voice recognition started. Speak now...');
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        this.searchQuery = transcript;
+        this.filterTasks();
+        recognition.stop();
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Voice recognition error:', event.error);
+        recognition.stop();
+      };
+
+      recognition.onend = () => {
+        console.log('Voice recognition ended.');
+      };
+
+      recognition.start();
+    } else {
+      alert('Your browser does not support voice recognition. Please use Chrome or another supported browser.');
+    }
+  }
+
+  
+
+  showQRCode(task: any, qrModal: TemplateRef<any>): void {
+    const formatDate = (dateString: string): string => {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+  
+    this.qrCodeData = `
+      Name: ${task.name}
+      Description: ${task.description}
+      Start Date: ${formatDate(task.startDate)}
+      Planned End Date: ${formatDate(task.planned_end_date)}
+      Status: ${task.status}
+    `;
+  
+    this.modalService.open(qrModal, { size: 'lg' });
+  }
+
+  exportToExcel(): void {
+    const data: any[] = [];
+    
+    const headers = [
+      'Task Name',
+      'Description',
+      'Start Date',
+      'Planned End Date',
+      'Status'
+    ];
+    data.push(headers);
+
+    this.filteredTasks.forEach(task => {
+      const row = [
+        task.name,
+        task.description,
+        task.startDate,
+        task.planned_end_date,
+        task.status
+      ];
+      data.push(row);
+    });
+
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Tasks');
+
+    XLSX.writeFile(wb, 'Tasks.xlsx');
+  }
+
+  
+
+
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe(
       (response) => {
@@ -67,7 +161,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     );
   }
 
-  // Toggle selection of a task
   toggleSelection(taskId: number): void {
     if (this.selectedTaskIds.has(taskId)) {
       this.selectedTaskIds.delete(taskId);
@@ -85,20 +178,19 @@ export class TasksComponent implements OnInit, AfterViewInit {
       return;
     }
   
-    // Prepare the Gantt chart data
     this.ganttData = {
-      taskName: 'Generated Gantt Chart', // Example name
-      startDate: this.convertToBackendDateFormat(selectedTasks[0].startDate || ''), // Use the first task's start date
-      endDate: this.convertToBackendDateFormat(selectedTasks[selectedTasks.length - 1].planned_end_date || ''), // Use the last task's end date
-      progress: this.calculateAverageProgress(selectedTasks), // Calculate average progress
+      taskName: 'Generated Gantt Chart', 
+      startDate: this.convertToBackendDateFormat(selectedTasks[0].startDate || ''), 
+      endDate: this.convertToBackendDateFormat(selectedTasks[selectedTasks.length - 1].planned_end_date || ''), 
+      progress: this.calculateAverageProgress(selectedTasks), 
       tasks: selectedTasks.map(task => ({
         idTask: task.idTask,
         name: task.name,
-        description: task.description || '', // Ensure description is not null
+        description: task.description || '', 
         startDate: this.convertToBackendDateFormat(task.startDate || ''),
         planned_end_date: this.convertToBackendDateFormat(task.planned_end_date || ''),
-        actual_end_date: this.convertToBackendDateFormat(task.actual_end_date || ''), // Ensure actual_end_date is not null
-        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+        actual_end_date: this.convertToBackendDateFormat(task.actual_end_date || ''),
+        status: task.status || 'PENDING' 
       }))
     };
   
@@ -131,7 +223,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return `${year}-${month}-${day}`;
   }
   
-  // Calculate average progress for selected tasks
   private calculateAverageProgress(tasks: Task[]): number {
     if (tasks.length === 0) return 0;
     const totalProgress = tasks.reduce((sum, task) => sum + this.calculateProgress(task.status ?? 'PENDING'), 0);
@@ -145,9 +236,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
       return;
     }
   
-    // Prepare the Gantt chart data in the Swagger-compatible format
     const swaggerCompatibleGanttData = {
-      id: 0, // Set to 0 or omit if the backend generates the ID
+      id: 0,
       taskName: ganttData.taskName,
       startDate: ganttData.startDate,
       endDate: ganttData.endDate,
@@ -155,38 +245,35 @@ export class TasksComponent implements OnInit, AfterViewInit {
       tasks: ganttData.tasks.map((task: { idTask: any; name: any; description: any; startDate: any; planned_end_date: any; actual_end_date: any; status: any; }) => ({
         idTask: task.idTask,
         name: task.name,
-        description: task.description || '', // Ensure description is not null
+        description: task.description || '', 
         startDate: task.startDate,
         planned_end_date: task.planned_end_date,
-        actual_end_date: task.actual_end_date || null, // Ensure actual_end_date is not null
-        status: task.status || 'PENDING' // Default to 'PENDING' if status is null
+        actual_end_date: task.actual_end_date || null, 
+        status: task.status || 'PENDING' 
       }))
     };
   
-    // Log the Gantt chart data being sent
-    console.log('Gantt Data to be saved:', JSON.stringify(swaggerCompatibleGanttData, null, 2)); // Pretty-print the payload
+    console.log('Gantt Data to be saved:', JSON.stringify(swaggerCompatibleGanttData, null, 2)); 
   
     const saveParams: SaveGanttChart$Params = {
-      body: swaggerCompatibleGanttData // Pass the Gantt chart data as the request body
+      body: swaggerCompatibleGanttData 
     };
   
-    // Log the saveParams object
     console.log('Save Params:', JSON.stringify(saveParams, null, 2));
   
     this.ganttChartService.saveGanttChart(saveParams).subscribe({
       next: (response) => {
-        console.log('Gantt chart saved successfully:', JSON.stringify(response, null, 2)); // Pretty-print the response
+        console.log('Gantt chart saved successfully:', JSON.stringify(response, null, 2)); 
         alert('Gantt chart saved successfully!');
       },
       error: (error) => {
         console.error('Error saving Gantt chart:', error);
-        console.error('Full error response:', JSON.stringify(error, null, 2)); // Pretty-print the error
+        console.error('Full error response:', JSON.stringify(error, null, 2)); 
         alert('Failed to save Gantt chart. Check the console for details.');
       }
     });
   }
 
-  // Convert date to Gantt chart format (DD-MM-YYYY)
   private convertToGanttDateFormat(date: string): string {
     if (!date) return '';
     const parsedDate = new Date(date);
@@ -205,22 +292,19 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return `${day}-${month}-${year}`;
   }
 
-  // Calculate duration between two dates in days
   private calculateDuration(startDate: string, endDate: string): number {
     if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); // Duration in days
+    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24); 
   }
 
-  // Calculate progress based on task status
   private calculateProgress(status: string): number {
-    if (status === 'COMPLETED') return 1; // 100% progress
-    if (status === 'IN_PROGRESS') return 0.5; // 50% progress
-    return 0; // 0% progress
+    if (status === 'COMPLETED') return 1; 
+    if (status === 'IN_PROGRESS') return 0.5; 
+    return 0; 
   }
 
-  // Delete a task
   deleteTask(taskId: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       const originalTasks = [...this.tasks];
@@ -233,7 +317,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
         },
         (error) => {
           console.error(`Error deleting task ${taskId}:`, error);
-          // Rollback if the delete request fails
           this.tasks = originalTasks;
           this.filteredTasks = originalTasks;
           alert('Failed to delete the task. Please try again.');
@@ -242,7 +325,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Filter tasks based on search query
   filterTasks(): void {
     if (!this.searchQuery) {
       this.filteredTasks = this.tasks;
@@ -254,7 +336,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Navigate to the edit task page
   editTask(task: Task): void {
     this.router.navigate(['/update-task', task.idTask]);
   }

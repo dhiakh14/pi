@@ -1,5 +1,6 @@
 package com.example.sprinproject.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,7 +25,8 @@ public class GanttChart {
     private Date endDate;
     private double progress;
 
-    @OneToMany(mappedBy = "ganttChart", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ganttChart", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Task> tasks;
 
     @Override

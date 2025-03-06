@@ -5,9 +5,11 @@
 export interface Task {
   actual_end_date?: string;
   description?: string;
+  durationInDays?: number;
   idTask?: number;
   name?: string;
   planned_end_date?: string;
+  projectId?: number;
   startDate?: string;
-  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'TO_DO';
+  status?: 'TO_DO' | 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
 }

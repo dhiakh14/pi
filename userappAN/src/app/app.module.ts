@@ -24,6 +24,12 @@ import { TaskDetailsComponent } from './pages/task-details/task-details.componen
 import { ToastrModule } from 'ngx-toastr';
 import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
 import { AboutComponent } from './pages/about/about.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { NgChartsModule } from 'ng2-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
 
 
 
@@ -49,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TaskDetailsComponent,
     GanttChartListComponent,
     AboutComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +64,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     CodeInputModule,
     MatDialogModule,
+    QRCodeModule,
+    NgbModule,
+    NgChartsModule,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

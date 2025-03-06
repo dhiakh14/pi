@@ -87,6 +87,10 @@ public class TaskService {
         return taskRepo.findByProjectId(projectId);
     }
 
+    public void deleteTasksByProjectId(Long projectId) {
+        List<Task> tasks = taskRepo.findByProjectId(projectId);
+        taskRepo.deleteAll(tasks);}
+
 
 
 

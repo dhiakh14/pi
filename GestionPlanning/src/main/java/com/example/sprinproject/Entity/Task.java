@@ -2,6 +2,7 @@
 
     import com.fasterxml.jackson.annotation.JsonBackReference;
     import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
     import jakarta.persistence.*;
     import lombok.*;
 
@@ -30,6 +31,8 @@
         @Enumerated(EnumType.STRING)
         private Status Status;
 
+        @JsonProperty("projectId")
+
         private Long projectId;
 
 
@@ -48,8 +51,8 @@
 
 
         @ManyToOne
-        @JoinColumn(name = "gantt_chart_id")
-        @JsonIgnore
+        @JsonBackReference
+
         private GanttChart ganttChart;
 
         public Long getProjectId() {
@@ -71,7 +74,6 @@
                     ", actual_end_date=" + actual_end_date +
                     ", Status=" + Status +
                     ", projectId=" + projectId +
-                    ", ganttChart=" + ganttChart +
                     '}';
         }
     }

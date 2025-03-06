@@ -64,6 +64,11 @@ public class TaskController {
         List<Task> tasks = taskService.getTasksByProjectId(projectId);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
+    @DeleteMapping("/deleteTasksByProject/{projectId}")
+    public ResponseEntity<String> deleteTasksByProjectId(@PathVariable Long projectId) {
+        taskService.deleteTasksByProjectId(projectId);
+        return new ResponseEntity<>("Tasks deleted successfully", HttpStatus.OK);
+    }
 
 
 

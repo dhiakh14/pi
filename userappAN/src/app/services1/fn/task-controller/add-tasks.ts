@@ -8,28 +8,26 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Planning } from '../../models/planning';
+import { Task } from '../../models/task';
 
-export interface UpdatePlanning$Params {
-  idPlan: number;
-      body: Planning
+export interface AddTasks$Params {
+      body: Array<Task>
 }
 
-export function updatePlanning(http: HttpClient, rootUrl: string, params: UpdatePlanning$Params, context?: HttpContext): Observable<StrictHttpResponse<Planning>> {
-  const rb = new RequestBuilder(rootUrl, updatePlanning.PATH, 'put');
+export function addTasks(http: HttpClient, rootUrl: string, params: AddTasks$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+  const rb = new RequestBuilder(rootUrl, addTasks.PATH, 'post');
   if (params) {
-    rb.path('idPlan', params.idPlan, {});
     rb.body(params.body, 'application/json');
   }
 
   return http.request(
-    rb.build({ responseType: 'blob', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Planning>;
+      return r as StrictHttpResponse<Array<Task>>;
     })
   );
 }
 
-updatePlanning.PATH = '/Plan/updatePlanning/{idPlan}';
+addTasks.PATH = '/Task/addTasks';

@@ -10,18 +10,18 @@ import { RequestBuilder } from '../../request-builder';
 
 import { Task } from '../../models/task';
 
-export interface GetTasksByPlanningId$Params {
-  idPlan: number;
+export interface GetTasksByProjectId$Params {
+  projectId: number;
 }
 
-export function getTasksByPlanningId(http: HttpClient, rootUrl: string, params: GetTasksByPlanningId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
-  const rb = new RequestBuilder(rootUrl, getTasksByPlanningId.PATH, 'get');
+export function getTasksByProjectId(http: HttpClient, rootUrl: string, params: GetTasksByProjectId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+  const rb = new RequestBuilder(rootUrl, getTasksByProjectId.PATH, 'get');
   if (params) {
-    rb.path('idPlan', params.idPlan, {});
+    rb.path('projectId', params.projectId, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'blob', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
@@ -30,4 +30,4 @@ export function getTasksByPlanningId(http: HttpClient, rootUrl: string, params: 
   );
 }
 
-getTasksByPlanningId.PATH = '/Plan/{idPlan}/tasks';
+getTasksByProjectId.PATH = '/Task/getTasksByProject/{projectId}';

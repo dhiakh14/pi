@@ -183,5 +183,3 @@ export class GanttChartControllerService extends BaseService {
   }
 
 }
-
-export { SaveGanttChart$Params };

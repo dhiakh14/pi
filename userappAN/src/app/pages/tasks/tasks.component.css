@@ -10,6 +10,20 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.export-excel-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.export-excel-btn:hover {
+  background-color: #45a049;
+}
+
 /* ==================== */
 /* Background Container */
 /* ==================== */
@@ -252,6 +266,56 @@ button:hover {
   pointer-events: none;
 }
 
+.voice-search-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls .ngx-pagination {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.pagination-controls .ngx-pagination li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.pagination-controls .ngx-pagination a,
+.pagination-controls .ngx-pagination button {
+  color: #007bff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination-controls .ngx-pagination a:hover,
+.pagination-controls .ngx-pagination button:hover {
+  background-color: #f8f9fa;
+}
+
+.pagination-controls .ngx-pagination .current {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.voice-search-btn:hover {
+  background-color: #0056b3;
+}
+
 /* ==================== */
 /* Responsive Design    */
 /* ==================== */
@@ -279,8 +343,9 @@ button:hover {
   }
 
   .search-input {
-    width: 100%; /* Full width on mobile */
+    width: 100%; 
     margin-right: 0;
     margin-bottom: 10px;
   }
+
 }

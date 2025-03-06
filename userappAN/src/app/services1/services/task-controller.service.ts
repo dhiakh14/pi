@@ -13,12 +13,20 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addTask } from '../fn/task-controller/add-task';
 import { AddTask$Params } from '../fn/task-controller/add-task';
+import { addTasks } from '../fn/task-controller/add-tasks';
+import { AddTasks$Params } from '../fn/task-controller/add-tasks';
 import { deleteTask } from '../fn/task-controller/delete-task';
 import { DeleteTask$Params } from '../fn/task-controller/delete-task';
+import { deleteTasksByProjectId } from '../fn/task-controller/delete-tasks-by-project-id';
+import { DeleteTasksByProjectId$Params } from '../fn/task-controller/delete-tasks-by-project-id';
+import { exportTasksToCsv } from '../fn/task-controller/export-tasks-to-csv';
+import { ExportTasksToCsv$Params } from '../fn/task-controller/export-tasks-to-csv';
 import { getAllTasks } from '../fn/task-controller/get-all-tasks';
 import { GetAllTasks$Params } from '../fn/task-controller/get-all-tasks';
 import { getTaskById } from '../fn/task-controller/get-task-by-id';
 import { GetTaskById$Params } from '../fn/task-controller/get-task-by-id';
+import { getTasksByProjectId } from '../fn/task-controller/get-tasks-by-project-id';
+import { GetTasksByProjectId$Params } from '../fn/task-controller/get-tasks-by-project-id';
 import { Task } from '../models/task';
 import { updateTask } from '../fn/task-controller/update-task';
 import { UpdateTask$Params } from '../fn/task-controller/update-task';
@@ -54,6 +62,31 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+  /** Path part for operation `addTasks()` */
+  static readonly AddTasksPath = '/Task/addTasks';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addTasks()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addTasks$Response(params: AddTasks$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+    return addTasks(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addTasks$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addTasks(params: AddTasks$Params, context?: HttpContext): Observable<Array<Task>> {
+    return this.addTasks$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
+    );
+  }
+
   /** Path part for operation `addTask()` */
   static readonly AddTaskPath = '/Task/addTask';
 
@@ -76,6 +109,31 @@ export class TaskControllerService extends BaseService {
   addTask(params: AddTask$Params, context?: HttpContext): Observable<Task> {
     return this.addTask$Response(params, context).pipe(
       map((r: StrictHttpResponse<Task>): Task => r.body)
+    );
+  }
+
+  /** Path part for operation `getTasksByProjectId()` */
+  static readonly GetTasksByProjectIdPath = '/Task/getTasksByProject/{projectId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getTasksByProjectId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTasksByProjectId$Response(params: GetTasksByProjectId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+    return getTasksByProjectId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getTasksByProjectId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTasksByProjectId(params: GetTasksByProjectId$Params, context?: HttpContext): Observable<Array<Task>> {
+    return this.getTasksByProjectId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
     );
   }
 
@@ -126,6 +184,56 @@ export class TaskControllerService extends BaseService {
   getAllTasks(params?: GetAllTasks$Params, context?: HttpContext): Observable<Array<Task>> {
     return this.getAllTasks$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
+    );
+  }
+
+  /** Path part for operation `exportTasksToCsv()` */
+  static readonly ExportTasksToCsvPath = '/Task/export';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `exportTasksToCsv()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  exportTasksToCsv$Response(params?: ExportTasksToCsv$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return exportTasksToCsv(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `exportTasksToCsv$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  exportTasksToCsv(params?: ExportTasksToCsv$Params, context?: HttpContext): Observable<string> {
+    return this.exportTasksToCsv$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteTasksByProjectId()` */
+  static readonly DeleteTasksByProjectIdPath = '/Task/deleteTasksByProject/{projectId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteTasksByProjectId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteTasksByProjectId$Response(params: DeleteTasksByProjectId$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return deleteTasksByProjectId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteTasksByProjectId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteTasksByProjectId(params: DeleteTasksByProjectId$Params, context?: HttpContext): Observable<string> {
+    return this.deleteTasksByProjectId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

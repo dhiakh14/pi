@@ -8,16 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Planning } from '../../models/planning';
 
-export interface AddPlanning$Params {
-      body: Planning
+export interface ExportTasksToCsv$Params {
 }
 
-export function addPlanning(http: HttpClient, rootUrl: string, params: AddPlanning$Params, context?: HttpContext): Observable<StrictHttpResponse<Planning>> {
-  const rb = new RequestBuilder(rootUrl, addPlanning.PATH, 'post');
+export function exportTasksToCsv(http: HttpClient, rootUrl: string, params?: ExportTasksToCsv$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, exportTasksToCsv.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -25,9 +22,9 @@ export function addPlanning(http: HttpClient, rootUrl: string, params: AddPlanni
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Planning>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-addPlanning.PATH = '/Plan/add';
+exportTasksToCsv.PATH = '/Task/export';

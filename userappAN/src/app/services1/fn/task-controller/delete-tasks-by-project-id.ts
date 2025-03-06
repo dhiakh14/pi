@@ -8,24 +8,25 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Planning } from '../../models/planning';
 
-export interface GetAllPlannings$Params {
+export interface DeleteTasksByProjectId$Params {
+  projectId: number;
 }
 
-export function getAllPlannings(http: HttpClient, rootUrl: string, params?: GetAllPlannings$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Planning>>> {
-  const rb = new RequestBuilder(rootUrl, getAllPlannings.PATH, 'get');
+export function deleteTasksByProjectId(http: HttpClient, rootUrl: string, params: DeleteTasksByProjectId$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, deleteTasksByProjectId.PATH, 'delete');
   if (params) {
+    rb.path('projectId', params.projectId, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'blob', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Planning>>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-getAllPlannings.PATH = '/Plan/getPlannings';
+deleteTasksByProjectId.PATH = '/Task/deleteTasksByProject/{projectId}';

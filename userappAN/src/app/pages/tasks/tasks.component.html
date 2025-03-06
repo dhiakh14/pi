@@ -12,8 +12,14 @@
         (input)="filterTasks()" 
         placeholder="Search by task name or description" 
         class="search-input" />
+      <button (click)="startVoiceSearch()" class="voice-search-btn">
+        <i class="fas fa-microphone"></i> 
+      </button>
     </div>
 
+    <button (click)="exportToExcel()" class="export-excel-btn">Export to Excel</button>
+
+    <!-- Table with Pagination -->
     <table class="task-table">
       <thead>
         <tr>
@@ -24,10 +30,11 @@
           <th>Planned End Date</th>
           <th>Status</th>
           <th>Actions</th>
+          <th>QR Code</th> 
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of filteredTasks" [routerLink]="['/task-details', task.idTask]" class="clickable-row">
+        <tr *ngFor="let task of filteredTasks | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" [routerLink]="['/task-details', task.idTask]" class="clickable-row">
           <td>
             <input 
               type="checkbox" 
@@ -46,12 +53,26 @@
               <a [routerLink]="['/tasks/edit', task.idTask]">Edit</a>
             </button>
           </td>
+          <td>
+            <button (click)="showQRCode(task, qrCodeModal); $event.stopPropagation()" class="btn btn-sm btn-info">
+              <i class="fas fa-qrcode"></i> <!-- Font Awesome QR code icon -->
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
+    <!-- Pagination Controls -->
+    <div class="pagination-controls">
+      <pagination-controls 
+        (pageChange)="currentPage = $event" 
+        previousLabel="Previous" 
+        nextLabel="Next"
+        [responsive]="true">
+      </pagination-controls>
+    </div>
 
+    <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
     <button (click)="saveGanttChart(ganttData)" class="save-gantt-btn">Save Gantt Chart</button>
   </div>
 
@@ -61,3 +82,18 @@
 
   <div id="gantt-container" class="gantt-chart"></div>
 </div>
+
+<ng-template #qrCodeModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Task QR Code</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>

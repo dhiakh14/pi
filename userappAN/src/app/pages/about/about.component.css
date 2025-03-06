@@ -13,7 +13,7 @@
   
   /* Hero Section */
   .hero {
-    background-image: url('assets/images/construction-hero.jpg');
+    background-image: url('/assets/images/construction-hero.jpg');
     background-size: cover;
     background-position: center;
     color: #fff;

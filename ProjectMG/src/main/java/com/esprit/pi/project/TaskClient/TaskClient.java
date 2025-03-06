@@ -23,4 +23,7 @@ public interface TaskClient {
 
     @DeleteMapping("/Task/deleteTask/{id}")
     void deleteTask(@PathVariable Long id);
+
+    @DeleteMapping("/Task/deleteTasksByProject/{projectId}")
+    void deleteTasksByProjectId(@PathVariable Long projectId);
 }

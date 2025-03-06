@@ -39,12 +39,22 @@ public class ProjectService {
     public Project findProjectById(Long idProject){
         return projectRepository.findById(idProject).orElse(null);
     }
-    public String deleteProject(Long idProject) {
-        if (projectRepository.findById(idProject).isPresent()) {
-            projectRepository.deleteById(idProject);
-            return "Project deleted";
-        } else
+    public String deleteProject(Long projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        if (project != null) {
+            try {
+                // Step 1: Delete all tasks associated with the project
+                taskClient.deleteTasksByProjectId(projectId);
+
+                projectRepository.deleteById(projectId);
+                return "Project and associated tasks deleted successfully";
+            } catch (Exception e) {
+                    System.err.println("Error deleting project or associated tasks: " + e.getMessage());
+                return "Failed to delete project or associated tasks";
+            }
+        } else {
             return "Project not found";
+        }
     }
 
     public Project getProjectWithTasks(Long projectId) {
