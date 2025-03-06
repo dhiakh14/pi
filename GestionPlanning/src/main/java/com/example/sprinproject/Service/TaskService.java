@@ -4,7 +4,7 @@ import com.example.sprinproject.Entity.Task;
 import com.example.sprinproject.repository.TaskRepo;
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +20,9 @@ import java.util.Map;
 @Service
 
 public class TaskService {
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
 
     @Autowired
     private TaskRepo taskRepo;
@@ -90,6 +93,40 @@ public class TaskService {
     public void deleteTasksByProjectId(Long projectId) {
         List<Task> tasks = taskRepo.findByProjectId(projectId);
         taskRepo.deleteAll(tasks);}
+
+    public Double predictTaskDuration(String name, String description) {
+        String url = "http://127.0.0.1:5000/predict"; // Flask service URL
+
+        try {
+            // Prepare the request body
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("name", name);
+            requestBody.put("description", description);
+
+            // Set headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            // Create the HTTP entity
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+
+            // Make the POST request to the Flask service
+            ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, requestEntity, Map.class);
+
+            // Check if the response is successful
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                Map<String, Object> responseBody = responseEntity.getBody();
+                if (responseBody != null && responseBody.containsKey("The expected duration is ")) {
+                    // Extract the predicted duration
+                    return (Double) responseBody.get("The expected duration is ");
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get prediction from Flask service: " + e.getMessage(), e);
+        }
+
+        throw new RuntimeException("Failed to get prediction from Flask service: Invalid response");
+    }
 
 
 

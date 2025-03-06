@@ -5,9 +5,9 @@
 import { Task } from '../models/task';
 export interface GanttChart {
   endDate?: string;
-  id: number;
-  progress: number;
-  startDate: string;
-  taskName: string;
-  tasks: Array<Task>;
+  id?: number;
+  progress?: number;
+  startDate?: string;
+  taskName?: string;
+  tasks?: Array<Task>;
 }

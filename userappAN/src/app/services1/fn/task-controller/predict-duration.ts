@@ -8,14 +8,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { GanttChart } from '../../models/gantt-chart';
 
-export interface SaveGanttChart$Params {
-      body: GanttChart
+export interface PredictDuration$Params {
+      body: {
+[key: string]: string;
+}
 }
 
-export function saveGanttChart(http: HttpClient, rootUrl: string, params: SaveGanttChart$Params, context?: HttpContext): Observable<StrictHttpResponse<GanttChart>> {
-  const rb = new RequestBuilder(rootUrl, saveGanttChart.PATH, 'post');
+export function predictDuration(http: HttpClient, rootUrl: string, params: PredictDuration$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: number;
+}>> {
+  const rb = new RequestBuilder(rootUrl, predictDuration.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
@@ -25,9 +28,11 @@ export function saveGanttChart(http: HttpClient, rootUrl: string, params: SaveGa
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<GanttChart>;
+      return r as StrictHttpResponse<{
+      [key: string]: number;
+      }>;
     })
   );
 }
 
-saveGanttChart.PATH = '/gantt-chart/save';
+predictDuration.PATH = '/Task/predictDuration';

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
@@ -7,6 +7,7 @@ import 'dhtmlx-gantt';
 import * as XLSX from 'xlsx';
 import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controller/save-gantt-chart';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/predict-duration';
 declare const gantt: any; 
 
 @Component({
@@ -15,6 +16,7 @@ declare const gantt: any;
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit, AfterViewInit {
+
   tasks: Task[] = []; 
   filteredTasks: Task[] = []; 
   selectedTaskIds: Set<number> = new Set(); 
@@ -23,6 +25,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
   qrCodeData: string = '';
   currentPage: number = 1; 
   itemsPerPage: number = 4;
+  showPredictionForm: boolean = false; 
+  predictedDuration: number | null = null; 
+  errorMessage: string | null = null;
 
   constructor(
     private taskService: TaskControllerService,
@@ -37,6 +42,26 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadTasks();
+  }
+
+  predictTaskDuration(name: string, description: string) {
+    const params: PredictDuration$Params = {
+      body: {
+        name: name,
+        description: description
+      }
+    };
+
+    this.taskService.predictDuration(params).subscribe({
+      next: (response) => {
+        this.predictedDuration = response['The expected duration is '];
+        this.errorMessage = null;
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to predict duration: ' + err.message;
+        this.predictedDuration = null;
+      }
+    });
   }
 
   
@@ -343,4 +368,5 @@ export class TasksComponent implements OnInit, AfterViewInit {
   addTask(): void{
     this.router.navigate(['/addtask'])
   }
+ 
 }

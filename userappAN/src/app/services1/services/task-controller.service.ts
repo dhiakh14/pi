@@ -27,6 +27,8 @@ import { getTaskById } from '../fn/task-controller/get-task-by-id';
 import { GetTaskById$Params } from '../fn/task-controller/get-task-by-id';
 import { getTasksByProjectId } from '../fn/task-controller/get-tasks-by-project-id';
 import { GetTasksByProjectId$Params } from '../fn/task-controller/get-tasks-by-project-id';
+import { predictDuration } from '../fn/task-controller/predict-duration';
+import { PredictDuration$Params } from '../fn/task-controller/predict-duration';
 import { Task } from '../models/task';
 import { updateTask } from '../fn/task-controller/update-task';
 import { UpdateTask$Params } from '../fn/task-controller/update-task';
@@ -59,6 +61,39 @@ export class TaskControllerService extends BaseService {
   updateTask(params: UpdateTask$Params, context?: HttpContext): Observable<Task> {
     return this.updateTask$Response(params, context).pipe(
       map((r: StrictHttpResponse<Task>): Task => r.body)
+    );
+  }
+
+  /** Path part for operation `predictDuration()` */
+  static readonly PredictDurationPath = '/Task/predictDuration';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `predictDuration()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  predictDuration$Response(params: PredictDuration$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: number;
+}>> {
+    return predictDuration(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `predictDuration$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  predictDuration(params: PredictDuration$Params, context?: HttpContext): Observable<{
+[key: string]: number;
+}> {
+    return this.predictDuration$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+[key: string]: number;
+}>): {
+[key: string]: number;
+} => r.body)
     );
   }
 

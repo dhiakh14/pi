@@ -70,6 +70,25 @@ public class TaskController {
         return new ResponseEntity<>("Tasks deleted successfully", HttpStatus.OK);
     }
 
+    @PostMapping("/predictDuration")
+    public ResponseEntity<Map<String, Double>> predictDuration(@RequestBody Map<String, String> request) {
+        String name = request.get("name");
+        String description = request.get("description");
+
+        // Validate input
+        if (name == null || description == null || name.trim().isEmpty() || description.trim().isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", -1.0), HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            Double predictedDuration = taskService.predictTaskDuration(name, description);
+
+            return new ResponseEntity<>(Map.of("The expected duration is ", predictedDuration), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", -1.0), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 

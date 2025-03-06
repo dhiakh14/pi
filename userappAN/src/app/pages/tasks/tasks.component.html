@@ -3,7 +3,36 @@
     <button (click)="addTask()" class="add-task-btn">
       <i class="fas fa-plus-circle"></i> Add Task
     </button>
+    <button (click)="showPredictionForm = !showPredictionForm" class="add-task-btn">
+      <i class="fas fa-chart-line"></i> Prediction
+    </button>
   </div>
+
+  <div *ngIf="showPredictionForm" class="prediction-form-container">
+    <h3>Predict Task Duration</h3>
+    <form (ngSubmit)="predictTaskDuration(predictionName.value, predictionDescription.value)">
+      <div class="form-group">
+        <label for="predictionName">Task Name:</label>
+        <input id="predictionName" #predictionName type="text" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="predictionDescription">Task Description:</label>
+        <textarea id="predictionDescription" #predictionDescription required class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    <div *ngIf="predictedDuration !== null" class="prediction-result">
+      <h4>Predicted Duration:</h4>
+      <p>{{ predictedDuration }} days</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <h4>Error:</h4>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+
   <div *ngIf="tasks.length > 0; else noTasks">
     <div class="search-container">
       <input 
@@ -19,7 +48,6 @@
 
     <button (click)="exportToExcel()" class="export-excel-btn">Export to Excel</button>
 
-    <!-- Table with Pagination -->
     <table class="task-table">
       <thead>
         <tr>
@@ -62,7 +90,6 @@
       </tbody>
     </table>
 
-    <!-- Pagination Controls -->
     <div class="pagination-controls">
       <pagination-controls 
         (pageChange)="currentPage = $event" 
