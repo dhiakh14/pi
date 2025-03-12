@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
@@ -8,6 +8,9 @@ import * as XLSX from 'xlsx';
 import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controller/save-gantt-chart';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/predict-duration';
+import * as THREE from 'three';
+import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial } from 'three';
+
 declare const gantt: any; 
 
 @Component({
@@ -25,24 +28,31 @@ export class TasksComponent implements OnInit, AfterViewInit {
   qrCodeData: string = '';
   currentPage: number = 1; 
   itemsPerPage: number = 4;
-  showPredictionForm: boolean = false; 
+  showPredictionForm: boolean = false;    
   predictedDuration: number | null = null; 
   errorMessage: string | null = null;
+  taskDescription: string = '';
+ 
 
   constructor(
     private taskService: TaskControllerService,
     private ganttChartService: GanttChartControllerService, 
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {}
 
   ngAfterViewInit(): void {
-    gantt.init('gantt-container');
   }
 
   ngOnInit(): void {
     this.loadTasks();
   }
+
+
+
+
+
+  
 
   predictTaskDuration(name: string, description: string) {
     const params: PredictDuration$Params = {
@@ -131,23 +141,26 @@ export class TasksComponent implements OnInit, AfterViewInit {
       'Status'
     ];
     data.push(headers);
-
+  
     this.filteredTasks.forEach(task => {
+      const startDate = task.startDate ? new Date(task.startDate).toISOString().split('T')[0] : 'N/A';
+      const plannedEndDate = task.planned_end_date ? new Date(task.planned_end_date).toISOString().split('T')[0] : 'N/A';
+  
       const row = [
         task.name,
         task.description,
-        task.startDate,
-        task.planned_end_date,
+        startDate, 
+        plannedEndDate, 
         task.status
       ];
       data.push(row);
     });
-
+  
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
-
+  
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Tasks');
-
+  
     XLSX.writeFile(wb, 'Tasks.xlsx');
   }
 

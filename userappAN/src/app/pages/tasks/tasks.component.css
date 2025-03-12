@@ -18,6 +18,13 @@
 .add-task-btn i {
   margin-right: 5px;
 }
+.task-table td:nth-child(3) { /* Targeting the 'Description' column */
+  max-width: 200px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 /* Prediction Form Container */
 .prediction-form-container {

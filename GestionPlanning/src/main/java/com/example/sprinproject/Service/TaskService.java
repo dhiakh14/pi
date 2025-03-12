@@ -95,29 +95,23 @@ public class TaskService {
         taskRepo.deleteAll(tasks);}
 
     public Double predictTaskDuration(String name, String description) {
-        String url = "http://127.0.0.1:5000/predict"; // Flask service URL
+        String url = "http://127.0.0.1:5000/predict";
 
         try {
-            // Prepare the request body
             Map<String, String> requestBody = new HashMap<>();
             requestBody.put("name", name);
             requestBody.put("description", description);
 
-            // Set headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            // Create the HTTP entity
             HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
 
-            // Make the POST request to the Flask service
             ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, requestEntity, Map.class);
 
-            // Check if the response is successful
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> responseBody = responseEntity.getBody();
                 if (responseBody != null && responseBody.containsKey("The expected duration is ")) {
-                    // Extract the predicted duration
                     return (Double) responseBody.get("The expected duration is ");
                 }
             }

@@ -7,8 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(10px) brightness(0.85); /* Strong blur with subtle darkening */
   position: relative;
+  backdrop-filter: blur(10px) brightness(0.8);
 }
 
 .full-screen-background::before {
@@ -18,132 +18,159 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.05); /* Very subtle overlay for contrast */
+  background: rgba(10, 25, 47, 0.6); /* Deep blue overlay for contrast */
   z-index: -1;
 }
 
+/* 🔹 Task Details Card */
 .task-details-wrapper {
-  background: rgba(255, 255, 255, 0.7); /* More transparent for a lighter feel */
-  border-radius: 12px; /* Smaller radius for a compact look */
-  padding: 30px; /* Reduced padding */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  max-width: 600px; /* Smaller max-width */
-  width: 92%;
-  animation: fadeIn 0.6s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for depth */
-  backdrop-filter: blur(6px); /* Frosted glass effect */
+  background: rgba(20, 20, 20, 0.9); /* Dark, neutral background */
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  max-width: 640px;
+  width: 95%;
+  animation: fadeIn 0.5s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
 }
 
+/* 🔹 Title Styling */
 .task-title {
   text-align: center;
-  font-size: 1.8rem; /* Smaller font size */
-  font-weight: 700; /* Bold but not too heavy */
-  color: #333;
-  margin-bottom: 15px; /* Reduced spacing */
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f4d160; /* Soft gold accent */
+  margin-bottom: 18px;
   position: relative;
 }
 
 .task-title::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px; /* Smaller accent line */
-  height: 2px; /* Thinner line */
-  background: #4CAF50; /* Accent color */
-  border-radius: 1px;
-  opacity: 0.8; /* Slightly transparent */
+  width: 60px;
+  height: 3px;
+  background: #5dc1b9; /* Teal accent */
+  border-radius: 2px;
 }
 
+/* 🔹 Task Details Styling */
 .task-detail {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px; /* Reduced spacing */
-  font-size: 1rem; /* Smaller font size */
-  color: #555;
-  padding: 8px; /* Reduced padding */
-  border-radius: 6px; /* Smaller radius */
-  transition: background-color 0.3s ease;
+  margin-bottom: 14px;
+  font-size: 1rem;
+  color: #cbd5e1; /* Light gray-blue text */
+  padding: 12px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
 }
 
 .task-detail:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* Subtle hover effect */
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .task-detail label {
-  font-weight: 600; /* Semi-bold for readability */
-  color: #222;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .task-value {
   font-style: italic;
-  color: #444;
+  color: #a0aec0;
 }
 
-.actual-end-date-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Smaller gap */
-}
-
-.set-end-date-btn {
-  background-color: #ff7f50;
-  color: #fff;
+/* 🔹 Buttons */
+.set-end-date-btn,
+.back-button,
+.button-export {
+  background: linear-gradient(135deg, #5dc1b9, #377e75);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 14px;
   border: none;
-  padding: 8px 12px; /* Smaller padding */
-  border-radius: 6px; /* Smaller radius */
+  border-radius: 0; /* Removed rounded corners */
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px; /* Smaller gap */
-  font-weight: 600; /* Semi-bold */
-  font-size: 0.95rem; /* Smaller font size */
-}
-
-.set-end-date-btn:hover {
-  background-color: #ff5722;
-}
-
-.back-button {
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 8px 12px; /* Smaller padding */
-  border-radius: 6px; /* Smaller radius */
-  text-decoration: none;
-  margin-top: 12px; /* Reduced spacing */
-  transition: background-color 0.3s ease;
-  font-weight: 600; /* Semi-bold */
-  font-size: 0.95rem; /* Smaller font size */
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(93, 193, 185, 0.3);
+  height: 32px; /* Ensuring uniform button size */
+  min-width: 100px; /* Making sure all buttons have the same width */
+  justify-content: center;
 }
 
-.back-button:hover {
-  background-color: #388E3C;
+.set-end-date-btn:hover,
+.back-button:hover,
+.button-export:hover {
+  background: linear-gradient(135deg, #4bb5a8, #285f57);
+  transform: translateY(-1px);
 }
 
-.loading-message {
-  text-align: center;
-  color: #fff;
-  font-size: 1.2rem; /* Smaller font size */
-  font-weight: 600; /* Semi-bold */
+.set-end-date-btn:active,
+.back-button:active,
+.button-export:active {
+  background: linear-gradient(135deg, #3a968a, #1f4a44);
+  transform: scale(0.98);
 }
 
+
+/* 🔹 Loading Spinner */
 .loading-spinner {
-  border: 4px solid rgba(243, 243, 243, 0.3); /* Thinner border */
-  border-top: 4px solid #3498db;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #5dc1b9;
   border-radius: 50%;
-  width: 30px; /* Smaller spinner */
-  height: 30px;
+  width: 35px;
+  height: 35px;
   animation: spin 1s linear infinite;
-  margin: 15px auto; /* Reduced spacing */
+  margin: 15px auto;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* 🔹 Status Indicators */
+.late {
+  color: #e63946;
+  font-weight: bold;
+  animation: dangerPulse 1.5s infinite;
+}
+
+.early {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.on-time {
+  color: #1e88e5;
+  font-weight: bold;
+}
+
+/* 🔹 Status Message */
+.status-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  display: inline-block;
+  border-radius: 6px;
+}
+
+.status-message.late {
+  background-color: rgba(230, 57, 70, 0.15);
+  color: #e63946;
+  animation: dangerPulse 1.5s infinite;
+}
+
+.status-message.early {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+
+.status-message.on-time {
+  background-color: rgba(30, 136, 229, 0.15);
+  color: #1e88e5;
 }
 
 @keyframes fadeIn {
@@ -151,72 +178,39 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @keyframes dangerPulse {
-  0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-  70% { box-shadow: 0 0 10px 10px rgba(231, 76, 60, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
+  70% { box-shadow: 0 0 12px 12px rgba(230, 57, 70, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
 }
 
-.late {
-  color: #e74c3c;
-  font-weight: bold;
-  animation: dangerPulse 1.5s infinite;
-}
-
-.early {
-  color: #27ae60;
-  font-weight: bold;
-}
-
-.on-time {
-  color: #2980b9;
-  font-weight: bold;
-}
-
-.status-message {
-  font-size: 0.9rem; /* Smaller font size */
-  font-weight: 600; /* Semi-bold */
-  padding: 6px 12px; /* Reduced padding */
-  border-radius: 4px; /* Smaller radius */
-  display: inline-block;
-}
-
-.status-message.late {
-  background-color: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
-  animation: dangerPulse 1.5s infinite;
-}
-
-.status-message.early {
-  background-color: rgba(39, 174, 96, 0.1);
-  color: #27ae60;
-}
-
-.status-message.on-time {
-  background-color: rgba(41, 128, 185, 0.1);
-  color: #2980b9;
-}
-
-/* Responsive Design */
+/* 🔹 Responsive Design */
 @media (max-width: 768px) {
   .task-details-wrapper {
-    padding: 15px; /* Smaller padding */
-    width: 90%; /* Slightly wider on smaller screens */
+    padding: 20px;
+    width: 90%;
   }
 
   .task-title {
-    font-size: 1.5rem; /* Smaller font size */
+    font-size: 1.6rem;
   }
 
   .task-detail {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px; /* Smaller gap */
+    gap: 6px;
   }
 
-  .set-end-date-btn, .back-button {
+  .set-end-date-btn,
+  .back-button,
+  .button-export {
     width: 100%;
     justify-content: center;
-    padding: 10px; /* Adjusted padding */
+    padding: 12px;
   }
 }

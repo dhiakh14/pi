@@ -18,50 +18,52 @@ export class AddTaskComponent {
   constructor(
     private taskService: TaskControllerService,
     private router: Router,
-    private route: ActivatedRoute // To fetch the task ID from the URL
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = params.get('id'); // Get 'id' param from the route
+      const id = params.get('id'); 
       if (id) {
-        this.taskId = +id; // Convert to number and store the task ID
-        this.isEditMode = true; // Set edit mode to true since we are editing
-        this.loadTask(this.taskId); // Fetch the task data using the task ID
+        this.taskId = +id; 
+        this.isEditMode = true; 
+        this.loadTask(this.taskId); 
       }
     });
   }
 
-  // Fetch task data from the backend
   loadTask(id: number): void {
     this.taskService.getTaskById({ id }).subscribe({
       next: (task) => {
-        this.task = task; // Populate task data for editing
-        console.log('Task loaded:', this.task); // For debugging purposes
+        this.task = task; 
+        console.log('Task loaded:', this.task);
+
+        if (this.task.startDate) {
+          this.task.startDate = this.convertToISO(this.task.startDate);
+        }
+        if (this.task.planned_end_date) {
+          this.task.planned_end_date = this.convertToISO(this.task.planned_end_date);
+        }
       },
       error: (err) => console.error('Error loading task:', err)
     });
   }
 
-  // Handle form submission
   onSubmit(): void {
     if (!this.task.name || !this.task.description || !this.task.startDate || !this.task.planned_end_date) {
       alert('Please fill in all fields.');
       return;
     }
-
-    // Convert dates to ISO format before saving
+  
     this.task.startDate = this.convertToISO(this.task.startDate);
     this.task.planned_end_date = this.convertToISO(this.task.planned_end_date);
-
-    // Check if we're editing or adding a new task
+  
     if (this.isEditMode && this.taskId) {
-      // Update task if in edit mode
       this.taskService.updateTask({ idTask: this.taskId, body: this.task }).subscribe({
         next: (response) => {
           console.log('Task updated successfully:', response);
           alert('Task updated successfully!');
-          this.router.navigate(['/tasks']); // Redirect to task list
+          this.router.navigate(['/tasks']); 
         },
         error: (error) => {
           console.error('Error updating task:', error);
@@ -83,11 +85,16 @@ export class AddTaskComponent {
       });
     }
   }
-
+  
   private convertToISO(date: any): string {
     const parsedDate = new Date(date);
-    return parsedDate.toISOString(); 
+    const year = parsedDate.getFullYear();
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');  
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
   }
+  
 
   Back(): void{
     this.router.navigate(['/tasks'])

@@ -11,6 +11,12 @@
       <a (click)="navigateToProfile()">👤 Profile</a>
     </li>
     <li><a routerLink="/gantt"> 📆 Planning</a></li>
+    <li *ngIf="isAdmin">
+      <a routerLink="/dash">
+        <i class="fas fa-chart-pie"></i> Charts
+      </a>
+    </li>
+    
 
     
   </ul>

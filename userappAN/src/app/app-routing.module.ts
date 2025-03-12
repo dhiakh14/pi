@@ -13,17 +13,21 @@ import { HomeComponent } from './pages/home/home.component';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
 import { AboutComponent } from './pages/about/about.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { connectedGuard } from './guards/connected.guard';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {path:'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'tasks', component: TasksComponent },
+  { path: 'tasks', component: TasksComponent , canActivate:[connectedGuard]},
   { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
-  { path: 'task-details/:idTask', component: TaskDetailsComponent },
-  {path: 'gantt' , component:GanttChartListComponent},
+  { path: 'task-details/:idTask', component: TaskDetailsComponent , canActivate:[connectedGuard]},
+  {path: 'gantt' , component:GanttChartListComponent, canActivate:[connectedGuard]},
   {path: 'about', component:AboutComponent},
+  {path: 'dash', component: DashboardComponent, canActivate:[connectedGuard]},
 
   {
     path: 'activate-account',
@@ -31,8 +35,8 @@ const routes: Routes = [
   },
   { path: 'profile/:idUser', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'notadminusers', component: ProfileComponent, canActivate: [nonAdminGuardGuard] },
-  { path: 'addtask', component: AddTaskComponent },
-  { path: 'tasks/edit/:id', component: AddTaskComponent },
+  { path: 'addtask', component: AddTaskComponent, canActivate:[connectedGuard] },
+  { path: 'tasks/edit/:id', component: AddTaskComponent, canActivate:[connectedGuard] },
 
 ];
 
