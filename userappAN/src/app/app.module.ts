@@ -29,7 +29,7 @@ import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
-import { NgChartsModule } from 'ng2-charts'; // ✅ Import Charts Module
+import { NgChartsModule } from 'ng2-charts'; 
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -66,7 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     ReactiveFormsModule,
     RouterModule,
-    NgChartsModule, // ✅ Add NgChartsModule for Charts
+    NgChartsModule, 
 
     TranslateModule.forRoot({
       loader: {

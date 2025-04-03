@@ -44,6 +44,11 @@ export class SupplierService {
   getTopSuppliers(): Observable<Supplier[]> {
     return this.http.get<Supplier[]>(`${this.apiUrl}/top-suppliers`);
   }
+  summarizeNotes(notes: string): Observable<any> {
+    const apiUrl = 'http://localhost:8080/api/suppliers/summarize';
+    return this.http.post(apiUrl, { notes });
+  }
+  
   
   
   

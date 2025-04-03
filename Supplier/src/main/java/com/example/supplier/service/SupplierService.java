@@ -14,11 +14,17 @@ public class SupplierService {
 
     private final SupplierRepository supplierRepository;
     private final MaterialResourceRepository materialResourceRepository;
+    private final AISummarizationService aiSummarizationService;
 
-    public SupplierService(SupplierRepository supplierRepository, MaterialResourceRepository materialResourceRepository) {
+
+    public SupplierService(SupplierRepository supplierRepository,
+                           MaterialResourceRepository materialResourceRepository,
+                           AISummarizationService aiSummarizationService) {
         this.supplierRepository = supplierRepository;
         this.materialResourceRepository = materialResourceRepository;
+        this.aiSummarizationService = aiSummarizationService;
     }
+
 
     public List<Supplier> getAllSuppliers() {
         return supplierRepository.findAll();
@@ -69,5 +75,12 @@ public class SupplierService {
             supplierRepository.save(supplier);
         });
     }
+
+    public String summarizeSupplierNotes(Long supplierId) {
+        return supplierRepository.findById(supplierId)
+                .map(supplier -> aiSummarizationService.summarizeText(supplier.getNotes()))
+                .orElse("Supplier not found.");
+    }
+
 
 }
