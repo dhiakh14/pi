@@ -15,6 +15,7 @@ import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-li
 import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { connectedGuard } from './guards/connected.guard';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'gantt' , component:GanttChartListComponent, canActivate:[connectedGuard]},
   {path: 'about', component:AboutComponent},
   {path: 'dash', component: DashboardComponent, canActivate:[connectedGuard]},
+  {path:'reset-password', component: ResetPasswordComponent},
 
   {
     path: 'activate-account',

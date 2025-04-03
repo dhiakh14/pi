@@ -14,15 +14,104 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { AuthenficationResponse } from '../models/authenfication-response';
 import { authenticate } from '../fn/authentication/authenticate';
 import { Authenticate$Params } from '../fn/authentication/authenticate';
+import { authenticateWithGoogle } from '../fn/authentication/authenticate-with-google';
+import { AuthenticateWithGoogle$Params } from '../fn/authentication/authenticate-with-google';
 import { confirm } from '../fn/authentication/confirm';
 import { Confirm$Params } from '../fn/authentication/confirm';
+import { forgotPassword } from '../fn/authentication/forgot-password';
+import { ForgotPassword$Params } from '../fn/authentication/forgot-password';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
+import { resetPassword } from '../fn/authentication/reset-password';
+import { ResetPassword$Params } from '../fn/authentication/reset-password';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `resetPassword()` */
+  static readonly ResetPasswordPath = '/auth/reset-password';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `resetPassword()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  resetPassword$Response(params: ResetPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return resetPassword(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `resetPassword$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  resetPassword(params: ResetPassword$Params, context?: HttpContext): Observable<{
+}> {
+    return this.resetPassword$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `authenticateWithGoogle()` */
+  static readonly AuthenticateWithGooglePath = '/auth/google';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `authenticateWithGoogle()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  authenticateWithGoogle$Response(params: AuthenticateWithGoogle$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenficationResponse>> {
+    return authenticateWithGoogle(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `authenticateWithGoogle$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  authenticateWithGoogle(params: AuthenticateWithGoogle$Params, context?: HttpContext): Observable<AuthenficationResponse> {
+    return this.authenticateWithGoogle$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AuthenficationResponse>): AuthenficationResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `forgotPassword()` */
+  static readonly ForgotPasswordPath = '/auth/forgot-password';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `forgotPassword()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  forgotPassword$Response(params: ForgotPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return forgotPassword(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `forgotPassword$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  forgotPassword(params: ForgotPassword$Params, context?: HttpContext): Observable<{
+}> {
+    return this.forgotPassword$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
   }
 
   /** Path part for operation `authenticate()` */

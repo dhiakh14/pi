@@ -34,7 +34,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Discovery" options="-parameters" />
-      <module name="Gateway" options="-parameters" />
+      <module name="Gateway" options="" />
       <module name="GestioPlanning" options="-parameters" />
       <module name="KhalfaouiMohamedDhia" options="-parameters" />
       <module name="ProjectMG" options="-parameters" />

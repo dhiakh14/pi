@@ -32,6 +32,18 @@
     return this.token !== null;
   }
 
+  getDateOfBirth(): string | null {
+    const decoded = this.getDecodedToken();
+    if (decoded?.dateOfBirth) {
+      if (typeof decoded.dateOfBirth === 'string') {
+        return decoded.dateOfBirth;
+      } else if (decoded.dateOfBirth instanceof Date) {
+        return decoded.dateOfBirth.toISOString().split('T')[0];
+      }
+    }
+    return null;
+  }
+
   getUserRoles(): string[] {
     const decoded = this.getDecodedToken();
     console.log('Decoded Token:', decoded); 

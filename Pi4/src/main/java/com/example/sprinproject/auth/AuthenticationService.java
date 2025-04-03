@@ -9,6 +9,10 @@ import com.example.sprinproject.user.Token;
 import com.example.sprinproject.user.TokenRepository;
 import com.example.sprinproject.user.User;
 import com.example.sprinproject.user.userRepository;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +24,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +45,70 @@ public class AuthenticationService {
     private String activationUrl;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
+    @Value("${application.mailing.frontend.reset-password-url}")
+    private String resetPasswordUrl;
+
+    public AuthenficationResponse authenticateWithGoogle(String googleToken) throws GeneralSecurityException, IOException {
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                new NetHttpTransport(),
+                new GsonFactory()
+        )
+                .setAudience(Collections.singletonList(googleClientId))
+                .build();
+
+        GoogleIdToken idToken = verifier.verify(googleToken);
+        if (idToken == null) {
+            throw new RuntimeException("Invalid Google token");
+        }
+
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        String email = payload.getEmail();
+        String firstName = (String) payload.get("given_name");
+        String lastName = (String) payload.get("family_name");
+
+        LocalDate defaultDateOfBirth = LocalDate.of(2000, 1, 1);
+
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    Role userRole = role.findByName("USER")
+                            .orElseThrow(() -> new IllegalStateException("ROLE_USER not found"));
+
+                    User newUser = new User();
+                    newUser.setFirstName(firstName);
+                    newUser.setLastName(lastName);
+                    newUser.setEmail(email);
+                    newUser.setDateOfBirth(defaultDateOfBirth);
+                    newUser.setPassword(passwordEncoder.encode(generateRandomPassword()));
+                    newUser.setAccountLocked(false);
+                    newUser.setEnabled(true);
+
+                    Set<Role> roles = new HashSet<>();
+                    roles.add(userRole);
+                    newUser.setRoles(roles);
+
+                    return userRepository.save(newUser);
+                });
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("fullName", user.FullName());
+        claims.put("email", user.getEmail());
+        claims.put("dateOfBirth", user.getDateOfBirth());
+
+        String jwtToken = jwtService.generateToken(claims, user);
+        return AuthenficationResponse.builder().token(jwtToken).build();
+    }
+
+    private String generateRandomPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(20);
+        for (int i = 0; i < 20; i++) {
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
+    }
 
 
 
@@ -133,4 +201,49 @@ public class AuthenticationService {
         tokenRepository.save(savedToken);
 
     }
+
+    public void forgotPassword(String email) throws MessagingException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        String resetToken = UUID.randomUUID().toString();
+        Token token = Token.builder()
+                .token(resetToken)
+                .createdAt(LocalDateTime.now())
+                .expiresAt(LocalDateTime.now().plusMinutes(30))
+                .user(user)
+                .build();
+
+        tokenRepository.save(token);
+
+        String resetLink = resetPasswordUrl + "?token=" + resetToken;
+
+        emailService.SendEmail(
+                user.getEmail(),
+                user.FullName(),
+                EmailTemplateName.RESET_PASSWORD,
+                resetLink,
+                resetToken,
+                "Password Reset Request"
+        );
+    }
+
+    public void resetPassword(String token, String newPassword) {
+        Token savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Invalid or expired token"));
+
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            throw new RuntimeException("Token has expired");
+        }
+
+        try {
+            User user = savedToken.getUser();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            tokenRepository.delete(savedToken);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update password. Please try again.");
+        }
+    }
+
 }
