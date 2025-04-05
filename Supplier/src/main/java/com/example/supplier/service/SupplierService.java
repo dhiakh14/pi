@@ -1,11 +1,16 @@
 package com.example.supplier.service;
 
+import com.example.supplier.dto.SupplierSummaryDTO;
 import com.example.supplier.model.Supplier;
+import com.example.supplier.model.Status;
+
+
 import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
 import com.example.supplier.repository.MaterialResourceRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +19,6 @@ public class SupplierService {
 
     private final SupplierRepository supplierRepository;
     private final MaterialResourceRepository materialResourceRepository;
-    private final AISummarizationService aiSummarizationService;
 
 
     public SupplierService(SupplierRepository supplierRepository,
@@ -22,7 +26,6 @@ public class SupplierService {
                            AISummarizationService aiSummarizationService) {
         this.supplierRepository = supplierRepository;
         this.materialResourceRepository = materialResourceRepository;
-        this.aiSummarizationService = aiSummarizationService;
     }
 
 
@@ -76,11 +79,42 @@ public class SupplierService {
         });
     }
 
-    public String summarizeSupplierNotes(Long supplierId) {
-        return supplierRepository.findById(supplierId)
-                .map(supplier -> aiSummarizationService.summarizeText(supplier.getNotes()))
-                .orElse("Supplier not found.");
+    /*public SupplierSummaryDTO getSummary() {
+        SupplierSummaryDTO summary = new SupplierSummaryDTO();
+        long total = supplierRepository.count();
+        //long active = supplierRepository.countByStatus(Status.ACTIVE);
+
+        //long inactive = supplierRepository.countByStatus("inactive");
+        long inactive = supplierRepository.countByStatus(Status.INACTIVE);
+
+
+
+        long newSuppliers = supplierRepository.countNewSuppliers(LocalDate.now().withDayOfMonth(1));
+
+        summary.setTotalSuppliers(total); /////////TOTAL SUPPLIERS
+        summary.setActiveSuppliers(active); /////////ACTIVE SUPPLIERS
+        summary.setInactiveSuppliers(inactive); /////////INACTIVE SUPPLIERS
+
+        summary.setNewSuppliersThisMonth(newSuppliers); ////////NEW SUPPLIERS
+
+        return summary;
+    }*/
+
+    public SupplierSummaryDTO getSummary() {
+        SupplierSummaryDTO summary = new SupplierSummaryDTO();
+        long total = supplierRepository.count();
+        long active = supplierRepository.countByStatus(Status.ACTIVE);
+        long inactive = supplierRepository.countByStatus(Status.INACTIVE);
+        long newSuppliers = supplierRepository.countNewSuppliers(LocalDate.now().withDayOfMonth(1));
+
+        summary.setTotalSuppliers(total);
+        summary.setActiveSuppliers(active);
+        summary.setInactiveSuppliers(inactive);
+        summary.setNewSuppliersThisMonth(newSuppliers);
+
+        return summary;
     }
+
 
 
 }

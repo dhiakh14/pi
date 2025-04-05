@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="dashboard-title">Supplier Dashboard</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="metrics-grid">
+        <!-- Total Suppliers -->
+        <div class="metric-card">
+          <mat-icon class="metric-icon">groups</mat-icon>
+          <div class="metric-value">{{ summary?.totalSuppliers || 0 }}</div>
+          <div class="metric-label">Total Suppliers</div>
+        </div>
+
+        <!-- Active Suppliers -->
+        <div class="metric-card">
+          <mat-icon class="metric-icon" color="primary">check_circle</mat-icon>
+          <div class="metric-value">{{ summary?.activeSuppliers || 0 }}</div>
+          <div class="metric-label">Active</div>
+        </div>
+
+        <!-- Inactive Suppliers -->
+        <div class="metric-card">
+          <mat-icon class="metric-icon" color="warn">cancel</mat-icon>
+          <div class="metric-value">{{ summary?.inactiveSuppliers || 0 }}</div>
+          <div class="metric-label">Inactive</div>
+        </div>
+
+        <!-- New This Month -->
+        <div class="metric-card">
+          <mat-icon class="metric-icon">new_releases</mat-icon>
+          <div class="metric-value">{{ summary?.newSuppliersThisMonth || 0 }}</div>
+          <div class="metric-label">New This Month</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

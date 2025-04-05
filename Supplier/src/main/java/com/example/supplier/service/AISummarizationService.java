@@ -4,19 +4,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class AISummarizationService {
-
     @Value("${huggingface.api.key}")
     private String apiKey;
 
     private static final String HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn";
 
-    private final RestTemplate restTemplate = new RestTemplate();  // ✅ Creates an HTTP client
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public String summarizeText(String text) {
         HttpHeaders headers = new HttpHeaders();
@@ -42,4 +40,5 @@ public class AISummarizationService {
             return "❌ Error summarizing text: " + e.getMessage();
         }
     }
+
 }

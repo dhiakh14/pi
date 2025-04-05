@@ -18,6 +18,9 @@ import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update
 import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
 
 
+import { SupplierSummaryComponent } from './components/supplier-summary/supplier-summary.component';
+
+
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -27,6 +30,11 @@ const routes: Routes = [
   { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
   { path: 'task-details/:idTask', component: TaskDetailsComponent },
   { path: 'supplier-chart', component: SupplierChartComponent },  // ✅ Add this
+  { path: 'supplier-summary', component: SupplierSummaryComponent },  // ✅ Add this
+
+
+  
+  
   
 
 

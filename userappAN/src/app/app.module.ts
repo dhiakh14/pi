@@ -29,7 +29,18 @@ import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
-import { NgChartsModule } from 'ng2-charts'; 
+import { NgChartsModule } from 'ng2-charts';
+import { SupplierSummaryComponent } from './components/supplier-summary/supplier-summary.component';
+
+// Angular Material Modules
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierDetailComponent,
     SupplierUpdateComponent,
     SupplierAddComponent,
-    SupplierChartComponent
+    SupplierChartComponent,
+    SupplierSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +76,20 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     CodeInputModule,
     MatDialogModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule,
-    NgChartsModule, 
+    NgChartsModule,
+
+    // Angular Material Modules
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatDividerModule,
 
     TranslateModule.forRoot({
       loader: {
@@ -75,7 +98,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

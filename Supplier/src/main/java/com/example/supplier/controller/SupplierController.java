@@ -1,6 +1,7 @@
 package com.example.supplier.controller;
 
 import com.example.supplier.dto.SummarizeRequest;
+import com.example.supplier.dto.SupplierSummaryDTO;
 import com.example.supplier.model.Supplier;
 import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
@@ -129,7 +130,7 @@ public class SupplierController {
     }
 
     // ✅ Summarization Feature using Hugging Face
-    @PostMapping("/summarize")
+    /*@PostMapping("/summarize")
     public ResponseEntity<Map<String, String>> summarizeNotes(@RequestBody Map<String, String> requestBody) {
         // ✅ Fix: Ensure correct key
         String notes = requestBody.get("inputs");
@@ -171,7 +172,7 @@ public class SupplierController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Collections.singletonMap("error", "Failed to summarize notes. Exception: " + e.getMessage()));
         }
-    }
+    }*/
 
 
     // ✅ Sentiment Analysis Feature
@@ -185,5 +186,10 @@ public class SupplierController {
 
         String sentiment = sentimentService.analyzeSentiment(text);
         return ResponseEntity.ok(Collections.singletonMap("sentiment", sentiment));
+    }
+    /////
+    @GetMapping("/summary")
+    public SupplierSummaryDTO getSupplierSummary() {
+        return supplierService.getSummary();
     }
 }

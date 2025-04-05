@@ -3,6 +3,10 @@ package com.example.supplier.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import com.example.supplier.model.Status;
+
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "suppliers")
@@ -22,6 +26,9 @@ public class Supplier {
     private String address;
     private String phoneNumber;
     private String email;
+    ////
+    private LocalDate createdAt;
+///
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -38,7 +45,7 @@ public class Supplier {
     private MaterialResource materialResource;
 }
 
-enum Status {
+/*enum Status {
     ACTIVE,
     INACTIVE
-}
+}*/
