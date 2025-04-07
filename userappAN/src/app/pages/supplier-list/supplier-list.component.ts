@@ -58,13 +58,22 @@ export class SupplierListComponent implements OnInit {
   navigateToAddSupplier(): void {
     this.router.navigate(['/add-supplier']);  // ✅ Navigate to add supplier page
   }
+
   viewSupplier(id: number): void {
+    
     this.supplierService.incrementClickCount(id).subscribe(() => {
-      this.router.navigate(['/supplier', id]); // Navigate to details page
+      this.router.navigate(['/supplier', id]);
+ // Navigate to details page
     });
   }
+
+
   navigateToChart(): void {
     this.router.navigate(['/supplier-chart']);
+  }
+
+  navigateToSummary(): void {
+    this.router.navigate(['/supplier-summary']);
   }
   
 }

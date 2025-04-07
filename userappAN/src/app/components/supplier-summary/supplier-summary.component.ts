@@ -3,6 +3,8 @@ import { SupplierService, SupplierSummary } from 'src/app/service-arij/supplier.
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-supplier-summary',
@@ -16,7 +18,8 @@ export class SupplierSummaryComponent implements OnInit {
 
   constructor(
     private supplierService: SupplierService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,5 +44,8 @@ export class SupplierSummaryComponent implements OnInit {
 
   refresh() {
     this.loadSummary();
+  }
+  goBack(): void {
+    this.router.navigate(['/suppliers']);
   }
 }

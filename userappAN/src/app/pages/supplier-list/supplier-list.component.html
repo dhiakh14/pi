@@ -1,20 +1,26 @@
 <div class="supplier-list-container">
-  <h1 class="page-title">
-    📦 Supplier List
-  </h1>
+  <h1 class="page-title">📦 Supplier List</h1>
 
-  <!-- ✅ Search Bar -->
+  <!-- Search Bar -->
   <div class="search-container">
     <input type="text" [(ngModel)]="searchText" placeholder="🔍 Search suppliers..." class="search-box" />
   </div>
 
-  <!-- Show loading message -->
+  <!-- Loading and Error Messages -->
   <p *ngIf="isLoading" class="loading">Loading suppliers...</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
-  <!-- Show error message if API fails -->
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-  <button class="btn-chart" (click)="navigateToChart()">📊 View Supplier Chart</button>
-
+  <!-- Chart & Summary Buttons -->
+  <div class="button-container">
+    <div class="button-group">
+      <button class="chart-button" (click)="navigateToChart()">
+        <span class="icon">📊</span> View Supplier Chart
+      </button>
+      <button class="chart-button" (click)="navigateToSummary()">
+        <span class="icon">📋</span> View Supplier Summary
+      </button>
+    </div>
+  </div>
 
   <!-- Supplier Grid -->
   <div class="supplier-grid">
@@ -23,7 +29,10 @@
       <p><strong>📍 Address:</strong> {{ supplier.address }}</p>
       <p><strong>🔧 Material:</strong> {{ supplier.materialResource?.firstName || 'Not Assigned' }}</p>
 
-      <div class="status-badge" [ngClass]="{'active': supplier.status === 'ACTIVE', 'inactive': supplier.status === 'INACTIVE'}">
+      <div class="status-badge" [ngClass]="{
+          'active': supplier.status === 'ACTIVE',
+          'inactive': supplier.status === 'INACTIVE'
+        }">
         {{ supplier.status }}
       </div>
 
@@ -39,6 +48,5 @@
   </div>
 </div>
 
-
-<!-- Floating Add Supplier Button -->
+<!-- Floating Add Button -->
 <button class="btn-add" (click)="navigateToAddSupplier()">Add Supplier ➕</button>

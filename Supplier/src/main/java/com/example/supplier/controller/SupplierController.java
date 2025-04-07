@@ -53,8 +53,8 @@ public class SupplierController {
     }
 
     // ✅ Get supplier by ID and increment click count
-    @GetMapping("/{id}")
-    public ResponseEntity<Supplier> getById(@PathVariable Long id) {
+    //@GetMapping("/{id}")
+    /*public ResponseEntity<Supplier> getById(@PathVariable Long id) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
 
         if (optionalSupplier.isPresent()) {
@@ -65,7 +65,15 @@ public class SupplierController {
         }
 
         return ResponseEntity.notFound().build();
+    }*/
+    ///
+    @GetMapping("/{id}")
+    public ResponseEntity<Supplier> getById(@PathVariable Long id) {
+        return supplierRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
 
     // ✅ Create supplier
     @PostMapping
