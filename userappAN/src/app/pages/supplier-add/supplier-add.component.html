@@ -20,10 +20,13 @@
 
         <!-- Address -->
         <div class="form-group">
-          <label for="address">Address:</label>
-          <input id="address" type="text" formControlName="address" class="form-control" />
-          <small *ngIf="submitted && f['address'].errors?.['required']" class="error">Address is required.</small>
+          <label for="address">Address</label>
+          <input id="address-input" class="form-control" type="text" placeholder="Enter address" formControlName="address">
         </div>
+        
+        <!-- Google Map Container -->
+        <div id="map" style="height: 300px; width: 100%; margin-top: 10px;"></div>
+        
 
         <!-- Phone Number -->
         <div class="form-group">
