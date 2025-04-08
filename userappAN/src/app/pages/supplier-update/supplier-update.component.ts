@@ -35,7 +35,9 @@ export class SupplierUpdateComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
       email: ['', [Validators.required, Validators.email]],
       status: ['', Validators.required],
-      notes: ['']
+      notes: [''],
+      sentiment: [''] // ✅ Add this
+
     });
 
     // Fetch supplier details and populate the form
@@ -49,7 +51,9 @@ export class SupplierUpdateComponent implements OnInit {
           phoneNumber: supplier.phoneNumber,
           email: supplier.email,
           status: supplier.status || 'ACTIVE',
-          notes: supplier.notes || ''
+          notes: supplier.notes || '',
+          sentiment: supplier.sentiment || '',  // ✅ Add this
+          aiRating: supplier.aiRating || 0    
         });
 
         // ✅ Mark all controls as touched to ensure validation updates
@@ -68,28 +72,28 @@ export class SupplierUpdateComponent implements OnInit {
 
   analyzeSentiment(): void {
     const notes = this.updateSupplierForm.get('notes')?.value;
-
-    if (!notes || notes.trim() === '') {
-      this.sentimentError = "Please enter notes before analyzing sentiment.";
+  
+    if (!notes) {
+      this.sentimentError = "Please enter notes first.";
       return;
     }
-
-    this.sentimentResult = ''; // Clear previous result
-    this.sentimentError = ''; // Clear previous error
-
-    const apiUrl = 'http://localhost:8080/api/suppliers/analyze-sentiment';
-    const headers = { 'Content-Type': 'application/json' };
-
-    this.http.post(apiUrl, { text: notes }, { headers }).subscribe(
-      (response: any) => {
-        console.log("Sentiment Analysis Response:", response);
-        this.sentimentResult = response.sentiment; // Store result
+  
+    this.supplierService.analyzeSentiment(notes).subscribe({
+      next: (response) => {
+        const sentiment = response.sentiment;
+        const aiRating = sentiment === 'POSITIVE' ? 5 : 
+                         sentiment === 'NEUTRAL' ? 3 : 1;
+  
+        // ✅ Update form fields
+        this.updateSupplierForm.patchValue({
+          sentiment: sentiment,
+          aiRating: aiRating
+        });
       },
-      (error) => {
-        console.error("Error analyzing sentiment:", error);
-        this.sentimentError = "Failed to analyze sentiment.";
+      error: (err) => {
+        this.sentimentError = "Analysis failed. Try again.";
       }
-    );
+    });
   }
 
   summarizeNotes(): void {
@@ -128,18 +132,20 @@ export class SupplierUpdateComponent implements OnInit {
   
 
   onUpdate() {
-    console.log('Form Valid:', this.updateSupplierForm.valid);
-    console.log('Form Errors:', this.updateSupplierForm.errors);
-    console.log('Form Data:', this.updateSupplierForm.value);
-
     if (this.updateSupplierForm.invalid) {
-      alert('Form is invalid. Check required fields.');
-      return;
+        alert('Form is invalid. Check required fields.');
+        return;
     }
 
-    this.supplierService.updateSupplier(this.supplierId, this.updateSupplierForm.value).subscribe(() => {
-      alert('Supplier updated successfully!');
-      this.router.navigate(['/suppliers']);
+    const updateData = {
+        ...this.updateSupplierForm.value,
+        aiRating: this.updateSupplierForm.get('aiRating')?.value, // Add this
+        sentiment: this.updateSupplierForm.get('sentiment')?.value // Add this
+    };
+
+    this.supplierService.updateSupplier(this.supplierId, updateData).subscribe(() => {
+        alert('Supplier updated successfully!');
+        this.router.navigate(['/suppliers']);
     });
-  }
+}
 }

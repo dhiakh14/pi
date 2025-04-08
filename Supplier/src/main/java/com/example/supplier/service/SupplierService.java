@@ -3,11 +3,11 @@ package com.example.supplier.service;
 import com.example.supplier.dto.SupplierSummaryDTO;
 import com.example.supplier.model.Supplier;
 import com.example.supplier.model.Status;
-
-
 import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
 import com.example.supplier.repository.MaterialResourceRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,15 +19,18 @@ public class SupplierService {
 
     private final SupplierRepository supplierRepository;
     private final MaterialResourceRepository materialResourceRepository;
+    private final AISentimentService aiSentimentService;
 
-
-    public SupplierService(SupplierRepository supplierRepository,
-                           MaterialResourceRepository materialResourceRepository,
-                           AISummarizationService aiSummarizationService) {
+    @Autowired
+    public SupplierService(
+            SupplierRepository supplierRepository,
+            MaterialResourceRepository materialResourceRepository,
+            AISentimentService aiSentimentService
+    ) {
         this.supplierRepository = supplierRepository;
         this.materialResourceRepository = materialResourceRepository;
+        this.aiSentimentService = aiSentimentService;
     }
-
 
     public List<Supplier> getAllSuppliers() {
         return supplierRepository.findAll();
@@ -38,15 +41,61 @@ public class SupplierService {
     }
 
     public Supplier createSupplier(Supplier supplier) {
+        // 1. Validate material resource
         if (supplier.getMaterialResource() == null || supplier.getMaterialResource().getIdMR() == null) {
             throw new IllegalArgumentException("Material Resource ID is required.");
         }
-        return materialResourceRepository.findById(supplier.getMaterialResource().getIdMR())
-                .map(materialResource -> {
-                    supplier.setMaterialResource(materialResource);
-                    return supplierRepository.save(supplier);
-                })
-                .orElseThrow(() -> new IllegalArgumentException("Material Resource not found"));
+
+        MaterialResource materialResource = materialResourceRepository.findById(supplier.getMaterialResource().getIdMR())
+                .orElseThrow(() -> new EntityNotFoundException("Material Resource not found"));
+
+        // 2. Set basic fields
+        supplier.setMaterialResource(materialResource);
+        supplier.setCreatedAt(LocalDate.now());
+        supplier.setClickCount(0);
+
+        // 3. Only analyze if notes exist
+        if (supplier.getNotes() != null && !supplier.getNotes().trim().isEmpty()) {
+            System.out.println("Analyzing notes: " + supplier.getNotes());
+
+            String sentiment = aiSentimentService.analyzeSentiment(supplier.getNotes());
+            System.out.println("Analysis result: " + sentiment);
+
+            supplier.setSentiment(sentiment);
+
+            // Convert sentiment to rating
+            float rating;
+            switch(sentiment.toUpperCase()) {
+                case "POSITIVE": rating = 5.0f; break;
+                case "NEUTRAL": rating = 3.0f; break;
+                case "NEGATIVE": rating = 1.0f; break;
+                default: rating = 0.0f;
+            }
+            supplier.setAiRating(rating);
+        } else {
+            System.out.println("No notes provided for analysis");
+            supplier.setSentiment(null);
+            supplier.setAiRating(null);
+        }
+
+        // 4. Save and return
+        Supplier savedSupplier = supplierRepository.save(supplier);
+        System.out.println("Saved supplier ID: " + savedSupplier.getIdSupplier());
+        /////
+        System.out.println("=== BEFORE SAVING ===");
+        System.out.println("Notes: " + supplier.getNotes());
+        System.out.println("Sentiment: " + supplier.getSentiment());
+        System.out.println("AI Rating: " + supplier.getAiRating());
+        System.out.println("Material Resource: " + supplier.getMaterialResource());
+
+        Supplier saved = supplierRepository.save(supplier);
+
+        System.out.println("=== AFTER SAVING ===");
+        System.out.println("Saved ID: " + saved.getIdSupplier());
+        System.out.println("Saved Sentiment: " + saved.getSentiment());
+        System.out.println("Saved Rating: " + saved.getAiRating());
+
+        return savedSupplier;
     }
 
     public Supplier updateSupplier(Long id, Supplier supplierDetails) {
@@ -57,7 +106,26 @@ public class SupplierService {
             supplier.setEmail(supplierDetails.getEmail());
             supplier.setStatus(supplierDetails.getStatus());
             supplier.setNotes(supplierDetails.getNotes());
-            if (supplierDetails.getMaterialResource() != null && supplierDetails.getMaterialResource().getIdMR() != null) {
+
+            // Reanalyze sentiment on update
+            /*String sentiment = aiSentimentService.analyzeSentiment(supplierDetails.getNotes());
+            supplier.setSentiment(sentiment);*/
+
+            if (supplier.getNotes() != null) {
+                String sentiment = aiSentimentService.analyzeSentiment(supplier.getNotes()); // your logic
+                supplier.setSentiment(sentiment);
+
+                float rating = switch (sentiment.toLowerCase()) {
+                    case "positive" -> 5.0f;
+                    case "neutral" -> 3.0f;
+                    case "negative" -> 1.0f;
+                    default -> 0.0f;
+                };
+                supplier.setAiRating(rating);
+            }
+
+            if (supplierDetails.getMaterialResource() != null &&
+                    supplierDetails.getMaterialResource().getIdMR() != null) {
                 materialResourceRepository.findById(supplierDetails.getMaterialResource().getIdMR())
                         .ifPresent(supplier::setMaterialResource);
             }
@@ -72,33 +140,13 @@ public class SupplierService {
     public List<MaterialResource> getAllMaterialResources() {
         return materialResourceRepository.findAll();
     }
+
     public void incrementClickCount(Long id) {
         supplierRepository.findById(id).ifPresent(supplier -> {
             supplier.setClickCount(supplier.getClickCount() + 1);
             supplierRepository.save(supplier);
         });
     }
-
-    /*public SupplierSummaryDTO getSummary() {
-        SupplierSummaryDTO summary = new SupplierSummaryDTO();
-        long total = supplierRepository.count();
-        //long active = supplierRepository.countByStatus(Status.ACTIVE);
-
-        //long inactive = supplierRepository.countByStatus("inactive");
-        long inactive = supplierRepository.countByStatus(Status.INACTIVE);
-
-
-
-        long newSuppliers = supplierRepository.countNewSuppliers(LocalDate.now().withDayOfMonth(1));
-
-        summary.setTotalSuppliers(total); /////////TOTAL SUPPLIERS
-        summary.setActiveSuppliers(active); /////////ACTIVE SUPPLIERS
-        summary.setInactiveSuppliers(inactive); /////////INACTIVE SUPPLIERS
-
-        summary.setNewSuppliersThisMonth(newSuppliers); ////////NEW SUPPLIERS
-
-        return summary;
-    }*/
 
     public SupplierSummaryDTO getSummary() {
         SupplierSummaryDTO summary = new SupplierSummaryDTO();
@@ -114,7 +162,4 @@ public class SupplierService {
 
         return summary;
     }
-
-
-
 }

@@ -36,9 +36,10 @@ export class SupplierService {
     return this.http.put<Supplier>(`${this.apiUrl}/${id}`, supplier);
   }
 
-  createSupplier(supplierData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, supplierData);
+  createSupplier(supplierData: any): Observable<Supplier> {
+    return this.http.post<Supplier>(this.apiUrl, supplierData);
   }
+  
   
 
   getAllMaterialResources(): Observable<MaterialResource[]> {
@@ -53,7 +54,10 @@ export class SupplierService {
   getTopSuppliers(): Observable<Supplier[]> {
     return this.http.get<Supplier[]>(`${this.apiUrl}/top-suppliers`);
   }
-  
+  summarizeNotes(notes: string): Observable<any> {
+    const apiUrl = 'http://localhost:8080/api/suppliers/summarize';
+    return this.http.post(apiUrl, { notes });
+  }
 
   ////
   getSummary(): Observable<SupplierSummary> {
@@ -63,6 +67,14 @@ export class SupplierService {
         console.error('API Error:', error);
         throw error; // Re-throw to handle in component
       })
+    );
+
+  
+  }
+  analyzeSentiment(text: string): Observable<{ sentiment: string }> {
+    return this.http.post<{ sentiment: string }>(
+      `${this.apiUrl}/analyze-sentiment`,
+      { text }
     );
   }
   

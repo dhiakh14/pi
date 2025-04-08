@@ -5,63 +5,59 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class AISentimentService {
 
-    private final RestTemplate restTemplate;
-
-    @Value("${huggingface.api.key}")
+    @Value("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")
     private String apiKey;
 
-    private static final String HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english";
-
-    public AISentimentService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    private static final String API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english";
 
     public String analyzeSentiment(String text) {
+        RestTemplate restTemplate = new RestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + apiKey);
+        headers.setBearerAuth(apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("inputs", List.of(text));  // Wrap text inside a list
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("inputs", text);
+
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(requestBody, headers);
 
         try {
             ResponseEntity<List> response = restTemplate.exchange(
-                    HUGGINGFACE_API_URL, HttpMethod.POST, entity, List.class
+                    API_URL,
+                    HttpMethod.POST,
+                    request,
+                    List.class
             );
 
-            if (response.getBody() != null && !response.getBody().isEmpty()) {
-                List<Map<String, Object>> result = (List<Map<String, Object>>) response.getBody().get(0);
-
-                return determineSentiment(result);
-            } else {
-                return "Unable to determine sentiment.";
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                List<Map<String, Object>> results = (List<Map<String, Object>>) response.getBody().get(0);
+                String label = (String) results.get(0).get("label");
+                return label;
             }
         } catch (Exception e) {
-            return "Error analyzing sentiment: " + e.getMessage();
+            System.out.println("Error during sentiment analysis: " + e.getMessage());
         }
+
+        return "neutral"; // fallback
     }
 
-    private String determineSentiment(List<Map<String, Object>> result) {
-        String label = (String) result.get(0).get("label"); // "LABEL_0", "LABEL_1", or "LABEL_2"
-
-        switch (label) {
-            case "LABEL_0":
-                return "Negative 😡";
-            case "LABEL_1":
-                return "Neutral 😐";
-            case "LABEL_2":
-                return "Positive 😃";
+    // Optional: Convert label to a star rating
+    public float convertSentimentToRating(String sentimentLabel) {
+        switch (sentimentLabel.toLowerCase()) {
+            case "positive":
+                return 5.0f;
+            case "neutral":
+                return 3.0f;
+            case "negative":
+                return 1.0f;
             default:
-                return "Unknown sentiment.";
+                return 2.5f;
         }
     }
 }

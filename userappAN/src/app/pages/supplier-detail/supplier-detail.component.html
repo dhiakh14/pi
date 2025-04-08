@@ -1,25 +1,73 @@
 <div class="supplier-details-container">
-  <div class="card">
-    <h2>{{ supplier.name }}</h2>
+  <!-- Loading -->
+  <div *ngIf="!supplier" class="loading-message">
+    Loading supplier details...
+  </div>
 
-    <div class="details">
-      <p><strong>📍 Address:</strong> {{ supplier.address }}</p>
-      <p><strong>📞 Phone:</strong> {{ supplier.phoneNumber }}</p>
-      <p><strong>📧 Email:</strong> {{ supplier.email }}</p>
-      <p><strong>🔘 Status:</strong> 
-        <span class="status" [ngClass]="{'active': supplier.status === 'ACTIVE', 'inactive': supplier.status === 'INACTIVE'}">
-          {{ supplier.status }}
+  <!-- Supplier Card -->
+  <div *ngIf="supplier" class="supplier-card">
+    <h2>{{ supplier.name || 'No name provided' }}</h2>
+
+    <div class="supplier-details">
+      <div class="detail-row">
+        <span class="detail-label">📍 Address:</span>
+        <span class="detail-value">{{ supplier.address || 'Not provided' }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">📞 Phone:</span>
+        <span class="detail-value">{{ supplier.phoneNumber || 'Not provided' }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">📧 Email:</span>
+        <span class="detail-value">{{ supplier.email || 'Not provided' }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">⭐ Rating:</span>
+        <span class="detail-value">
+          <ng-container *ngIf="supplier.aiRating !== null && supplier.aiRating !== undefined; else noRating">
+            <span class="star-rating">
+              <i *ngFor="let star of [1,2,3,4,5]" 
+                 class="fa-star" 
+                 [class.fas]="star <= supplier.aiRating" 
+                 [class.far]="star > supplier.aiRating">
+              </i>
+              <span class="rating-text">({{ supplier.aiRating | number:'1.0-1' }}/5)</span>
+            </span>
+          </ng-container>
+          <ng-template #noRating>Not rated</ng-template>
         </span>
-      </p>
-      <p><strong>📝 Notes:</strong> {{ supplier.notes || 'No notes available' }}</p>
-      <p><strong>🔧 Material Resource:</strong> {{ supplier.materialResource?.firstName || 'Not assigned' }}</p>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">🔘 Status:</span>
+        <span class="detail-value status" 
+              [ngClass]="{
+                'active': supplier.status === 'ACTIVE', 
+                'inactive': supplier.status === 'INACTIVE'
+              }">
+          {{ supplier.status || 'UNKNOWN' }}
+        </span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">📝 Notes:</span>
+        <span class="detail-value">{{ supplier.notes || 'No notes available' }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">🔧 Material:</span>
+        <span class="detail-value">{{ supplier.materialResource?.firstName || 'Not assigned' }}</span>
+      </div>
     </div>
 
-    <div class="button-group">
+    <!-- Original Style Buttons -->
+    <div class="action-buttons">
       <button class="btn-edit" (click)="editSupplier()">✏ Edit</button>
       <button class="btn-delete" (click)="deleteSupplier()">🗑 Delete</button>
+      <button class="btn-back" (click)="goBack()">⬅ Back</button>
     </div>
-
-    <button class="btn-back" (click)="goBack()">⬅ Back to Suppliers</button>
   </div>
 </div>

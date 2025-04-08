@@ -41,6 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { SupplierRatingComponent } from './pages/supplier-rating/supplier-rating.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierUpdateComponent,
     SupplierAddComponent,
     SupplierChartComponent,
-    SupplierSummaryComponent
+    SupplierSummaryComponent,
+    SupplierRatingComponent
   ],
   imports: [
     BrowserModule,

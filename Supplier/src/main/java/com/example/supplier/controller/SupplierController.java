@@ -9,12 +9,14 @@ import com.example.supplier.service.AISentimentService;
 import com.example.supplier.service.AISummarizationService;
 import com.example.supplier.service.SupplierService;
 import com.example.supplier.repository.MaterialResourceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -78,16 +80,21 @@ public class SupplierController {
     // ✅ Create supplier
     @PostMapping
     public ResponseEntity<Supplier> create(@RequestBody Supplier supplier) {
-        if (supplier.getMaterialResource() == null || supplier.getMaterialResource().getIdMR() == null) {
+        try {
+            // Debug log to verify we're using the correct method
+            System.out.println("Creating supplier with notes: " + supplier.getNotes());
+
+            Supplier createdSupplier = supplierService.createSupplier(supplier);
+
+            // Debug log to verify the returned values
+            System.out.println("Created supplier with sentiment: " + createdSupplier.getSentiment()
+                    + " and rating: " + createdSupplier.getAiRating());
+
+            return ResponseEntity.ok(createdSupplier);
+        } catch (Exception e) {
+            System.out.println("Error creating supplier: " + e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
-
-        return materialResourceRepository.findById(supplier.getMaterialResource().getIdMR())
-                .map(materialResource -> {
-                    supplier.setMaterialResource(materialResource);
-                    return ResponseEntity.ok(supplierRepository.save(supplier));
-                })
-                .orElse(ResponseEntity.badRequest().body(null));
     }
 
     // ✅ Update supplier and associate with a new material resource

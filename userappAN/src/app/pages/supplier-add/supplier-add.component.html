@@ -1,8 +1,9 @@
 <div class="home-container">
   <!-- Header Section -->
   <div class="home-header">
-    <h1><i class="fas fa-user-plus"></i> Add New Supplier</h1>
-    <p>Fill in the details below to add a new supplier.</p>
+    <button [disabled]="loading || supplierForm.invalid" type="submit">Add Supplier</button>
+    <span *ngIf="loading">Analyzing sentiment and saving...</span>
+        <p>Fill in the details below to add a new supplier.</p>
   </div>
 
   <!-- Main Form Section -->
@@ -54,6 +55,19 @@
           <label for="notes">Notes:</label>
           <textarea id="notes" formControlName="notes" class="form-control"></textarea>
         </div>
+
+        <!-- Add after the notes textarea -->
+<div class="form-group">
+  <button type="button" class="btn-summarize" (click)="analyzeSentiment()">
+    Analyze Sentiment
+  </button>
+  <span *ngIf="sentimentResult" class="sentiment-result">
+    Detected sentiment: {{ sentimentResult }}
+  </span>
+  <span *ngIf="sentimentError" class="error-text">
+    {{ sentimentError }}
+  </span>
+</div>
 
         <!-- Material Resource Dropdown -->
         <div class="form-group">

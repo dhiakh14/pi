@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import com.example.supplier.model.Status;
+import jakarta.persistence.Column;
+
 
 
 import java.time.LocalDate;
@@ -36,6 +38,13 @@ public class Supplier {
     private String notes;
     @Column(nullable = false)
     private int clickCount = 0;
+    @Column(name = "ai_rating")
+    private Float aiRating;
+    @Column(name = "sentiment")
+    private String sentiment;
+
+
+
 
 
     // Reference to MaterialResource
@@ -43,6 +52,13 @@ public class Supplier {
     @ManyToOne
     @JoinColumn(name = "material_resource_id")  // Column in Supplier table linking to MaterialResource
     private MaterialResource materialResource;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDate.now();
+        }
+    }
 }
 
 /*enum Status {

@@ -8,7 +8,9 @@ export interface Supplier {
   notes: string;  // ✅ Add notes field
   materialResource?: MaterialResource;
   clickCount: number;
-
+  createdAt:Date;
+  aiRating?: number;
+  sentiment?: string;
 
 }
 

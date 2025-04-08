@@ -15,6 +15,10 @@ export class SupplierAddComponent implements OnInit {
   loading = false; // ✅ Added loading state
   errorMessage = ''; // ✅ Added error message state
 
+  sentimentResult: string = '';
+sentimentError: string = '';
+isSummarizing: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private supplierService: SupplierService,
@@ -29,7 +33,9 @@ export class SupplierAddComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       status: ['ACTIVE', Validators.required],
       notes: [''],
-      materialResourceId: [null, Validators.required]
+      materialResourceId: [null, Validators.required],
+      sentiment: [null],  // or [''] if you prefer empty string as default
+    aiRating: [null]  
     });
 
     // Fetch material resources for the dropdown
@@ -38,32 +44,61 @@ export class SupplierAddComponent implements OnInit {
     });
   }
 
+  analyzeSentiment(): void {
+    const notes = this.supplierForm.get('notes')?.value;
+  
+    if (!notes) {
+      this.sentimentError = "Please enter notes first.";
+      return;
+    }
+  
+    this.supplierService.analyzeSentiment(notes).subscribe({
+      next: (response) => {
+        const sentiment = response.sentiment;
+        const aiRating = sentiment === 'POSITIVE' ? 5 :
+                         sentiment === 'NEUTRAL' ? 3 : 1;
+  
+        this.supplierForm.patchValue({
+          sentiment: sentiment,
+          aiRating: aiRating
+        });
+  
+        // ✅ Set this so it displays!
+        this.sentimentResult = sentiment;
+        this.sentimentError = '';
+      },
+      error: (err) => {
+        this.sentimentError = "Analysis failed. Try again.";
+        this.sentimentResult = '';
+      }
+    });
+  }
+  
+
   /////
   
 
   onSubmit(): void {
-    this.submitted = true;
-
-    if (this.supplierForm.invalid) {
-      return;
-    }
-
-    const supplierData = {
-      ...this.supplierForm.value,
-      materialResource: { idMR: this.supplierForm.value.materialResourceId }
+    console.log("Form Values:", this.supplierForm.value);
+    
+    const payload = {
+        ...this.supplierForm.value,
+        materialResource: { idMR: this.supplierForm.value.materialResourceId }
     };
+    console.log("Final Payload:", payload);
 
-    this.supplierService.createSupplier(supplierData).subscribe(
-      (response) => {
-        alert('Supplier added successfully!');
-        this.router.navigate(['/suppliers']);
-      },
-      (error) => {
-        console.error('Error adding supplier:', error);
-        alert('There was an error adding the supplier. Please try again.');
-      }
-    );
-  }
+    this.supplierService.createSupplier(payload).subscribe({
+        next: (response) => {
+            console.log("API Response:", response);
+            alert('Success! Check console for details');
+        },
+        error: (err) => {
+            console.error("API Error:", err);
+            alert('Error! Check console');
+        }
+    });
+}
+  
 
   goBack(): void {
     this.router.navigate(['/suppliers']);  // ✅ Navigate back to the supplier list
