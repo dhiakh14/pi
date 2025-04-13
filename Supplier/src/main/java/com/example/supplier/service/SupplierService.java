@@ -7,6 +7,7 @@ import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
 import com.example.supplier.repository.MaterialResourceRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class SupplierService {
     public Optional<Supplier> getSupplierById(Long id) {
         return supplierRepository.findById(id);
     }
+
 
     public Supplier createSupplier(Supplier supplier) {
         // 1. Validate material resource

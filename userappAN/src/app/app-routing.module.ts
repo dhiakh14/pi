@@ -18,7 +18,7 @@ import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update
 import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
 
 
-import { SupplierSummaryComponent } from './components/supplier-summary/supplier-summary.component';
+import { SupplierSummaryComponent } from './pages/supplier-summary/supplier-summary.component';
 
 
 

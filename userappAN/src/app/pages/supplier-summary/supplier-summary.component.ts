@@ -48,4 +48,14 @@ export class SupplierSummaryComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/suppliers']);
   }
+
+  filterByStatus(status: string): void {
+    this.router.navigate(['/suppliers'], { queryParams: { status } });
+  }
+
+  filterByNewThisMonth() {
+    this.router.navigate(['/suppliers'], { queryParams: { newThisMonth: 'true' } });
+  }
+  
+  
 }

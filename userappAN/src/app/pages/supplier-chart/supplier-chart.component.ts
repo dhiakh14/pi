@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartOptions, ChartType,  ChartDataset } from 'chart.js';
 import { SupplierService } from 'src/app/service-arij/supplier.service';
 import { Router } from '@angular/router';
 
@@ -28,22 +28,36 @@ constructor(private supplierService: SupplierService, private router: Router) {}
     this.supplierService.getSuppliers().subscribe(data => {
       this.chartLabels = data.map(supplier => supplier.name);
       const clickCounts = data.map(supplier => supplier.clickCount || 0);
-
+      const backgroundColors = this.generateColors(clickCounts.length);
+  
       this.chartData = {
         labels: this.chartLabels,
         datasets: [
           {
             label: 'Supplier Views',
             data: clickCounts,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: backgroundColors,
+            borderColor: backgroundColors,
             borderWidth: 1
           }
         ]
       };
     });
   }
+  
   goBack(): void {
     this.router.navigate(['/suppliers']);
   }
+
+  generateColors(count: number): string[] {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      colors.push(`rgba(${r}, ${g}, ${b}, 0.6)`);
+    }
+    return colors;
+  }
+  
 }

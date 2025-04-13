@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SupplierService } from 'src/app/service-arij/supplier.service';
 
 @Component({
@@ -12,17 +12,45 @@ export class SupplierListComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
   searchText: string = '';
+  
 
-  constructor(private supplierService: SupplierService, private router: Router) {}
+  constructor(private supplierService: SupplierService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.loadSuppliers();
+    this.route.queryParams.subscribe(params => {
+      const status = params['status'];
+      const newThisMonth = params['newThisMonth'] === 'true';
+  
+      if (newThisMonth) {
+        this.loadSuppliers(undefined, true);
+      } else if (status) {
+        this.loadSuppliers(status);
+      } else {
+        this.loadSuppliers();
+      }
+    });
   }
 
-  loadSuppliers(): void {
+  loadSuppliers(status?: string, newThisMonth: boolean = false): void {
     this.supplierService.getSuppliers().subscribe(
       (data) => {
-        this.suppliers = data;
+        const today = new Date();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+  
+        this.suppliers = data.filter(supplier => {
+          if (status) {
+            return supplier.status === status;
+          }
+  
+          if (newThisMonth) {
+            const created = new Date(supplier.createdAt);
+            return created.getMonth() === currentMonth && created.getFullYear() === currentYear;
+          }
+  
+          return true;
+        });
+  
         this.isLoading = false;
       },
       (error) => {
@@ -32,6 +60,9 @@ export class SupplierListComponent implements OnInit {
       }
     );
   }
+  
+  
+  
 
 
 

@@ -72,3 +72,11 @@
   background-color: #303f9f;
   transform: translateY(-2px);
 }
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.clickable:hover {
+  transform: scale(1.05);
+}

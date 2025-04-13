@@ -30,7 +30,7 @@ import { SupplierListComponent } from './pages/supplier-list/supplier-list.compo
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
 import { NgChartsModule } from 'ng2-charts';
-import { SupplierSummaryComponent } from './components/supplier-summary/supplier-summary.component';
+import { SupplierSummaryComponent } from './pages/supplier-summary/supplier-summary.component';
 
 // Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
