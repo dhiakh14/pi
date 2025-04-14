@@ -15,10 +15,10 @@ import { SupplierAddComponent } from './pages/supplier-add/supplier-add.componen
 import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
-import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
 
 
-import { SupplierSummaryComponent } from './pages/supplier-summary/supplier-summary.component';
+import { DashboardComponent }  from './pages/dashboard/dashboard.component';
+
 
 
 
@@ -29,8 +29,8 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent },
   { path: 'roles', component: AffecterRoleComponent, canActivate:[authGuard] },
   { path: 'task-details/:idTask', component: TaskDetailsComponent },
-  { path: 'supplier-chart', component: SupplierChartComponent },  // ✅ Add this
-  { path: 'supplier-summary', component: SupplierSummaryComponent },  // ✅ Add this
+
+  { path: 'dashboard', component: DashboardComponent },
 
 
   

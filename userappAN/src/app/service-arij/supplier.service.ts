@@ -54,10 +54,7 @@ export class SupplierService {
   getTopSuppliers(): Observable<Supplier[]> {
     return this.http.get<Supplier[]>(`${this.apiUrl}/top-suppliers`);
   }
-  summarizeNotes(notes: string): Observable<any> {
-    const apiUrl = 'http://localhost:8080/api/suppliers/summarize';
-    return this.http.post(apiUrl, { notes });
-  }
+  
 
   ////
   getSummary(): Observable<SupplierSummary> {
@@ -77,6 +74,19 @@ export class SupplierService {
       { text }
     );
   }
+
+
+  getSupplierStatusBreakdown(): Observable<any> {
+    return this.http.get<any>('http://localhost:8095/api/suppliers/status-breakdown');  // Corrected URL
+  }
+  
+  
+   // New method to fetch category breakdown
+   getSupplierCategoryBreakdown(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/category-breakdown`);
+  }
+
+  
   
   
   

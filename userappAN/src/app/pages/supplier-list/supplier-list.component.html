@@ -10,17 +10,11 @@
   <p *ngIf="isLoading" class="loading">Loading suppliers...</p>
   <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
-  <!-- Chart & Summary Buttons -->
-  <div class="button-container">
-    <div class="button-group">
-      <button class="chart-button" (click)="navigateToChart()">
-        <span class="icon">📊</span> View Supplier Chart
-      </button>
-      <button class="chart-button" (click)="navigateToSummary()">
-        <span class="icon">📋</span> View Supplier Summary
-      </button>
-    </div>
-  </div>
+    
+<!-- Go to Dashboard Button -->
+<button class="btn-dashboard" (click)="navigateToDashboard()">Go to Dashboard</button>
+
+
 
   <!-- Supplier Grid -->
   <div class="supplier-grid">
@@ -50,3 +44,4 @@
 
 <!-- Floating Add Button -->
 <button class="btn-add" (click)="navigateToAddSupplier()">Add Supplier ➕</button>
+

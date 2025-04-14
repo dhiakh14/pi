@@ -207,4 +207,15 @@ public class SupplierController {
     public SupplierSummaryDTO getSupplierSummary() {
         return supplierService.getSummary();
     }
+
+    @GetMapping("/status-breakdown")
+    public Map<String, Long> getSupplierStatusBreakdown() {
+        return supplierService.getSupplierStatusBreakdown();
+    }
+    @GetMapping("/category-breakdown")
+    public ResponseEntity<Map<String, Long>> getSupplierCategoryBreakdown() {
+        Map<String, Long> categoryBreakdown = supplierService.getSupplierCategoryBreakdown();
+        return ResponseEntity.ok(categoryBreakdown);
+    }
+
 }

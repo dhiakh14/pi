@@ -60,6 +60,9 @@ export class SupplierListComponent implements OnInit {
       }
     );
   }
+
+  //////
+  
   
   
   
@@ -78,13 +81,17 @@ export class SupplierListComponent implements OnInit {
     }
   }
 
+  
+
   filteredSuppliers() {
     return this.suppliers.filter(supplier =>
-      supplier.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      supplier.address.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      (supplier.materialResource?.firstName && supplier.materialResource.firstName.toLowerCase().includes(this.searchText.toLowerCase()))
+      (supplier.name?.toLowerCase() ?? '').includes(this.searchText.toLowerCase()) ||
+      (supplier.address?.toLowerCase() ?? '').includes(this.searchText.toLowerCase()) ||
+      (supplier.materialResource?.firstName?.toLowerCase() ?? '').includes(this.searchText.toLowerCase())
     );
   }
+  
+  
 
   navigateToAddSupplier(): void {
     this.router.navigate(['/add-supplier']);  // ✅ Navigate to add supplier page
@@ -99,12 +106,11 @@ export class SupplierListComponent implements OnInit {
   }
 
 
-  navigateToChart(): void {
-    this.router.navigate(['/supplier-chart']);
-  }
 
-  navigateToSummary(): void {
-    this.router.navigate(['/supplier-summary']);
+
+  navigateToDashboard(): void {
+    this.router.navigate(['/dashboard']);
   }
+  
   
 }

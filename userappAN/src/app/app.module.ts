@@ -28,9 +28,7 @@ import { SupplierCardComponent } from './pages/supplier-card/supplier-card.compo
 import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
-import { SupplierChartComponent } from './pages/supplier-chart/supplier-chart.component';
 import { NgChartsModule } from 'ng2-charts';
-import { SupplierSummaryComponent } from './pages/supplier-summary/supplier-summary.component';
 
 // Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
@@ -42,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { SupplierRatingComponent } from './pages/supplier-rating/supplier-rating.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,9 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierDetailComponent,
     SupplierUpdateComponent,
     SupplierAddComponent,
-    SupplierChartComponent,
-    SupplierSummaryComponent,
-    SupplierRatingComponent
+    SupplierRatingComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SupplierService {
@@ -163,5 +166,28 @@ public class SupplierService {
         summary.setNewSuppliersThisMonth(newSuppliers);
 
         return summary;
+    }
+
+
+    public Map<String, Long> getSupplierStatusBreakdown() {
+        long activeCount = supplierRepository.countByStatus(Status.ACTIVE);
+        long inactiveCount = supplierRepository.countByStatus(Status.INACTIVE);
+
+        // Create and return a map with active and inactive counts
+        Map<String, Long> statusBreakdown = new HashMap<>();
+        statusBreakdown.put("activeCount", activeCount);
+        statusBreakdown.put("inactiveCount", inactiveCount);
+
+        return statusBreakdown;
+    }
+
+    public Map<String, Long> getSupplierCategoryBreakdown() {
+        List<Supplier> suppliers = supplierRepository.findAll(); // Get all suppliers
+
+        // Group suppliers by category and count occurrences
+        Map<String, Long> categoryBreakdown = suppliers.stream()
+                .collect(Collectors.groupingBy(s -> s.getMaterialResource().getCategory().toString(), Collectors.counting()));
+
+        return categoryBreakdown;
     }
 }
