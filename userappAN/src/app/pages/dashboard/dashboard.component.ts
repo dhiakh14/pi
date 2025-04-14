@@ -149,4 +149,8 @@ export class DashboardComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/suppliers']);
   }
+
+  goToMap(): void {
+    this.router.navigate(['/supplier-map']);
+  }
 }

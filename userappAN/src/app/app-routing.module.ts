@@ -18,6 +18,8 @@ import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update
 
 
 import { DashboardComponent }  from './pages/dashboard/dashboard.component';
+import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component'; // Import the map component
+
 
 
 
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'task-details/:idTask', component: TaskDetailsComponent },
 
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'supplier-map', component: SupplierMapComponent },
 
 
   

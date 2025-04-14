@@ -215,3 +215,17 @@
   text-align: center;
   margin-bottom: 30px;
 }
+.go-to-map-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.go-to-map-button:hover {
+  background-color: #0056b3;
+}
