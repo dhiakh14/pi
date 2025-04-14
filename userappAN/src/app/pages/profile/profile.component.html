@@ -1,0 +1,27 @@
+<div class="full-screen-background d-flex justify-content-center align-items-center min-vh-100">
+  <div class="profile-container">
+  <!-- Full Name -->
+  <h2 class="full-name">{{ fullName }}</h2>
+
+  <!-- Role in a Circle -->
+  <div class="role-circle">
+    <span>{{ userRole }}</span>
+  </div>
+
+  <!-- Additional Information -->
+  <div class="profile-info">
+    <div class="info-item">
+      <i class="fas fa-birthday-cake"></i>
+      <p><strong>Date Of Birth:</strong> {{ dateOfBirth | date:'yyyy-MM-dd' }}</p>
+    </div>
+  </div>
+
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</div>
+</div>
+
+<ng-template #noUsers>
+  <p class="no-users">No other users found.</p>
+</ng-template>

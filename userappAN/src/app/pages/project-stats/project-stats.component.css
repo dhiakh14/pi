@@ -1,0 +1,65 @@
+.project-stats-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-weight: bolder;
+  color: #e0691a;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.floating-card {
+  position: relative;
+  margin-top: 20px;
+  background-color: #19524b;
+  color: white;
+  border-radius: 15px;  /* Réduit le rayon des coins pour un look plus subtil */
+  padding: 20px;  /* Réduit le padding */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);  /* Ombre plus légère */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px; /* Limite la largeur pour une carte plus petite */
+  margin: 20px auto; /* Centrer la carte */
+}
+
+.floating-card:hover {
+  transform: translateY(-5px);  /* Réduit l'effet de levée */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Ombre plus douce lors du survol */
+}
+
+.floating-card h3 {
+  margin-bottom: 8px;  /* Réduit l'espace sous le titre */
+  font-size: 1.25em;  /* Taille du titre réduite */
+}
+
+.floating-card p {
+  font-size: 1.2em;  /* Réduit la taille de la police */
+  font-weight: bold;
+  margin-bottom: 0;  /* Évite l'espacement inutile sous le texte */
+}
+
+.floating-card:hover p {
+  transform: scale(1.05);  /* Légère augmentation au survol */
+  color: #e0691a;  /* Changer la couleur au survol */
+}

@@ -1,0 +1,18 @@
+{
+    "EMAIL": "Adresse e-mail",
+    "SIGN_IN": "Se connecter",
+    "NO_ACCOUNT": "Vous n'avez pas de compte?",
+    "REGISTER": "S'inscrire",
+    "CREATE_ACCOUNT": "Créer un compte",
+    "FIRSTNAME": "Prénom",
+    "ENTER_FIRSTNAME": "Entrez votre prénom",
+    "LASTNAME": "Nom",
+    "ENTER_LASTNAME": "Entrez votre nom",
+    "BIRTHDATE": "Date de naissance",
+    "ENTER_DATEOFBIRTH": "Entrez votre date de naissance",
+    "ENTER_EMAIL": "Entrez votre e-mail",
+    "PASSWORD": "Mot de passe",
+    "ENTER_PASSWORD": "Entrez votre mot de passe",
+    "ALREADY_HAVE_ACCOUNT": "Vous avez déjà un compte ?",
+    "LOGIN": "Se connecter"
+}
