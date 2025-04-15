@@ -82,4 +82,10 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/name/{name}")
+    public Project getProjectByName(@PathVariable String name) {
+        return projectService.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+    }
+
 }

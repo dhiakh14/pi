@@ -24,6 +24,8 @@ public class Livrable {
     @Column(nullable = false, length = 100)
     private String title;
 
+    @Column(nullable = false)
+    private Long idProject;
 
 
     private String projectName;

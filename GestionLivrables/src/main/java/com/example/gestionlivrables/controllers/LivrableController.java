@@ -65,11 +65,7 @@ public class LivrableController {
         return livrableService.getLivrablesGroupedByProject();
     }
 
-    @GetMapping("/with-stats")
-    public ResponseEntity<List<LivrableDTO>> getAllLivrablesWithStats() {
-        List<LivrableDTO> livrables = livrableService.getAllLivrablesWithStats();
-        return ResponseEntity.ok(livrables);
-    }
+
 
 
 

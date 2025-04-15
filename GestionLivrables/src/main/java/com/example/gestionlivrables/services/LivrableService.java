@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.*;
 
 @Service
@@ -19,29 +20,14 @@ public class LivrableService {
     @Autowired
     private LivrableRepository livrableRepo ;
 
+    @Autowired
+    private ProjectClient projectClient;
+
 
 
     @Transactional
     public Livrable createLivrable(Livrable livrable) {
-        // Step 1: Set default status to IN_PROGRESS if not provided
-        if (livrable.getStatus() == null) {
-            livrable.setStatus(Status.InProgress);
-        }
-
-        // Step 2: Set createdAt to the current system date
-        livrable.setCreatedAt(new Date());
-
-        // Step 3: Set updatedAt to null (since it's null when a livrable is created)
-        livrable.setUpdatedAt(null);
-
-        // Step 4: Calculate total_count and completed_count dynamically before saving
-        int totalCount = calculateTotalCount(livrable.getProjectName());
-        livrable.setTotal_count(totalCount);
-
-        int completedCount = calculateCompletedCount(livrable.getProjectName());
-        livrable.setCompleted_count(completedCount);
-
-        // Step 5: Validate required fields (title, project name, format, description, due_date)
+        // Step 1: Validate required fields
         if (livrable.getTitle() == null || livrable.getTitle().isEmpty()) {
             throw new IllegalArgumentException("Title is required.");
         }
@@ -62,7 +48,34 @@ public class LivrableService {
             throw new IllegalArgumentException("Due date is required.");
         }
 
-        // Step 6: Save the livrable to the repository
+        // Step 2: Retrieve project info from the ProjectMg microservice using projectName
+        ProjectDTO project;
+        try {
+            project = projectClient.getProjectByName(livrable.getProjectName());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Project with name '" + livrable.getProjectName() + "' not found.");
+        }
+
+        // Step 3: Set projectId to livrable (link to project)
+        livrable.setIdProject(project.getIdProject()); // adapt if your field is named differently
+
+        // Step 4: Set default status to IN_PROGRESS if not provided
+        if (livrable.getStatus() == null) {
+            livrable.setStatus(Status.InProgress);
+        }
+
+        // Step 5: Set createdAt and updatedAt timestamps
+        livrable.setCreatedAt(new Date());
+        livrable.setUpdatedAt(null);
+
+        // Step 6: Calculate livrables count for this project name
+        int totalCount = calculateTotalCount(livrable.getProjectName());
+        livrable.setTotal_count(totalCount);
+
+        int completedCount = calculateCompletedCount(livrable.getProjectName());
+        livrable.setCompleted_count(completedCount);
+
+        // Step 7: Save livrable
         return livrableRepo.save(livrable);
     }
 
@@ -89,9 +102,19 @@ public class LivrableService {
         if (updatedLivrable.getTitle() != null && !updatedLivrable.getTitle().isEmpty()) {
             livrable.setTitle(updatedLivrable.getTitle());
         }
+
+        // If projectName is updated, retrieve the projectId from the ProjectMg microservice
         if (updatedLivrable.getProjectName() != null && !updatedLivrable.getProjectName().isEmpty()) {
-            livrable.setProjectName(updatedLivrable.getProjectName());
+            try {
+                // Fetch project by name from ProjectMg microservice
+                ProjectDTO project = projectClient.getProjectByName(updatedLivrable.getProjectName());
+                livrable.setIdProject(project.getIdProject());  // Set projectId based on project data from the microservice
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Project with name '" + updatedLivrable.getProjectName() + "' not found.");
+            }
+            livrable.setProjectName(updatedLivrable.getProjectName());  // Update projectName if provided
         }
+
         if (updatedLivrable.getDescription() != null && !updatedLivrable.getDescription().isEmpty()) {
             livrable.setDescription(updatedLivrable.getDescription());
         }
@@ -101,7 +124,6 @@ public class LivrableService {
         if (updatedLivrable.getStatus() != null) {
             livrable.setStatus(updatedLivrable.getStatus());
         }
-
 
         // Step 3: Update the updatedAt field to the current system date
         livrable.setUpdatedAt(new Date());

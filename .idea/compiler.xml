@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Discovery" />
         <module name="config-server" />
+        <module name="GestionLivrables" />
         <module name="KhalfaouiMohamedDhia" />
         <module name="Gateway" />
         <module name="GestioPlanning" />
@@ -34,8 +35,9 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Discovery" options="-parameters" />
-      <module name="Gateway" options="" />
+      <module name="Gateway" options="-parameters" />
       <module name="GestioPlanning" options="-parameters" />
+      <module name="GestionLivrables" options="-parameters" />
       <module name="KhalfaouiMohamedDhia" options="-parameters" />
       <module name="ProjectMG" options="-parameters" />
       <module name="config-server" options="-parameters" />
