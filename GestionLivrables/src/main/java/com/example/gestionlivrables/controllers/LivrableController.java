@@ -1,11 +1,12 @@
 package com.example.gestionlivrables.controllers;
 
+import com.example.gestionlivrables.dto.LivrableAlertDTO;
 import com.example.gestionlivrables.dto.LivrableDTO;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.services.LivrableService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,6 +66,23 @@ public class LivrableController {
         return livrableService.getLivrablesGroupedByProject();
     }
 
+    @GetMapping("/alerts/upcoming")
+    public ResponseEntity<List<LivrableAlertDTO>> getLivrableAlerts(@RequestParam(defaultValue = "3") int days) {
+        return ResponseEntity.ok(livrableService.getUpcomingLivrableAlerts(days));
+    }
+
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        byte[] pdfBytes = livrableService.generatePdfForLivrable(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("livrable_" + id + ".pdf")
+                .build());
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
 
 
 

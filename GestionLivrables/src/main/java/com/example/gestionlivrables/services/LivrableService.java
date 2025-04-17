@@ -2,17 +2,32 @@ package com.example.gestionlivrables.services;
 
 import com.example.gestionlivrables.ProjectClient.ProjectClient;
 import com.example.gestionlivrables.ProjectClient.ProjectDTO;
+import com.example.gestionlivrables.dto.LivrableAlertDTO;
 import com.example.gestionlivrables.dto.LivrableDTO;
+import com.example.gestionlivrables.dto.StatsDTO;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.repositories.LivrableRepository;
+import com.lowagie.text.pdf.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 
 
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LivrableService {
@@ -255,6 +270,151 @@ public class LivrableService {
 
         return dto;
     }
+
+    //Stats Livrables
+    public StatsDTO getStats() {
+        StatsDTO dto = new StatsDTO();
+        dto.setTotal(livrableRepo.count());
+        dto.setLate(livrableRepo.countLateLivrables());
+
+        Map<String, Long> statusMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countByStatus()) {
+            statusMap.put(obj[0].toString(), (Long) obj[1]);
+        }
+        dto.setByStatus(statusMap);
+
+        Map<String, Long> monthMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countCreatedByMonth()) {
+            String month = Month.of((Integer) obj[0]).name();
+            monthMap.put(month, (Long) obj[1]);
+        }
+        dto.setByMonth(monthMap);
+
+        Map<String, Long> projectMap = new HashMap<>();
+        for (Object[] obj : livrableRepo.countByProject()) {
+            projectMap.put((String) obj[0], (Long) obj[1]);
+        }
+        dto.setByProject(projectMap);
+
+        List<Livrable> all = livrableRepo.findAll();
+        int completed = all.stream().mapToInt(Livrable::getCompleted_count).sum();
+        int total = all.stream().mapToInt(Livrable::getTotal_count).sum();
+        dto.setCompletionRate(total == 0 ? 0 : (double) completed / total * 100);
+
+        return dto;
+    }
+
+    // Advanced Filtering
+    public List<Livrable> filterLivrables(Status status, String projectName, Date fromDate, Date toDate) {
+        return livrableRepo.filterLivrables(status, projectName, fromDate, toDate);
+    }
+
+    // Upcoming Livrable Alert DTO
+    public List<LivrableAlertDTO> getUpcomingLivrableAlerts(int alertWindowInDays) {
+        Date now = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        cal.add(Calendar.DAY_OF_YEAR, alertWindowInDays);
+        Date future = cal.getTime();
+
+        List<Livrable> upcoming = livrableRepo.findUpcomingLivrables(Status.InProgress, now, future);
+
+        return upcoming.stream().map(l -> {
+            long daysLeft = ChronoUnit.DAYS.between(
+                    l.getDue_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                    LocalDate.now()
+            ) * -1;
+            return new LivrableAlertDTO(l.getTitle(), l.getProjectName(), l.getDue_date(), daysLeft);
+        }).collect(Collectors.toList());
+    }
+
+    //pdf livrables
+    public byte[] generatePdfForLivrable(Long id) {
+        Livrable livrable = livrableRepo.findById(id).orElseThrow();
+        ProjectDTO project = projectClient.getProjectById(livrable.getIdProject());
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Document document = new Document(PageSize.A4, 50, 50, 50, 70); // Extra space at bottom for footer
+
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, out);
+            document.open();
+
+            // ✅ Logo
+            InputStream logoStream = getClass().getClassLoader().getResourceAsStream("static/images/logo.png");
+            if (logoStream != null) {
+                Image logo = Image.getInstance(logoStream.readAllBytes());
+                logo.scaleToFit(70, 80);
+                logo.setAlignment(Image.ALIGN_LEFT);
+                document.add(logo);
+            }
+
+            // ✅ Title
+            Font titleFont = new Font(Font.HELVETICA, 22, Font.BOLD, new Color(255, 87, 34)); // Fancy orange
+            Paragraph title = new Paragraph("📄 Livrable Details", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingAfter(20);
+            document.add(title);
+
+            // ✅ Table
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+            table.setWidths(new float[]{1f, 2f});
+
+            Color headerColor = new Color(255, 204, 153); // light orange
+            Font headerFont = new Font(Font.HELVETICA, 12, Font.BOLD, Color.BLACK);
+            Font cellFont = new Font(Font.HELVETICA, 11, Font.NORMAL, Color.DARK_GRAY);
+
+            addRow(table, "Title", livrable.getTitle(), headerFont, cellFont, headerColor);
+            addRow(table, "Format", String.valueOf(livrable.getFormat()), headerFont, cellFont, headerColor);
+            addRow(table, "Status", String.valueOf(livrable.getStatus()), headerFont, cellFont, headerColor);
+            addRow(table, "Completed / Total", livrable.getCompleted_count() + " / " + livrable.getTotal_count(), headerFont, cellFont, headerColor);
+            addRow(table, "Due Date", String.valueOf(livrable.getDue_date()), headerFont, cellFont, headerColor);
+            addRow(table, "Created At", String.valueOf(livrable.getCreatedAt()), headerFont, cellFont, headerColor);
+            addRow(table, "Description", livrable.getDescription(), headerFont, cellFont, headerColor);
+
+            addRow(table, "Project Name", project.getName(), headerFont, cellFont, headerColor);
+            addRow(table, "Project Description", project.getDescription(), headerFont, cellFont, headerColor);
+            addRow(table, "Start Date", String.valueOf(project.getStartDate()), headerFont, cellFont, headerColor);
+            addRow(table, "End Date", String.valueOf(project.getEndDate()), headerFont, cellFont, headerColor);
+            addRow(table, "Project Status", String.valueOf(project.getProjectStatus()), headerFont, cellFont, headerColor);
+
+            document.add(table);
+
+            // ✅ Fancy Footer (bottom-right)
+            PdfContentByte canvas = writer.getDirectContent();
+            Font footerFont = new Font(Font.HELVETICA, 10, Font.ITALIC, Color.GRAY);
+            Phrase footer = new Phrase("Contact us at innov8tors.com", footerFont);
+            float x = document.right() - 10;
+            float y = document.bottom() - 20;
+            ColumnText.showTextAligned(canvas, Element.ALIGN_RIGHT, footer, x, y, 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            document.close(); // ✅ important to flush & finalize PDF
+        }
+
+        return out.toByteArray();
+    }
+
+
+    private void addRow(PdfPTable table, String key, String value, Font headerFont, Font cellFont, Color headerColor) {
+        PdfPCell header = new PdfPCell(new Phrase(key, headerFont));
+        header.setBackgroundColor(headerColor);
+        header.setPadding(8);
+        header.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(header);
+
+        PdfPCell cell = new PdfPCell(new Phrase(value != null ? value : "-", cellFont));
+        cell.setPadding(8);
+        table.addCell(cell);
+    }
+
+
+
 
 
 
