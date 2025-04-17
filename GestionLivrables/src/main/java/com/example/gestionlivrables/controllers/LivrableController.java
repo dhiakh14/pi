@@ -6,9 +6,11 @@ import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.services.LivrableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +84,18 @@ public class LivrableController {
                 .build());
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    // Endpoint for advanced filtering
+    @GetMapping("/livrables/filter")
+    public List<Livrable> filterLivrables(
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false) String projectName,
+            @RequestParam(required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+        return livrableService.filterLivrables(status, projectName, fromDate, toDate);
     }
 
 

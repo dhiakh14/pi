@@ -11,11 +11,13 @@ import com.example.gestionlivrables.repositories.LivrableRepository;
 import com.lowagie.text.pdf.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
+import org.springframework.web.client.RestTemplate;
 
 
 import java.awt.*;
@@ -413,6 +415,19 @@ public class LivrableService {
         table.addCell(cell);
     }
 
+    public String predictStatus(String description, int completedCount, int totalCount) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        Map<String, Object> request = new HashMap<>();
+        request.put("description", description);
+        request.put("completed_count", completedCount);
+        request.put("total_count", totalCount);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(
+                "http://localhost:5000/predict", request, Map.class);
+
+        return (String) response.getBody().get("prediction");
+    }
 
 
 
