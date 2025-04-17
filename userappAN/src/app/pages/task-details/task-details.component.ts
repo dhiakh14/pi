@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TaskControllerService } from 'src/app/services1/services';
 import { Task } from 'src/app/services1/models';
 import jsPDF from 'jspdf';
+import { GetTaskRecommendations$Params } from 'src/app/services1/fn/task-controller/get-task-recommendations';
 
 @Component({
   selector: 'app-task-details',
@@ -13,6 +14,9 @@ export class TaskDetailsComponent implements OnInit {
   task: Task | undefined;
   taskId: number | undefined;
   isDarkMode: boolean = false;
+  recommendations: string | undefined;
+  showRecommendations: boolean = false; 
+  isLoadingRecommendations: boolean = false; 
 
 
   constructor(
@@ -42,6 +46,36 @@ export class TaskDetailsComponent implements OnInit {
           console.error('Error fetching task details:', error);
         }
       );
+    }
+  }
+
+  fetchRecommendations(): void {
+    if (this.taskId && !this.isLoadingRecommendations) {
+      this.isLoadingRecommendations = true;
+      
+      const params: GetTaskRecommendations$Params = {
+        taskId: this.taskId
+      };
+      
+      this.taskService.getTaskRecommendations(params).subscribe({
+        next: (response: string) => {
+          this.recommendations = response;
+          this.showRecommendations = true;
+          this.isLoadingRecommendations = false;
+        },
+        error: (error) => {
+          console.error('Error fetching recommendations:', error);
+          this.isLoadingRecommendations = false;
+        }
+      });
+    }
+  }
+
+  toggleRecommendations(): void {
+    if (!this.showRecommendations && !this.recommendations) {
+      this.fetchRecommendations();
+    } else {
+      this.showRecommendations = !this.showRecommendations;
     }
   }
 
