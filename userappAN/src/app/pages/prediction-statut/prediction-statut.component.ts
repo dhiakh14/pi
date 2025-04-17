@@ -11,10 +11,9 @@ export class PredictionStatutComponent {
   predictionResult: string | null = null;
   isLoading: boolean = false;
 
-  // Donnée correctement formatée pour le service
   inputData: PredictProjectStatus$Params = {
     body: {
-      idProject: 1
+      idProject: 26
     }
   };
 
@@ -24,12 +23,12 @@ export class PredictionStatutComponent {
     this.isLoading = true;
     this.predictionResult = null;
 
-    this.projectService.predictProjectStatus(this.inputData).subscribe({
-      next: (result: string) => {
-        this.predictionResult = result;
+    (this.projectService as any).predictProjectStatus(this.inputData).subscribe({
+      next: (response: string) => {
+        this.predictionResult = response;
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la prédiction :', err);
         this.predictionResult = 'Erreur de prédiction.';
         this.isLoading = false;

@@ -1,35 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Project } from 'src/app/servicesAbir/models';
 import { ProjectControllerService } from 'src/app/servicesAbir/services';
 import { Router } from '@angular/router';
+
+declare var google: any;
 
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
   styleUrls: ['./add-project.component.css']
 })
-export class AddProjectComponent {
+export class AddProjectComponent implements OnInit {
   project: Partial<Project> = {
     status: 'ON_GOING'
   };
   formSubmitted: boolean = false;
 
-  constructor(private projectService: ProjectControllerService, private router: Router) {}
+  map: any;
+  marker: any;
+
+  constructor(private projectService: ProjectControllerService, private router: Router, private ngZone: NgZone) {}
+
+  ngOnInit() {
+    this.loadMap();
+  }
+
+  loadMap() {
+    const mapOptions = {
+      center: new google.maps.LatLng(36.8065, 10.1815), // Par défaut Tunis
+      zoom: 8,
+    };
+    this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    this.map.addListener("click", (event: any) => {
+      this.placeMarker(event.latLng);
+    });
+  }
+
+  placeMarker(location: any) {
+    if (this.marker) {
+      this.marker.setPosition(location);
+    } else {
+      this.marker = new google.maps.Marker({
+        position: location,
+        map: this.map,
+      });
+    }
+    this.ngZone.run(() => {
+      this.project.latitude = location.lat();
+      this.project.longitude = location.lng();
+    });
+  }
 
   onSubmit() {
     this.formSubmitted = true;
 
-    // Vérification des champs obligatoires
     if (!this.project.name || !this.project.description || !this.project.startDate || !this.project.endDate) {
       alert('Please fill in all required fields.');
       return;
     }
 
-    // Vérification et conversion des dates en format ISO (chaîne)
     this.project.startDate = this.convertToISO(this.project.startDate);
     this.project.endDate = this.convertToISO(this.project.endDate);
 
-    // Envoi du projet au backend
     this.projectService.addProject({ body: this.project as Project }).subscribe({
       next: (response) => {
         console.log('Project added successfully:', response);
@@ -47,14 +80,13 @@ export class AddProjectComponent {
     });
   }
 
-  // Méthode de conversion de la date en format ISO (chaîne)
   private convertToISO(date: any): string {
     if (date instanceof Date) {
-      return date.toISOString(); // Retourne la date au format ISO si elle est déjà un objet Date
+      return date.toISOString();
     } else if (typeof date === 'string') {
-      return new Date(date).toISOString(); // Si c'est une chaîne, on la convertit en Date puis en ISO
+      return new Date(date).toISOString();
     }
-    return ''; // Retourne une chaîne vide si la date n'est pas valide
+    return '';
   }
 
   resetForm() {

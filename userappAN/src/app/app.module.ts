@@ -39,8 +39,6 @@ import { ProjectLocationComponent } from './pages/project-location/project-locat
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
 import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
 
-
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

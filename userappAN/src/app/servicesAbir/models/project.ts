@@ -13,4 +13,5 @@ export interface Project {
   name?: string;
   startDate?: string;
   status?: 'ON_GOING' | 'COMPLETED' | 'DELAYED';
+  remainingDays?: number;
 }

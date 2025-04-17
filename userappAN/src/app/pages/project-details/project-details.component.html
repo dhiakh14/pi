@@ -27,10 +27,27 @@
         <p>{{ project.status }}</p>
       </div>
     </div>
+
+    <div class="form-group">
+      <label>Location</label>
+      <p>{{ project.location }}</p>
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <p>{{ project.city }}</p>
+    </div>
+
+    <div class="form-group">
+      <label>Remaining Days</label>
+      <p>{{ project.remainingDays }}</p>
+    </div>
+    
+
     <br>
+    <button (click)="exportToPDF()" class="button-export">Export as PDF</button>
     <button (click)="updateP()" class="btn btn-secondary mt-3">Update</button>
   </div>
 
-  <!-- Flèche retour avec l'icône Font Awesome -->
   <i class="fas fa-arrow-left go-back" (click)="goBack()"></i>
 </div>
