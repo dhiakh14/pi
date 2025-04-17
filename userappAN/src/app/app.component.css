@@ -1,0 +1,12 @@
+/* Main content default - full width */
+.main-content {
+  margin-left: 0;
+  width: 100%;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* When sidebar is visible, shift content */
+.main-content.shrink {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}

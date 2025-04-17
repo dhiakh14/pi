@@ -1,0 +1,98 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  /* Chart Wrapper Styling */
+  .chart-wrapper {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .chart-wrapper h3 {
+    text-align: center;
+    color: #34495e;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  /* Task by Dates Chart (Bigger) */
+  .task-by-dates-chart {
+    height: 500px; /* Increase height for better visibility */
+    margin: 0 auto;
+  }
+  
+  /* Task by Status Chart */
+  .task-by-status-chart {
+    height: 400px; /* Slightly smaller than the dates chart */
+    margin: 0 auto;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 20px;
+    }
+  
+    .dashboard-container h2 {
+      font-size: 24px;
+    }
+  
+    .chart-wrapper h3 {
+      font-size: 20px;
+    }
+  
+    .task-by-dates-chart {
+      height: 400px; /* Adjust height for smaller screens */
+    }
+  
+    .task-by-status-chart {
+      height: 300px; /* Adjust height for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-container {
+      padding: 15px;
+    }
+  
+    .dashboard-container h2 {
+      font-size: 22px;
+    }
+  
+    .chart-wrapper h3 {
+      font-size: 18px;
+    }
+  
+    .task-by-dates-chart {
+      height: 300px; /* Adjust height for mobile screens */
+    }
+  
+    .task-by-status-chart {
+      height: 250px; /* Adjust height for mobile screens */
+    }
+  }

@@ -1,0 +1,19 @@
+{
+  "SIGN_IN": "تسجيل الدخول",
+  "NO_ACCOUNT": "ليس لديك حساب؟",
+  "REGISTER": "إنشاء حساب",
+    "CREATE_ACCOUNT": "إنشاء حساب",
+    "FIRSTNAME": "الاسم الأول",
+    "ENTER_FIRSTNAME": "أدخل اسمك الأول",
+    "LASTNAME": "اسم العائلة",
+    "ENTER_LASTNAME": "أدخل اسم عائلتك",
+    "BIRTHDATE": "تاريخ الميلاد",
+    "ENTER_DATEOFBIRTH": "أدخل تاريخ ميلادك",
+    "EMAIL": "البريد الإلكتروني",
+    "ENTER_EMAIL": "أدخل بريدك الإلكتروني",
+    "PASSWORD": "كلمة المرور",
+    "ENTER_PASSWORD": "أدخل كلمة المرور",
+    "ALREADY_HAVE_ACCOUNT": "هل لديك حساب بالفعل؟",
+    "LOGIN": "تسجيل الدخول"
+  }
+  
