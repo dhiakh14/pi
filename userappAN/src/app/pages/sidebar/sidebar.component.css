@@ -125,3 +125,30 @@ h3 {
   opacity: 1;
   visibility: visible;
 }
+
+.sidebar ul li ul.submenu {
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.sidebar ul li ul.submenu.show {
+  display: flex;
+}
+
+.sidebar ul li ul.submenu li {
+  padding: 10px 0;
+  border: none;
+}
+
+.sidebar ul li ul.submenu li a {
+  font-size: 0.95em;
+  color: #ecf0f1;
+}
+
+.sidebar ul li ul.submenu li a:hover {
+  color: #e67e22;
+  padding-left: 10px;
+}

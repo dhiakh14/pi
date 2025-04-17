@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -36,7 +37,7 @@ import { EditProjectComponent } from './pages/edit-project/edit-project.componen
 import { ProjectStatsComponent } from './pages/project-stats/project-stats.component';
 import { ProjectLocationComponent } from './pages/project-location/project-location.component';
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
-import { PredictionStatutComponent } from './prediction-statut/prediction-statut.component';
+import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
 
 
 
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CodeInputModule,
     MatDialogModule,
     QRCodeModule,
+    GoogleMapsModule,
     NgbModule,
     NgChartsModule,
     NgxPaginationModule,

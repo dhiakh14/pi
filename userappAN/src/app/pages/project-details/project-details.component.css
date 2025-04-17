@@ -1,62 +1,61 @@
 /* Conteneur principal */
 .project-details-container {
-  max-width: 800px; /* Ajustez la largeur maximale si nécessaire */
-  margin: 40px auto; /* Centre le conteneur sur la page */
-  padding: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px 25px;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
-  position: relative; /* Nécessaire pour positionner l'icône en absolu */
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Flèche retour */
 .go-back {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 1.5em; /* Taille de l'icône */
-  color: #3b3d3f; /* Couleur de l'icône */
+  top: 15px;
+  left: 15px;
+  font-size: 1.5em;
+  color: #3b3d3f;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .go-back:hover {
-  color: #e0691a; /* Change la couleur au survol */
+  color: #e0691a;
 }
 
 /* Titre du projet */
 h2 {
   text-align: center;
-  font-weight: bolder;
+  font-weight: bold;
   color: #e0691a;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /* Groupe de formulaire */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 /* Labels */
 label {
   display: block;
   margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: 600;
   color: #3b3d3f;
+  font-size: 15px;
 }
 
 /* Détails du projet */
-.project-details {
-  margin-bottom: 20px;
-}
-
 .project-details p {
-  margin: 10px 0;
+  margin: 0;
   color: #555;
   font-size: 16px;
+  padding-left: 10px;
 }
 
-/* Bouton de mise à jour */
+/* Bouton de mise à jour personnalisé */
 button {
   background-color: #3b3d3f;
   color: white;
@@ -65,7 +64,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  margin: 20px auto;
+  margin: 30px auto 0 auto;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }

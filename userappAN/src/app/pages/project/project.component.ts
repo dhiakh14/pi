@@ -13,6 +13,8 @@ export class ProjectComponent implements OnInit {
   filteredProjects: Project[] = [];
   searchQuery: string = '';
   selectedStatus: string = '';
+  sortField: string = '';
+  sortDirection: string = 'asc';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,43 +26,52 @@ export class ProjectComponent implements OnInit {
     this.http.get<Project[]>('http://localhost:8092/project/project/getAllProjects')
       .subscribe(
         (response: Project[]) => {
-          if (response && Array.isArray(response)) {
-            this.projects = response;
-            this.filterProjects(); // Applique le filtre à l'initialisation
-          }
+          this.projects = response;
+          this.filterProjects();
         },
-        (error) => {
-          console.error('Erreur lors du chargement des projets :', error);
-        }
+        error => console.error('Error fetching projects:', error)
       );
   }
 
-  // Fonction de filtre
   filterProjects(): void {
-    this.filteredProjects = this.projects.filter(project => {
-      const matchesSearch = (project.name?.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-                       project.description?.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    let result = this.projects.filter(project => {
+      const matchesSearch = project.name?.toLowerCase().includes(this.searchQuery.toLowerCase());
       const matchesStatus = this.selectedStatus ? project.status === this.selectedStatus : true;
       return matchesSearch && matchesStatus;
     });
+
+    if (this.sortField) {
+      result.sort((a, b) => {
+        const valA = new Date(a[this.sortField as keyof Project] as string).getTime();
+        const valB = new Date(b[this.sortField as keyof Project] as string).getTime();
+        return this.sortDirection === 'asc' ? valA - valB : valB - valA;
+      });
+    }
+
+    this.filteredProjects = result;
   }
 
-  viewProjectDetails(projectId: number): void {
-    this.router.navigate(['/project-details', projectId]);
+  changeSort(field: string): void {
+    if (this.sortField === field) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
+    this.filterProjects();
   }
 
-  deleteProject(projectId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
-      this.http.delete(`http://localhost:8092/project/project/deleteProject/${projectId}`).subscribe(
-        () => {
-          this.projects = this.projects.filter(project => project.idProject !== projectId);
-          this.filterProjects(); // Applique le filtre après suppression
-          console.log('Projet supprimé avec succès');
-        },
-        (error) => {
-          console.error('Erreur lors de la suppression du projet:', error);
-        }
-      );
+  viewProjectDetails(id: number): void {
+    this.router.navigate(['/project-details', id]);
+  }
+
+  deleteProject(id: number): void {
+    if (confirm('Are you sure you want to delete this project?')) {
+      this.http.delete(`http://localhost:8092/project/project/deleteProject/${id}`)
+        .subscribe(() => {
+          this.projects = this.projects.filter(p => p.idProject !== id);
+          this.filterProjects();
+        });
     }
   }
 

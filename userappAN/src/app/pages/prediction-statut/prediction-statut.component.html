@@ -1,0 +1,11 @@
+<div class="prediction-container">
+  <h2>Prédiction du Statut du Projet</h2>
+
+  <button (click)="predictStatus()" [disabled]="isLoading">
+    {{ isLoading ? 'Prédiction en cours...' : 'Prédire le statut' }}
+  </button>
+
+  <div *ngIf="predictionResult" class="result">
+    <strong>Résultat :</strong> {{ predictionResult }}
+  </div>
+</div>

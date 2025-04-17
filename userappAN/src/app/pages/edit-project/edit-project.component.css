@@ -1,50 +1,71 @@
 .edit-project {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 40px auto;
+  padding: 30px 25px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  position: relative; /* Nécessaire pour positionner l'icône en absolu */
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Flèche retour */
 .go-back {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 1.5em; /* Taille de l'icône */
-  color: #3b3d3f; /* Couleur de l'icône */
+  top: 15px;
+  left: 15px;
+  font-size: 1.5em;
+  color: #3b3d3f;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .go-back:hover {
-  color: #e0691a; /* Change la couleur au survol */
-}
-
-h2 {
-  text-align: center;
-  font-weight: bolder;
   color: #e0691a;
 }
 
+/* Titre */
+h2 {
+  text-align: center;
+  font-weight: bold;
+  color: #e0691a;
+  margin-bottom: 30px;
+}
+
+/* Formulaire */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #3b3d3f;
+  font-size: 15px;
 }
 
 input[type="text"],
 textarea,
 input[type="date"] {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #333;
+  transition: border 0.3s ease;
 }
 
-button {
+input:focus,
+textarea:focus {
+  border-color: #e0691a;
+  outline: none;
+}
+
+/* Bouton */
+button[type="submit"] {
   background-color: #3b3d3f;
   color: white;
   padding: 10px 35px;
@@ -52,15 +73,19 @@ button {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+button[type="submit"]:hover {
   background-color: #e0691a;
 }
 
+/* Message d'erreur */
 .error {
-  color: red;
+  color: #dc3545;
   text-align: center;
   margin-top: 20px;
+  font-size: 14px;
 }

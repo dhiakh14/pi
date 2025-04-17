@@ -20,7 +20,7 @@ import { ProjectDetailsComponent } from './pages/project-details/project-details
 import { ProjectStatsComponent } from './pages/project-stats/project-stats.component'
 import { ProjectLocationComponent } from './pages/project-location/project-location.component';
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
-import { PredictionStatutComponent } from './prediction-statut/prediction-statut.component';
+import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
 
 const routes: Routes = [
   { path:'home', component: HomeComponent},
