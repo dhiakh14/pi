@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskControllerService } from 'src/app/services1/services';
 
+interface ChatMessage {
+  text: string;
+  isUser: boolean;
+  timestamp: Date;
+}
+
 @Component({
   selector: 'app-task-chat',
   templateUrl: './task-chat.component.html',
@@ -10,9 +16,10 @@ import { TaskControllerService } from 'src/app/services1/services';
 })
 export class TaskChatComponent {
   chatForm: FormGroup;
-  chatResponse: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
+  chatMessages: ChatMessage[] = [];
+currentTime: string | number | Date | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -22,6 +29,12 @@ export class TaskChatComponent {
     this.chatForm = this.fb.group({
       question: ['', Validators.required]
     });
+
+    this.chatMessages.push({
+      text: 'Hello! I am your task assistant. How can I help you with your tasks today?',
+      isUser: false,
+      timestamp: new Date()
+    });
   }
 
   submitQuestion(): void {
@@ -30,18 +43,33 @@ export class TaskChatComponent {
       return;
     }
   
-    this.isLoading = true;
+    const userQuestion = this.chatForm.value.question.trim();
     this.errorMessage = '';
-  
+    
+    // Add user question to chat
+    this.chatMessages.push({
+      text: userQuestion,
+      isUser: true,
+      timestamp: new Date()
+    });
+
+    this.isLoading = true;
+    this.chatForm.reset();
+
     const params = {
       body: {
-        prompt: this.chatForm.value.question.trim() // Ensure non-empty and trimmed
+        prompt: userQuestion
       }
     };
   
     this.taskService.chatAboutTasks(params).subscribe({
       next: (response) => {
-        this.chatResponse = response;
+        // Add AI response to chat
+        this.chatMessages.push({
+          text: response,
+          isUser: false,
+          timestamp: new Date()
+        });
         this.isLoading = false;
       },
       error: (err) => {
