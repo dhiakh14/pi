@@ -1,0 +1,136 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+}
+
+.logo {
+    margin-left: 60px;
+    font-size: 1.6rem; 
+    font-weight: 600; /* Bold */
+    color: #333;
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    letter-spacing: 1px; /* Spacing for elegance */
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #ff8800; /* Highlight on hover */
+}
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between links */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem; /* Slightly smaller */
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #ff6600;
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ff8800;
+}
+
+.nav-links a:hover::after {
+    width: 100%; /* Underline effect on hover */
+}
+
+/* Search bar and login button */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between elements */
+}
+
+.search-bar {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Glassmorphism effect */
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    border-color: #ff8800;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Focus effect */
+}
+
+.login-btn {
+    padding: 8px 20px;
+    background: linear-gradient(145deg, #ff8800, #ff6600); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(250, 76, 7, 0.3); /* Soft shadow */
+}
+
+.login-btn:hover {
+    background: linear-gradient(145deg, #e35300, #e35300); /* Darker gradient on hover */
+    box-shadow: 0 6px 15px rgba(255, 94, 0, 0.5); /* Larger shadow on hover */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 15px; /* Smaller padding for mobile */
+    }
+
+    .logo {
+        font-size: 1.5rem; /* Smaller logo for mobile */
+    }
+
+    .nav-links {
+        gap: 10px; /* Smaller gap for mobile */
+    }
+
+    .nav-links a {
+        font-size: 0.85rem; /* Smaller font size for mobile */
+    }
+
+    .search-bar {
+        padding: 6px 10px; /* Smaller padding for mobile */
+        font-size: 0.85rem; /* Smaller font size for mobile */
+    }
+
+    .login-btn {
+        padding: 6px 15px; /* Smaller padding for mobile */
+        font-size: 0.85rem; /* Smaller font size for mobile */
+    }
+
+  
+}

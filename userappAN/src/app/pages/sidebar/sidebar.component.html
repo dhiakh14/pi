@@ -1,0 +1,23 @@
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+
+<div class="sidebar" [class.visible]="isVisible">
+  <h2 class="menu-title">Menu</h2>
+  <ul>
+    <li><a routerLink="/tasks">📋 Tasks</a></li>
+    
+    <li *ngIf="isAdmin"><a routerLink="/roles">⚙️ Users</a></li>
+    
+    <li>
+      <a (click)="navigateToProfile()">👤 Profile</a>
+    </li>
+    <li><a routerLink="/gantt"> 📆 Planning</a></li>
+    <li *ngIf="isAdmin">
+      <a routerLink="/dash">
+        <i class="fas fa-chart-pie"></i> Charts
+      </a>
+    </li>
+    
+
+    
+  </ul>
+</div>

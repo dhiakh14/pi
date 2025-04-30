@@ -1,0 +1,67 @@
+<div class="task-chat-container">
+    <div class="header-actions">
+      <button (click)="goBackToTasks()" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Tasks
+      </button>
+    </div>
+  
+    <div class="chat-header">
+      <i class="fas fa-robot chat-icon"></i>
+      <h3>Task Assistant</h3>
+      <p><i class="fas fa-info-circle"></i> Ask questions about your tasks</p>
+    </div>
+  
+    <div class="chat-messages">
+      <div *ngFor="let message of chatMessages" class="message" [ngClass]="{'user-message': message.isUser, 'ai-message': !message.isUser}">
+        <div class="message-content">
+          <div class="message-header">
+            <i *ngIf="message.isUser" class="fas fa-user message-icon"></i>
+            <i *ngIf="!message.isUser" class="fas fa-robot message-icon"></i>
+            <span class="message-time">{{ message.timestamp | date:'shortTime' }}</span>
+          </div>
+          <div class="message-text">{{ message.text }}</div>
+        </div>
+      </div>
+      <div *ngIf="isLoading" class="message ai-message">
+        <div class="message-content">
+          <div class="message-header">
+            <i class="fas fa-robot message-icon"></i>
+            <span class="message-time">{{ currentTime | date:'shortTime' }}</span>
+          </div>
+          <div class="message-text">
+            <i class="fas fa-spinner fa-spin"></i> Thinking...
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <form [formGroup]="chatForm" (ngSubmit)="submitQuestion()" class="chat-form">
+      <div class="form-group">
+        <div class="input-with-icon">
+          <i class="fas fa-question-circle input-icon"></i>
+          <textarea 
+            formControlName="question" 
+            class="form-control" 
+            placeholder="Type your question about tasks..."
+            rows="2">
+          </textarea>
+        </div>
+      </div>
+      
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="chatForm.invalid || isLoading">
+        <span *ngIf="!isLoading">
+          <i class="fas fa-paper-plane"></i> Send
+        </span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i> Sending...
+        </span>
+      </button>
+    </form>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+    </div>
+  </div>

@@ -1,0 +1,87 @@
+<div class="full-screen-background">
+  <div *ngIf="task; else loadingOrError" class="task-details-wrapper">
+    <div class="task-details-container">
+      <h2 class="task-title">
+        <span class="task-name">{{ task.name }}</span>
+      </h2>
+
+      <div class="task-detail">
+        <label for="task-description">Description:</label>
+        <span id="task-description" class="task-value">{{ task.description }}</span>
+      </div>
+
+      <div class="task-detail">
+        <label for="task-start-date">Start Date:</label>
+        <span id="task-start-date" class="task-value">{{ task.startDate | date }}</span>
+      </div>
+
+      <div class="task-detail">
+        <label for="task-planned-end-date">Planned End Date:</label>
+        <span id="task-planned-end-date" class="task-value">{{ task.planned_end_date | date }}</span>
+      </div>
+
+      <div class="task-detail">
+        <label for="task-status">Status:</label>
+        <span id="task-status" class="task-value">{{ task.status }}</span>
+      </div>
+
+      <div class="task-detail">
+        <label for="task-actual-end-date">Actual End Date:</label>
+        <div class="actual-end-date-wrapper">
+          <span id="task-actual-end-date" class="task-value" [ngClass]="getStatusClass()">
+            {{ task.actual_end_date ? (task.actual_end_date | date) : 'Not Set' }}
+          </span>
+          <div *ngIf="task.actual_end_date" class="status-message" [ngClass]="getStatusClass()">
+            {{ getStatusMessage() }}
+          </div>
+          <button *ngIf="!task.actual_end_date" (click)="setActualEndDate()" class="set-end-date-btn">
+            <span class="btn-text">Mark as Completed</span>
+            <span class="btn-icon">✅</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="task-detail recommendations-section">
+        <div class="recommendations-header">
+          <label>Recommendations:</label>
+          <button 
+            (click)="toggleRecommendations()"
+            [disabled]="isLoadingRecommendations"
+            class="toggle-recommendations-btn">
+            {{ isLoadingRecommendations ? 'Loading...' : 
+               (showRecommendations ? 'Hide' : 'Show') }}
+          </button>
+        </div>
+        
+        <div *ngIf="showRecommendations" class="recommendations-content">
+          <div *ngIf="recommendations; else noRecommendations" class="recommendation-text">
+            {{ recommendations }}
+          </div>
+          <ng-template #noRecommendations>
+            <div class="no-recommendations">
+              No recommendations available for this task
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button (click)="exportToPDF()" class="button-export">
+        <span class="fas fa-file-pdf">Export as PDF</span>
+      </button>
+
+      <a routerLink="/tasks" class="back-button">
+        <span class="btn-text">Back to Tasks</span>
+        <span class="btn-icon">←</span>
+      </a>
+    </div>
+  </div>
+
+  <ng-template #loadingOrError>
+    <div class="loading-message">
+      <p>Loading task details...</p>
+      <div class="loading-spinner"></div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,184 @@
+
+/* Container for the Home Page */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #f4f7fc, #e0e5ec); /* Light gradient background */
+    color: #333; /* Dark text for contrast */
+    text-align: center;
+  }
+  
+  /* Header Section */
+  .home-header {
+    margin-bottom: 40px;
+  }
+  
+  .home-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #007bff; /* Blue color for the main heading */
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease;
+  }
+  
+  .home-header p {
+    font-size: 1.2rem;
+    color: #555;
+    animation: fadeInUp 1s ease;
+  }
+  
+  /* Main Content Section */
+  .home-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.5s ease;
+  }
+  
+  .home-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #007bff; /* Blue color for subheadings */
+    margin-bottom: 20px;
+  }
+  
+  .home-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  /* Call-to-Action Button */
+  .cta-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #007bff, #00bfff); /* Gradient blue background */
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+  }
+  
+  .cta-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Features Section */
+  .features-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  
+  .feature-card {
+    flex: 1 1 250px;
+    margin: 10px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .feature-card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .home-header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .home-header p {
+      font-size: 1rem;
+    }
+  
+    .home-content {
+      padding: 15px;
+    }
+  
+    .home-content h2 {
+      font-size: 1.8rem;
+    }
+  
+    .home-content p {
+      font-size: 1rem;
+    }
+  
+    .cta-button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+    }
+  
+    .features-section {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .feature-card {
+      width: 90%;
+      margin: 10px 0;
+    }
+  }
