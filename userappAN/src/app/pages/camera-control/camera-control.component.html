@@ -1,0 +1,75 @@
+<div class="camera-container">
+  <div class="header">
+    <h2 class="title">Object Detection System</h2>
+    <button (click)="toggleCamera()" class="control-button" [ngClass]="{'active': cameraRunning}">
+      <span *ngIf="!cameraRunning">
+        <i class="fas fa-play"></i> Start Camera
+      </span>
+      <span *ngIf="cameraRunning">
+        <i class="fas fa-stop"></i> Stop Camera
+      </span>
+    </button>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="camera-feed-container" *ngIf="cameraRunning">
+      <div class="video-container">
+        <img [src]="imageSrc" alt="Camera Feed" class="camera-feed" *ngIf="imageSrc">
+        <div class="loading-overlay" *ngIf="!imageSrc && cameraRunning">
+          <div class="spinner"></div>
+          <p>Initializing camera...</p>
+        </div>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-value">{{ detections.length }}</div>
+          <div class="stat-label">Objects Detected</div>
+        </div>
+        <div class="stat-card" *ngIf="detections.length > 0">
+          <div class="stat-value">{{ getHighestConfidence() }}%</div>
+          <div class="stat-label">Highest Confidence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detections-panel" *ngIf="cameraRunning">
+      <h3 class="panel-title">
+        <i class="fas fa-list"></i> Detection Results
+        <span class="badge">{{ detections.length }}</span>
+      </h3>
+      
+      <div class="detections-list" *ngIf="detections.length > 0; else noDetections">
+        <div class="detection-item" *ngFor="let det of detections">
+          <div class="detection-class">
+            <span class="class-badge" [style.background]="getClassColor(det.class)"></span>
+            {{ det.class }}
+          </div>
+          <div class="detection-confidence">
+            <div class="confidence-bar" [style.width]="det.confidence * 100 + '%'"></div>
+            <span class="confidence-value">{{ (det.confidence * 100).toFixed(1) }}%</span>
+          </div>
+          <div class="detection-bbox">
+            [{{ det.bbox[0].toFixed(0) }}, {{ det.bbox[1].toFixed(0) }}]
+            [{{ det.bbox[2].toFixed(0) }}, {{ det.bbox[3].toFixed(0) }}]
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noDetections>
+        <div class="no-detections">
+          <i class="fas fa-binoculars"></i>
+          <p>No objects detected</p>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="camera-off-placeholder" *ngIf="!cameraRunning">
+      <div class="placeholder-content">
+        <i class="fas fa-video-slash"></i>
+        <h3>Camera is currently offline</h3>
+        <p>Click the "Start Camera" button to begin object detection</p>
+      </div>
+    </div>
+  </div>
+</div>
