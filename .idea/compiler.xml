@@ -11,6 +11,7 @@
         <module name="config-server" />
         <module name="KhalfaouiMohamedDhia" />
         <module name="Gateway" />
+        <module name="nomPrenomClasseExamen" />
         <module name="GestioPlanning" />
       </profile>
     </annotationProcessing>
@@ -31,6 +32,7 @@
       <module name="KhalfaouiMohamedDhia" options="-parameters" />
       <module name="ProjectMG" options="-parameters" />
       <module name="config-server" options="-parameters" />
+      <module name="nomPrenomClasseExamen" options="-parameters" />
       <module name="tachEtLivrable" options="-parameters" />
       <module name="tacheEtLivrable" options="-parameters" />
       <module name="userM" options="-parameters" />
