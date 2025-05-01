@@ -38,6 +38,8 @@ import { ProjectStatsComponent } from './pages/project-stats/project-stats.compo
 import { ProjectLocationComponent } from './pages/project-location/project-location.component';
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
 import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -79,6 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     QRCodeModule,
     GoogleMapsModule,
+    MatProgressSpinnerModule,
     NgbModule,
     NgChartsModule,
     NgxPaginationModule,

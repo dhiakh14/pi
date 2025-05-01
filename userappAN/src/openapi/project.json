@@ -52,7 +52,7 @@
         }
       }
     },
-    "/project/predict-status": {
+    "/project/predictStatus": {
       "post": {
         "tags": [
           "project-controller"
@@ -128,6 +128,40 @@
                   "additionalProperties": {
                     "type": "integer",
                     "format": "int64"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/remainingDays/{idProject}": {
+      "get": {
+        "tags": [
+          "project-controller"
+        ],
+        "operationId": "getRemainingDays",
+        "parameters": [
+          {
+            "name": "idProject",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
                   }
                 }
               }
@@ -280,40 +314,6 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Project"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/project/geoAndRemaining/{idProject}": {
-      "get": {
-        "tags": [
-          "project-controller"
-        ],
-        "operationId": "getGeoAndRemaining",
-        "parameters": [
-          {
-            "name": "idProject",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object"
                   }
                 }
               }

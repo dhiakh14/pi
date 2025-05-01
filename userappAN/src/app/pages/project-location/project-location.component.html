@@ -3,7 +3,7 @@
     <map-marker *ngFor="let p of projects"
                 [position]="{ lat: +p.latitude, lng: +p.longitude }"
                 [title]="p.name"
-                [label]="{ text: p.name, color: 'white' }"
+                [label]="{ text: p.name, color: 'black' }"
                 [options]="{ animation: google.maps.Animation.DROP }">
     </map-marker>
   </google-map>

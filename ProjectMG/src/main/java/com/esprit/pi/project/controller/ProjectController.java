@@ -54,48 +54,32 @@ public class ProjectController {
 
     //Autres fonctionnalités
 
-    // Projet par son statut
     @GetMapping("/getProjectsByStatus/{status}")
     public long countProjectsByStatus(@RequestParam Status status) {
         return projectService.countProjectsByStatus(status);
     }
 
-    // Statistiques par statut
     @GetMapping("/statisticsByStatus")
     public Map<Status, Long> getStatisticsByStatus() {
         return projectService.getProjectsByStatus();
     }
 
-    // Durée moyenne des projets
     @GetMapping("/averageDuration")
     public Double getAverageDuration() {
         return projectService.getAverageProjectDuration();
     }
 
-    //PDF
-    public void generatePdf(Project project, String filePath) throws FileNotFoundException, DocumentException {
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        document.open();
-        document.add(new Paragraph("Project Name: " + project.getName()));
-        document.add(new Paragraph("Description: " + project.getDescription()));
-        document.close();
-    }
-
-    //Géolocalisation des projets
     @GetMapping("/location/{idProject}")
     public String getProjectLocation(@PathVariable Long idProject) {
         return projectService.getProjectLocation(idProject);
     }
 
-    //Prédiction
-    @PostMapping("/predict-status")
+    @PostMapping("/predictStatus")
     public ResponseEntity<String> predictProjectStatus(@RequestBody Project project) {
         String prediction = projectService.predictStatus(project);
         return ResponseEntity.ok(prediction);
     }
 
-    // Progrès
     @GetMapping("/progress/{idProject}")
     public ResponseEntity<?> getProjectProgress(@PathVariable Long idProject) {
         int progress = projectService.getProjectProgress(idProject);
@@ -106,9 +90,9 @@ public class ProjectController {
         return ResponseEntity.ok(Map.of("projectId", idProject, "progress", progress + "%"));
     }
 
-    @GetMapping("/geoAndRemaining/{idProject}")
-    public ResponseEntity<Map<String, Object>> getGeoAndRemaining(@PathVariable Long idProject) {
-        Map<String, Object> data = projectService.getGeoAndRemainingInfo(idProject);
+    @GetMapping("/remainingDays/{idProject}")
+    public ResponseEntity<Map<String, Object>> getRemainingDays(@PathVariable Long idProject) {
+        Map<String, Object> data = projectService.getRemainingDays(idProject);
         if (data == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(data);
     }

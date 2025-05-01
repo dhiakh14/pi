@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'addproject', component:AddProjectComponent},
   { path: 'editproject/:id', component:EditProjectComponent},
   { path: 'project-details/:id', component:ProjectDetailsComponent},
+  { path: 'project-details/:id', component: ProjectDetailsComponent },
   { path: 'stats', component: ProjectStatsComponent },
   { path: 'map', component: ProjectLocationComponent },
   { path: 'duration', component: ProjectDurationComponent },

@@ -23,12 +23,12 @@ import { getAllProjects } from '../fn/project-controller/get-all-projects';
 import { GetAllProjects$Params } from '../fn/project-controller/get-all-projects';
 import { getAverageDuration } from '../fn/project-controller/get-average-duration';
 import { GetAverageDuration$Params } from '../fn/project-controller/get-average-duration';
-import { getGeoAndRemaining } from '../fn/project-controller/get-geo-and-remaining';
-import { GetGeoAndRemaining$Params } from '../fn/project-controller/get-geo-and-remaining';
 import { getProjectLocation } from '../fn/project-controller/get-project-location';
 import { GetProjectLocation$Params } from '../fn/project-controller/get-project-location';
 import { getProjectProgress } from '../fn/project-controller/get-project-progress';
 import { GetProjectProgress$Params } from '../fn/project-controller/get-project-progress';
+import { getRemainingDays } from '../fn/project-controller/get-remaining-days';
+import { GetRemainingDays$Params } from '../fn/project-controller/get-remaining-days';
 import { getStatisticsByStatus } from '../fn/project-controller/get-statistics-by-status';
 import { GetStatisticsByStatus$Params } from '../fn/project-controller/get-statistics-by-status';
 import { predictProjectStatus } from '../fn/project-controller/predict-project-status';
@@ -69,7 +69,7 @@ export class ProjectControllerService extends BaseService {
   }
 
   /** Path part for operation `predictProjectStatus()` */
-  static readonly PredictProjectStatusPath = '/project/predict-status';
+  static readonly PredictProjectStatusPath = '/project/predictStatus';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -147,6 +147,43 @@ export class ProjectControllerService extends BaseService {
 [key: string]: number;
 }>): {
 [key: string]: number;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `getRemainingDays()` */
+  static readonly GetRemainingDaysPath = '/project/remainingDays/{idProject}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getRemainingDays()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRemainingDays$Response(params: GetRemainingDays$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: {
+};
+}>> {
+    return getRemainingDays(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getRemainingDays$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRemainingDays(params: GetRemainingDays$Params, context?: HttpContext): Observable<{
+[key: string]: {
+};
+}> {
+    return this.getRemainingDays$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+[key: string]: {
+};
+}>): {
+[key: string]: {
+};
 } => r.body)
     );
   }
@@ -277,43 +314,6 @@ export class ProjectControllerService extends BaseService {
   getAllProjects(params?: GetAllProjects$Params, context?: HttpContext): Observable<Array<Project>> {
     return this.getAllProjects$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Project>>): Array<Project> => r.body)
-    );
-  }
-
-  /** Path part for operation `getGeoAndRemaining()` */
-  static readonly GetGeoAndRemainingPath = '/project/geoAndRemaining/{idProject}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getGeoAndRemaining()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getGeoAndRemaining$Response(params: GetGeoAndRemaining$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-[key: string]: {
-};
-}>> {
-    return getGeoAndRemaining(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getGeoAndRemaining$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getGeoAndRemaining(params: GetGeoAndRemaining$Params, context?: HttpContext): Observable<{
-[key: string]: {
-};
-}> {
-    return this.getGeoAndRemaining$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-[key: string]: {
-};
-}>): {
-[key: string]: {
-};
-} => r.body)
     );
   }
 

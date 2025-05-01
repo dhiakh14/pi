@@ -13,10 +13,7 @@ import org.springframework.http.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProjectService {
@@ -50,6 +47,9 @@ public class ProjectService {
     public void deleteProject(Long idProject) {
         projectRepository.deleteById(idProject);
     }
+    public Optional<Project> findByName(String name) {
+        return projectRepository.findByName(name);
+    }
 
     //Autres fonctionnalités
 
@@ -57,8 +57,6 @@ public class ProjectService {
         return projectRepository.countByStatus(status);
     }
 
-
-    // Statistiques par statut
     public Map<Status, Long> getProjectsByStatus() {
         List<Object[]> results = projectRepository.countProjectsByStatus();
         Map<Status, Long> stats = new HashMap<>();
@@ -68,13 +66,10 @@ public class ProjectService {
         return stats;
     }
 
-    // Durée moyenne des projets
     public Double getAverageProjectDuration() {
         return projectRepository.averageProjectDuration();
     }
 
-
-    //Géolocalisation des projets
     public String getProjectLocation(Long idProject) {
         List<Object[]> coordinates = projectRepository.findCoordinatesByIdProject(idProject);
         if (coordinates.isEmpty()) {
@@ -85,7 +80,6 @@ public class ProjectService {
         return "https://www.google.com/maps?q=" + latitude + "," + longitude;
     }
 
-    //Prédiction
     public String predictStatus(Project project) {
         String url = "http://localhost:5000/predict_status";
 
@@ -99,7 +93,6 @@ public class ProjectService {
         return (String) response.getBody().get("predicted_status");
     }
 
-    //Progrès
     public int getProjectProgress(Long idProject) {
         Project project = projectRepository.findById(idProject).orElse(null);
         if (project == null) return -1;
@@ -111,49 +104,18 @@ public class ProjectService {
         };
     }
 
-    //API externe : Geolocalisation et les jours restants
-    public Map<String, Object> getGeoAndRemainingInfo(Long idProject) {
+    public Map<String, Object> getRemainingDays(Long idProject) {
         Project project = findProjectById(idProject);
         if (project == null) return null;
 
         Map<String, Object> result = new HashMap<>();
 
-        // Jours restants
         long daysRemaining = ChronoUnit.DAYS.between(
                 LocalDate.now(),
                 project.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         );
+
         result.put("daysRemaining", daysRemaining);
-
-        // API externe : nominatim
-        String city = project.getCity(); // ou autre moyen d’obtenir la ville
-        String url = "https://nominatim.openstreetmap.org/search?city=" + city + "&format=json";
-
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                // Parser le JSON manuellement
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode root = objectMapper.readTree(response.getBody());
-
-                if (root.isArray() && root.size() > 0) {
-                    JsonNode first = root.get(0);
-                    result.put("latitude", first.get("lat").asText());
-                    result.put("longitude", first.get("lon").asText());
-                    result.put("display_name", first.get("display_name").asText());
-                } else {
-                    result.put("location", "Non trouvée");
-                }
-            } else {
-                result.put("error", "Erreur API externe");
-            }
-
-        } catch (Exception e) {
-            result.put("exception", e.getMessage());
-        }
-
         return result;
     }
 

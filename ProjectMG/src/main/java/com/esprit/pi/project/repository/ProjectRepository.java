@@ -9,15 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     long countByStatus(Status status);
 
-    // Récupérer les coordonnées d'un projet par son ID
+    // Récupérer les coordonnées d'un projet
     @Query("SELECT p.latitude, p.longitude FROM Project p WHERE p.idProject = :idProject")
     List<Object[]> findCoordinatesByIdProject(@Param("idProject") Long idProject);
-
 
     // Compter les projets par statut
     @Query("SELECT p.status, COUNT(p) FROM Project p GROUP BY p.status")
@@ -26,4 +26,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     // Calculer la durée moyenne des projets
     @Query("SELECT AVG(DATEDIFF(p.endDate, p.startDate)) FROM Project p")
     Double averageProjectDuration();
+
+    Optional<Project> findByName(String name);
+
 }

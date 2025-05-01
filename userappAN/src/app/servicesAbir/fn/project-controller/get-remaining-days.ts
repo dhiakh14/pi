@@ -9,15 +9,15 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface GetGeoAndRemaining$Params {
+export interface GetRemainingDays$Params {
   idProject: number;
 }
 
-export function getGeoAndRemaining(http: HttpClient, rootUrl: string, params: GetGeoAndRemaining$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function getRemainingDays(http: HttpClient, rootUrl: string, params: GetRemainingDays$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 [key: string]: {
 };
 }>> {
-  const rb = new RequestBuilder(rootUrl, getGeoAndRemaining.PATH, 'get');
+  const rb = new RequestBuilder(rootUrl, getRemainingDays.PATH, 'get');
   if (params) {
     rb.path('idProject', params.idProject, {});
   }
@@ -35,4 +35,4 @@ export function getGeoAndRemaining(http: HttpClient, rootUrl: string, params: Ge
   );
 }
 
-getGeoAndRemaining.PATH = '/project/geoAndRemaining/{idProject}';
+getRemainingDays.PATH = '/project/remainingDays/{idProject}';

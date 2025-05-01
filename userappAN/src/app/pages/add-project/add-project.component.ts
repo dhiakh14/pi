@@ -46,11 +46,35 @@ export class AddProjectComponent implements OnInit {
         map: this.map,
       });
     }
+  
+    const lat = location.lat();
+    const lng = location.lng();
+  
     this.ngZone.run(() => {
-      this.project.latitude = location.lat();
-      this.project.longitude = location.lng();
+      this.project.latitude = lat;
+      this.project.longitude = lng;
     });
+  
+    // Appel de reverse geocoding
+    this.reverseGeocode(lat, lng);
   }
+  
+  reverseGeocode(lat: number, lng: number) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+  
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.ngZone.run(() => {
+          this.project.city = data.address?.city || data.address?.town || data.address?.village || 'Unknown';
+          this.project.location = data.display_name || 'Unknown location';
+        });
+      })
+      .catch(error => {
+        console.error('Erreur de géocodage inverse :', error);
+      });
+  }
+  
 
   onSubmit() {
     this.formSubmitted = true;
