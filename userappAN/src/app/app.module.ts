@@ -20,6 +20,7 @@ import { AffecterRoleComponent } from './pages/affecter-role/affecter-role.compo
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TaskDetailsComponent } from './pages/task-details/task-details.component';
 import { ToastrModule } from 'ngx-toastr';
 import { GanttChartListComponent } from './pages/gantt-chart-list/gantt-chart-list.component';
@@ -31,6 +32,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TaskChatComponent } from './pages/task-chat/task-chat.component';
+import { CameraControlComponent } from './pages/camera-control/camera-control.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -61,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     ResetPasswordComponent,
     TaskChatComponent,
+    CameraControlComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     QRCodeModule,
     NgbModule,
+    MatCardModule ,
+    MatProgressSpinnerModule,
     NgChartsModule,
     NgxPaginationModule,
     TranslateModule.forRoot({

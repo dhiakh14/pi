@@ -95,7 +95,7 @@ public class TaskService {
         taskRepo.deleteAll(tasks);}
 
     public Double predictTaskDuration(String name, String description) {
-        String url = "http://127.0.0.1:5000/predict";
+        String url = "http://localhost:5000/predict";
 
         try {
             Map<String, String> requestBody = new HashMap<>();
@@ -111,8 +111,8 @@ public class TaskService {
 
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> responseBody = responseEntity.getBody();
-                if (responseBody != null && responseBody.containsKey("The expected duration is ")) {
-                    return (Double) responseBody.get("The expected duration is ");
+                if (responseBody != null && responseBody.containsKey("predicted_duration_days")) {
+                    return (Double) responseBody.get("predicted_duration_days");
                 }
             }
         } catch (Exception e) {

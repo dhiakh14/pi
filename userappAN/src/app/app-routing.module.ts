@@ -17,6 +17,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { connectedGuard } from './guards/connected.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TaskChatComponent } from './pages/task-chat/task-chat.component';
+import { CameraControlComponent } from './pages/camera-control/camera-control.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'notadminusers', component: ProfileComponent, canActivate: [nonAdminGuardGuard] },
   { path: 'addtask', component: AddTaskComponent, canActivate:[connectedGuard] },
   { path: 'tasks/edit/:id', component: AddTaskComponent, canActivate:[connectedGuard] },
+  {path:'camera', component:CameraControlComponent}
 
 ];
 
