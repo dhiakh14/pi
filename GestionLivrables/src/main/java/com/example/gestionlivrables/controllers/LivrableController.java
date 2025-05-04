@@ -5,6 +5,7 @@ import com.example.gestionlivrables.dto.LivrableDTO;
 import com.example.gestionlivrables.entities.Livrable;
 import com.example.gestionlivrables.entities.Status;
 import com.example.gestionlivrables.services.LivrableService;
+import com.example.gestionlivrables.services.PredictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
@@ -21,6 +22,10 @@ public class LivrableController {
 
     @Autowired
     private LivrableService livrableService;
+
+    @Autowired
+    private PredictionService predictionService;
+
 
     // CREATE
     @PostMapping("/add")
@@ -97,6 +102,14 @@ public class LivrableController {
             @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
         return livrableService.filterLivrables(status, projectName, fromDate, toDate);
     }
+
+    @PostMapping("/predict")
+    public ResponseEntity<String> predictStatus(@RequestBody LivrableDTO livrableDTO) {
+        String prediction = predictionService.predictLivrableStatus(livrableDTO);
+        return ResponseEntity.ok(prediction);
+    }
+
+
 
 
 

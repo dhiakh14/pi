@@ -26,6 +26,8 @@ public class LivrableDTO {
     private boolean isCompleted;
     private long daysRemaining;
 
+
+
     // GETTER
     public boolean isCompleted() {
         return isCompleted;
