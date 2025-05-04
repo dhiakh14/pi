@@ -29,7 +29,7 @@ public interface LivrableRepository extends JpaRepository<Livrable,Long> {
     int countByStatus(Status status);
 
     //Queries de comptage pour les  stats livrables
-    @Query("SELECT COUNT(l) FROM Livrable l WHERE l.due_date < CURRENT_TIMESTAMP AND l.status = ' LATE' ")
+    @Query("SELECT COUNT(l) FROM Livrable l WHERE l.due_date < CURRENT_TIMESTAMP AND l.status = 'Late' ")
     long countLateLivrables();
 
     @Query("SELECT l.status, COUNT(l) FROM Livrable l GROUP BY l.status")
