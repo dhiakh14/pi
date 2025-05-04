@@ -62,6 +62,12 @@
             }
         }
 
+        @GetMapping("/predictaziz")
+        public ResponseEntity<String> predict(@RequestParam double montant, @RequestParam String dateEmission) {
+            String result = servicelahmer.getPredictedDateEcheance(montant, dateEmission);
+            return ResponseEntity.ok("Date d'échéance prédite : " + result);
+        }
+
 
 
 

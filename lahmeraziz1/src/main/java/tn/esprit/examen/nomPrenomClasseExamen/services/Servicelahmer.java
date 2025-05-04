@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import tn.esprit.examen.nomPrenomClasseExamen.entities.Facture;
 import tn.esprit.examen.nomPrenomClasseExamen.repositories.IFactureRespository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -96,6 +97,32 @@ public class Servicelahmer {
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch rates: " + e.getMessage());
+        }
+    }
+
+    public String getPredictedDateEcheance(double montant, String dateEmission) {
+        String flaskUrl = "http://localhost:5000/predict_dateecheance";
+
+        Map<String, Object> requestPayload = new HashMap<>();
+        requestPayload.put("montant", montant);
+        requestPayload.put("dateemission", dateEmission);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestPayload, headers);
+
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(flaskUrl, entity, Map.class);
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                String predictedDate = (String) response.getBody().get("dateecheance_predite");
+                return predictedDate;
+            } else {
+                return "Erreur lors de la prédiction.";
+            }
+        } catch (Exception e) {
+            return "Exception lors de la prédiction : " + e.getMessage();
         }
     }
 

@@ -5,25 +5,41 @@
   <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="p-4 border rounded bg-light">
     <div class="mb-3">
       <label for="name">Task Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="task.name" required class="form-control" />
+      <input type="text" id="name" name="name" [(ngModel)]="task.name" required 
+             (blur)="predictDuration()" class="form-control" />
       <div *ngIf="taskForm.submitted && !task.name" class="text-danger">Task name is required.</div>
     </div>
 
     <div class="mb-3">
       <label for="description">Description:</label>
-      <input type="text" id="description" name="description" [(ngModel)]="task.description" required class="form-control" />
+      <textarea id="description" name="description" [(ngModel)]="task.description" required
+                (blur)="predictDuration()" class="form-control"></textarea>
       <div *ngIf="taskForm.submitted && !task.description" class="text-danger">Description is required.</div>
+    </div>
+
+    <!-- Prediction Suggestion -->
+    <div class="mb-3" *ngIf="suggestedDuration !== undefined">
+      <div class="alert alert-info">
+        <div *ngIf="isPredicting">
+          <i class="fas fa-spinner fa-spin"></i> Predicting duration...
+        </div>
+        <div *ngIf="!isPredicting">
+          <strong>Suggested duration:</strong> {{ suggestedDuration }} days
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="startDate" [(ngModel)]="task.startDate" required class="form-control" />
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="task.startDate" 
+             required class="form-control" />
       <div *ngIf="taskForm.submitted && !task.startDate" class="text-danger">Start Date is required.</div>
     </div>
 
     <div class="mb-3">
       <label for="plannedEndDate">Planned End Date:</label>
-      <input type="date" id="plannedEndDate" name="plannedEndDate" [(ngModel)]="task.planned_end_date" required class="form-control" />
+      <input type="date" id="plannedEndDate" name="plannedEndDate" [(ngModel)]="task.planned_end_date" 
+             required class="form-control" />
       <div *ngIf="taskForm.submitted && !task.planned_end_date" class="text-danger">Planned End Date is required.</div>
       <div *ngIf="task.startDate && task.planned_end_date && task.planned_end_date < task.startDate" class="text-danger">
         Planned End Date must be after Start Date.
@@ -43,6 +59,4 @@
       {{ isEditMode ? 'Update Task' : 'Add Task' }}
     </button>
   </form>
-  
 </div>
-

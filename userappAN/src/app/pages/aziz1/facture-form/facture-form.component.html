@@ -1,14 +1,26 @@
 
   <form [formGroup]="factureForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="dateecheance">Date d'Echéance</label>
-      <input id="dateecheance" formControlName="dateecheance" type="date">
-    </div>
-  
+
     <div>
       <label for="dateemission">Date d'Émission</label>
       <input id="dateemission" formControlName="dateemission" type="date">
     </div>
+
+    <div>
+      <label for="montant">Montant</label>
+      <input id="montant" formControlName="montant" type="number">
+    </div>
+    <div>
+      <label for="dateecheance">Date d'Échéance</label>
+      <input id="dateecheance" formControlName="dateecheance" type="date">
+      <div *ngIf="suggestedDateEcheance" style="margin-top: 5px; color: #666;">
+        💡 Suggestion : {{ suggestedDateEcheance }}
+        <button type="button" (click)="factureForm.patchValue({ dateecheance: suggestedDateEcheance })">Utiliser</button>
+      </div>
+    </div>
+    
+  
+    
   
     <div>
       <label for="etatFacture">État de la Facture</label>
@@ -18,11 +30,7 @@
         <option value="RETARD">RETARD</option>
       </select>
     </div>
-  
-    <div>
-      <label for="montant">Montant</label>
-      <input id="montant" formControlName="montant" type="number">
-    </div>
+
   
     <div>
       <label for="number">Numéro</label>

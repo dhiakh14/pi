@@ -14,6 +14,8 @@ export class AddTaskComponent {
   };
   isEditMode: boolean = false; 
   taskId?: number;
+  suggestedDuration?: number;
+  isPredicting: boolean = false;
 
   constructor(
     private taskService: TaskControllerService,
@@ -35,9 +37,7 @@ export class AddTaskComponent {
   loadTask(id: number): void {
     this.taskService.getTaskById({ id }).subscribe({
       next: (task) => {
-        this.task = task; 
-        console.log('Task loaded:', this.task);
-
+        this.task = task;
         if (this.task.startDate) {
           this.task.startDate = this.convertToISO(this.task.startDate);
         }
@@ -46,6 +46,30 @@ export class AddTaskComponent {
         }
       },
       error: (err) => console.error('Error loading task:', err)
+    });
+  }
+
+  predictDuration(): void {
+    if (!this.task.name || !this.task.description) {
+      this.suggestedDuration = undefined;
+      return;
+    }
+
+    this.isPredicting = true;
+    const requestBody = {
+      name: this.task.name,
+      description: this.task.description
+    };
+
+    this.taskService.predictDuration({ body: requestBody }).subscribe({
+      next: (response) => {
+        this.suggestedDuration = Object.values(response)[0];
+        this.isPredicting = false;
+      },
+      error: (error) => {
+        console.error('Error predicting duration:', error);
+        this.isPredicting = false;
+      }
     });
   }
 
@@ -61,25 +85,20 @@ export class AddTaskComponent {
     if (this.isEditMode && this.taskId) {
       this.taskService.updateTask({ idTask: this.taskId, body: this.task }).subscribe({
         next: (response) => {
-          console.log('Task updated successfully:', response);
           alert('Task updated successfully!');
           this.router.navigate(['/tasks']); 
         },
         error: (error) => {
-          console.error('Error updating task:', error);
           alert('Failed to update task.');
         }
       });
     } else {
       this.taskService.addTask({ body: this.task }).subscribe({
         next: (response) => {
-          console.log('Task added successfully:', response);
           alert('Task added successfully!');
-          this.task = { status: 'PENDING' }; 
           this.router.navigate(['/tasks']); 
         },
         error: (error) => {
-          console.error('Error adding task:', error);
           alert('Failed to add task.');
         }
       });
@@ -88,15 +107,10 @@ export class AddTaskComponent {
   
   private convertToISO(date: any): string {
     const parsedDate = new Date(date);
-    const year = parsedDate.getFullYear();
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');  
-    const day = parsedDate.getDate().toString().padStart(2, '0');
-  
-    return `${year}-${month}-${day}`;
+    return parsedDate.toISOString().split('T')[0];
   }
-  
 
-  Back(): void{
+  Back(): void {
     this.router.navigate(['/tasks'])
   }
 }
