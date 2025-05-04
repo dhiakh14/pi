@@ -13,9 +13,9 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>GestioPlanning</artifactId>
+    <artifactId>GestionRessource</artifactId>
     <version>1.0</version>
-    <name>GestioPlanning</name>
+    <name>GestionRessource</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

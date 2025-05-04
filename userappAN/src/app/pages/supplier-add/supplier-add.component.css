@@ -1,0 +1,133 @@
+/* ✅ Home Page Background Styling */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f4f7fc, #e0e5ec);
+  text-align: center;
+}
+
+/* ✅ Header Section */
+.home-header {
+  margin-bottom: 40px;
+}
+
+.home-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.home-header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* ✅ Form Card */
+.form-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  max-width: 100%;
+  text-align: left;
+}
+
+/* ✅ Form Labels */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+/* ✅ Form Inputs */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* ✅ Textarea Styling */
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ✅ Error Messages */
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* ✅ Button Group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* ✅ Submit Button */
+.btn-submit {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.btn-submit:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* ✅ Back Button */
+.btn-back {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.btn-back:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* ✅ Responsive Design */
+@media screen and (max-width: 480px) {
+  .form-card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .btn-submit,
+  .btn-back {
+    width: 100%;
+  }
+}

@@ -1,0 +1,327 @@
+.dashboard-container {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.summary-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.btn-back {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #dc3545;
+  color: white;
+  border: none;
+}
+
+.mat-card {
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.mat-card-header {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.mat-card-content {
+  font-size: 16px;
+  text-align: center;
+}
+
+
+.dashboard-container {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.summary-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.summary-cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.summary-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  width: 23%; /* 4 cards in a row */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.summary-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+.summary-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.total-suppliers {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.active-suppliers {
+  background-color: #36a2eb; /* Blue */
+  color: white;
+}
+
+.inactive-suppliers {
+  background-color: #ff6384; /* Red */
+  color: white;
+}
+
+.new-suppliers {
+  background-color: #ffcc00; /* Yellow */
+  color: white;
+}
+
+.mat-card {
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.mat-card-header {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.mat-card-content {
+  font-size: 16px;
+  text-align: center;
+}
+
+.summary-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.summary-cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.summary-card {
+  background-color: #f0f4f8;
+  padding: 20px;
+  border-radius: 8px;
+  width: 23%;  /* 4 cards in a row */
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.summary-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.summary-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.total-suppliers {
+  background-color: #4caf50;  /* Green */
+}
+
+.active-suppliers {
+  background-color: #36a2eb;  /* Blue */
+}
+
+.inactive-suppliers {
+  background-color: #ff6384;  /* Red */
+}
+
+.new-suppliers {
+  background-color: #ffcc00;  /* Yellow */
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.go-to-map-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.go-to-map-button:hover {
+  background-color: #0056b3;
+}
+
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.summary-container h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4CAF50; /* Green color for headings */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.summary-card h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.summary-card {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.chart-container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.chart-container h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+button {
+  font-size: 1rem;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green button color */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.go-to-map-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background-color: #dc3545; /* Red color for 'Back' button */
+  font-size: 1rem;
+  padding: 10px 15px;
+}
+
+.btn-back:hover {
+  background-color: #c82333;
+}

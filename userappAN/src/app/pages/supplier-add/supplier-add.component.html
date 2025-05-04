@@ -1,0 +1,90 @@
+<div class="home-container">
+  <!-- Header Section -->
+  
+
+  <!-- Main Form Section -->
+  <div class="home-content">
+    <div class="form-card">
+      <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input id="name" type="text" formControlName="name" class="form-control" />
+          <small *ngIf="submitted && f['name'].errors?.['required']" class="error">Name is required.</small>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input id="address-input" class="form-control" type="text" placeholder="Enter address" formControlName="address">
+        </div>
+        
+        <!-- Google Map Container -->
+        <div id="map" style="height: 300px; width: 100%; margin-top: 10px;"></div>
+        
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number:</label>
+          <input id="phoneNumber" type="text" formControlName="phoneNumber" class="form-control" />
+          <small *ngIf="submitted && f['phoneNumber'].errors?.['required']" class="error">Phone number is required.</small>
+          <small *ngIf="submitted && f['phoneNumber'].errors?.['minlength']" class="error">Must be at least 8 digits.</small>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input id="email" type="email" formControlName="email" class="form-control" />
+          <small *ngIf="submitted && f['email'].errors?.['required']" class="error">Email is required.</small>
+          <small *ngIf="submitted && f['email'].errors?.['email']" class="error">Invalid email format.</small>
+        </div>
+
+        <!-- Status Dropdown -->
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select id="status" formControlName="status" class="form-control">
+            <option value="ACTIVE">Active</option>
+            <option value="INACTIVE">Inactive</option>
+          </select>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+          <label for="notes">Notes:</label>
+          <textarea id="notes" formControlName="notes" class="form-control"></textarea>
+        </div>
+
+        <!-- Add after the notes textarea -->
+<!--div class="form-group">
+  <button type="button" class="btn-summarize" (click)="analyzeSentiment()">
+    Analyze Sentiment
+  </button>
+  <span *ngIf="sentimentResult" class="sentiment-result">
+    Detected sentiment: {{ sentimentResult }}
+  </span>
+  <span *ngIf="sentimentError" class="error-text">
+    {{ sentimentError }}
+  </span>
+</div-->
+
+        <!-- Material Resource Dropdown -->
+        <div class="form-group">
+          <label for="materialResourceId">Material Resource:</label>
+          <select id="materialResourceId" formControlName="materialResourceId" class="form-control">
+            <option *ngFor="let resource of materialResources" [value]="resource.idMR">
+              {{ resource.firstName }}
+            </option>
+          </select>
+          <small *ngIf="submitted && f['materialResourceId'].errors?.['required']" class="error">Material Resource is required.</small>
+        </div>
+
+        <!-- Buttons: Submit & Back -->
+        <div class="button-group">
+          <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Add Supplier</button>
+          <button type="button" class="btn-back" (click)="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

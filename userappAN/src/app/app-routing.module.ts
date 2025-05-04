@@ -31,6 +31,15 @@ import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.co
 import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
 import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
 import { ExchangeRatesComponent } from './pages/aziz1/exchange-rates/exchange-rates.component';
+import { SupplierAddComponent } from './pages/supplier-add/supplier-add.component';
+import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
+
+
+import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component'; // Import the map component
+import { SuppPredictionComponent } from './pages/supp-prediction/supp-prediction.component';
+import { DashboardArijComponent } from './pages/dashboardArij/dashboardArij.component';
 
 
 
@@ -70,6 +79,13 @@ const routes: Routes = [
   { path: 'facture-details/:idF', component: FactureDetailsComponent },
   {path: 'stataziz', component:FactureStatComponent},
   {path: 'rate', component: ExchangeRatesComponent},
+  { path: 'suppliers', component: SupplierListComponent },
+  { path: 'supplier/:id', component: SupplierDetailComponent },
+  { path: 'supplier/update/:id', component: SupplierUpdateComponent },
+  { path: 'add-supplier', component: SupplierAddComponent },
+  { path: 'supplier-map', component: SupplierMapComponent },
+  { path: 'prediction', component: SuppPredictionComponent },
+  {path : 'dashboard', component:DashboardArijComponent},
   
 
 

@@ -1,0 +1,27 @@
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .stars {
+    display: flex;
+  }
+  
+  .stars mat-icon {
+    color: #e0e0e0;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    transition: color 0.2s;
+  }
+  
+  .stars mat-icon.filled {
+    color: #FFD700;
+  }
+  
+  .tooltip {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+  }

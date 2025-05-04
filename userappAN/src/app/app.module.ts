@@ -48,6 +48,25 @@ import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.co
 import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
 import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
 import { ExchangeRatesComponent } from './pages/aziz1/exchange-rates/exchange-rates.component';
+import { SupplierAddComponent } from './pages/supplier-add/supplier-add.component';
+import { SupplierCardComponent } from './pages/supplier-card/supplier-card.component';
+import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
+import { SupplierRatingComponent } from './pages/supplier-rating/supplier-rating.component';
+import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component';
+import { SuppPredictionComponent } from './pages/supp-prediction/supp-prediction.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { DashboardArijComponent } from './pages/dashboardArij/dashboardArij.component';
+
+
+
+
 
 
 
@@ -65,10 +84,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterComponent,
     ActivateAccountComponent,
     ProfileComponent,
+    DashboardArijComponent,
+    
     HeaderComponent,
     FooterComponent,
     AddTaskComponent,
     TasksComponent,
+   
     SidebarComponent,
     AffecterRoleComponent,
     HomeComponent,
@@ -92,11 +114,25 @@ export function HttpLoaderFactory(http: HttpClient) {
     FactureFormComponent,
     FactureStatComponent,
     ExchangeRatesComponent,
+    SupplierListComponent,
+    SupplierCardComponent,
+    SupplierDetailComponent,
+    SupplierUpdateComponent,
+    SupplierAddComponent,
+    SupplierRatingComponent,
+    SupplierMapComponent,
+    SuppPredictionComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    NgChartsModule,
+    CommonModule,
+    MatInputModule,
+    MatNativeDateModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -111,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgChartsModule,
     NgxPaginationModule,
     GoogleMapsModule,
+    MatIconModule,
 
     TranslateModule.forRoot({
       loader: {

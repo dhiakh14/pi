@@ -1,0 +1,12 @@
+<div class="rating-container">
+    <div class="stars">
+      <span *ngFor="let star of [1,2,3,4,5]">
+        <mat-icon [class.filled]="star <= rating">
+          {{ star <= rating ? 'star' : 'star_outline' }}
+        </mat-icon>
+      </span>
+    </div>
+    <div *ngIf="tooltipText" class="tooltip">
+      {{ tooltipText }}
+    </div>
+  </div>

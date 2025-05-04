@@ -1,0 +1,137 @@
+/* Main Container */
+.supplier-details-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Compact Card */
+.supplier-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.supplier-card h2 {
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Details Layout */
+.supplier-details {
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.detail-label {
+  font-weight: bold;
+  min-width: 120px;
+  color: #555;
+}
+
+.detail-value {
+  flex: 1;
+  color: #333;
+}
+
+/* Star Rating */
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.star-rating i {
+  font-size: 16px;
+  margin-right: 2px;
+}
+
+.fas.fa-star {
+  color: #FFD700; /* Gold */
+}
+
+.far.fa-star {
+  color: #DDD; /* Light gray */
+}
+
+.rating-text {
+  margin-left: 5px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Status Badges */
+.status {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.status.active {
+  background-color: #e6f7e6;
+  color: #2e7d32;
+}
+
+.status.inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Original Style Buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-edit, .btn-delete, .btn-back {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.btn-edit {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-back {
+  background-color: #2196F3;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #3e8e41;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+.btn-back:hover {
+  background-color: #0b7dda;
+}
+
+/* Loading Message */
+.loading-message {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
