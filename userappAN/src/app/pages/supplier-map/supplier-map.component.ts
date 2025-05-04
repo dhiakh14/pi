@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SupplierService } from 'src/app/service-arij/supplier.service';
+import { Router} from '@angular/router';
 
 declare var google: any;
 
@@ -15,7 +16,7 @@ export class SupplierMapComponent implements OnInit {
   markers: any[] = []; // Store markers here for future reference
   selectedSupplier: any = null;  // To store the currently selected supplier
 
-  constructor(private supplierService: SupplierService) {}
+  constructor(private supplierService: SupplierService, private router: Router) {}
 
   ngOnInit(): void {
     this.supplierService.getSuppliers().subscribe(data => {
@@ -66,13 +67,18 @@ export class SupplierMapComponent implements OnInit {
   // Open supplier details when clicking on a marker
   openSupplierDetails(supplier: any): void {
     this.selectedSupplier = supplier;
-    // Optionally, you can show an info window on the map or navigate to a detail page
     alert(`Supplier: ${supplier.name}\nAddress: ${supplier.address}`);  // This is just an example; you can enhance it
   }
 
   // Method to clear the markers from the map
   clearMarkers(): void {
-    this.markers.forEach(marker => marker.setMap(null)); // Remove markers from the map
-    this.markers = []; // Clear the array
+    this.markers.forEach(marker => marker.setMap(null)); 
+    this.markers = [];
   }
+
+  navigateToDashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  
 }

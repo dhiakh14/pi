@@ -229,3 +229,99 @@
 .go-to-map-button:hover {
   background-color: #0056b3;
 }
+
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.summary-container h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4CAF50; /* Green color for headings */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.summary-card h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.summary-card {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.chart-container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.chart-container h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+button {
+  font-size: 1rem;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green button color */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.go-to-map-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background-color: #dc3545; /* Red color for 'Back' button */
+  font-size: 1rem;
+  padding: 10px 15px;
+}
+
+.btn-back:hover {
+  background-color: #c82333;
+}

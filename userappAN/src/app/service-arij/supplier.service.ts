@@ -17,6 +17,7 @@ export interface SupplierSummary {
 export class SupplierService {
   private apiUrl = 'http://localhost:8095/api/suppliers';
   private materialResourceUrl = 'http://localhost:8095/api/suppliers/material-resources';
+  private predictionUrl = 'http://localhost:8095/prediction/supplier_prediction';
 
   constructor(private http: HttpClient) {}
 
@@ -86,6 +87,15 @@ export class SupplierService {
     return this.http.get<any>(`${this.apiUrl}/category-breakdown`);
   }
 
+
+  // Update the method to accept a plain object instead of Supplier
+  getPredictionForSupplier(supplierData: any): Observable<any> {
+    console.log('Sending request with data:', supplierData);  // Debug log
+
+    return this.http.post<any>(this.predictionUrl, supplierData);
+  }
+
+  
   
   
   

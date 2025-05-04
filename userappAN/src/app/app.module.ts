@@ -29,8 +29,7 @@ import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 import { NgChartsModule } from 'ng2-charts';
-import { GoogleMapsModule } from '@angular/google-maps';  // Import GoogleMapsModule
-
+import { GoogleMapsModule } from '@angular/google-maps';
 
 // Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
@@ -44,6 +43,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SupplierRatingComponent } from './pages/supplier-rating/supplier-rating.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component';
+import { SuppPredictionComponent } from './pages/supp-prediction/supp-prediction.component';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core'; // <-- Keep this import
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -71,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierAddComponent,
     SupplierRatingComponent,
     DashboardComponent,
-    SupplierMapComponent
+    SupplierMapComponent,
+    SuppPredictionComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule,
     NgChartsModule,
     GoogleMapsModule,
+    MatNativeDateModule, // <-- Keep this for datepicker
 
     // Angular Material Modules
     MatCardModule,
@@ -95,6 +102,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     MatTooltipModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
 
     TranslateModule.forRoot({
       loader: {
@@ -106,8 +116,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
-  ,
+  bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -144,50 +144,6 @@ public class SupplierController {
         return supplierRepository.findTop5ByOrderByClickCountDesc();
     }
 
-    // ✅ Summarization Feature using Hugging Face
-    /*@PostMapping("/summarize")
-    public ResponseEntity<Map<String, String>> summarizeNotes(@RequestBody Map<String, String> requestBody) {
-        // ✅ Fix: Ensure correct key
-        String notes = requestBody.get("inputs");
-
-        if (notes == null || notes.isEmpty()) {
-            return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Notes cannot be empty"));
-        }
-
-        // ✅ Fix: Ensure Hugging Face API Key is loaded
-        String HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn";
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + API_KEY);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // ✅ Fix: Ensure correct JSON payload
-        Map<String, Object> request = new HashMap<>();
-        request.put("inputs", notes);
-
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
-
-        try {
-            ResponseEntity<Map[]> response = restTemplate.exchange(
-                    HUGGINGFACE_API_URL,
-                    HttpMethod.POST,
-                    entity,
-                    Map[].class
-            );
-
-            if (response.getBody() != null && response.getBody().length > 0) {
-                String summary = (String) response.getBody()[0].get("summary_text");
-                return ResponseEntity.ok(Collections.singletonMap("summary", summary));
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(Collections.singletonMap("error", "Failed to retrieve summary."));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", "Failed to summarize notes. Exception: " + e.getMessage()));
-        }
-    }*/
 
 
     // ✅ Sentiment Analysis Feature

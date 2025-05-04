@@ -153,4 +153,8 @@ export class DashboardComponent implements OnInit {
   goToMap(): void {
     this.router.navigate(['/supplier-map']);
   }
+
+  goToPrediction(): void {
+    this.router.navigate(['/prediction']);  // Navigate to the Prediction page
+  }
 }

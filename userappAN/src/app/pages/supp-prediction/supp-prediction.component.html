@@ -1,0 +1,60 @@
+<div class="prediction-form">
+    <h2>Get Supplier Prediction</h2>
+  
+    <!-- Form to input the features -->
+    <form (ngSubmit)="getPrediction()">
+      <!-- Date picker for createdAt -->
+      <mat-form-field appearance="fill">
+        <mat-label>Created At</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="createdAt" name="createdAt" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>AI Rating</mat-label>
+        <input matInput type="number" [(ngModel)]="aiRating" name="aiRating" required />
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Click Count</mat-label>
+        <input matInput type="number" [(ngModel)]="clickCount" name="clickCount" required />
+      </mat-form-field>
+  
+      <button type="submit" [disabled]="isLoading">Get Prediction</button>
+      <button class="btn-dashboard" (click)="navigateToDashboard()">Go to Dashboard</button>
+
+    </form>
+  
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Loading prediction...</p>
+    </div>
+  
+    <!-- Display the prediction result -->
+    <div class="prediction-card" *ngIf="!isLoading && predictionStatus">
+      <mat-card-header>
+        <mat-card-title>Prediction Result</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="status">
+          <h2 [ngClass]="{ 'active': predictionStatus === 'active', 'inactive': predictionStatus === 'inactive' }">
+            Status: {{ predictionStatus }}
+          </h2>
+        </div>
+        <div class="probabilities">
+          <p><strong>Probabilities:</strong></p>
+          <div class="probability-bar inactive">
+            <div class="bar" [style.width.%]="probabilities[0] * 100"></div>
+            <span>Inactive: {{ (probabilities[0] * 100).toFixed(2) }}%</span>
+          </div>
+          <div class="probability-bar active">
+            <div class="bar" [style.width.%]="probabilities[1] * 100"></div>
+            <span>Active: {{ (probabilities[1] * 100).toFixed(2) }}%</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+  

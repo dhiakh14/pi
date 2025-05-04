@@ -18,52 +18,54 @@
             chartType="pie">
     </canvas>
   </div>
+
   <!-- Suppliers' Product Categories Donut Chart -->
-<div *ngIf="showCategoryChart" class="chart-container" [@slideInOut]="'in'">
-  <h3>Suppliers' Product Categories</h3>
-  <canvas baseChart
-          [data]="categoryChartData"
-          chartType="doughnut">
-  </canvas>
-</div>
-
-
-  
+  <div *ngIf="showCategoryChart" class="chart-container" [@slideInOut]="'in'">
+    <h3>Suppliers' Product Categories</h3>
+    <canvas baseChart
+            [data]="categoryChartData"
+            chartType="doughnut">
+    </canvas>
+  </div>
 
   <!-- Supplier Summary -->
-  <!-- Supplier Summary -->
-<div *ngIf="showSummary" class="summary-container" [@slideInOut]="'in'">
-  <h3>Supplier Overview</h3>
-  <div class="summary-cards">
-    <!-- Total Suppliers Card -->
-    <div class="summary-card total-suppliers">
-      <h4>Total Suppliers</h4>
-      <p>{{ summary.totalSuppliers }}</p>
-    </div>
+  <div *ngIf="showSummary" class="summary-container" [@slideInOut]="'in'">
+    <h3>Supplier Overview</h3>
+    <div class="summary-cards">
+      <!-- Total Suppliers Card -->
+      <div class="summary-card total-suppliers">
+        <h4>Total Suppliers</h4>
+        <p>{{ summary.totalSuppliers }}</p>
+      </div>
 
-    <!-- Active Suppliers Card -->
-    <div class="summary-card active-suppliers" (click)="filterByActive()">
-      <h4>Active Suppliers</h4>
-      <p>{{ summary.activeSuppliers }}</p>
-    </div>
+      <!-- Active Suppliers Card -->
+      <div class="summary-card active-suppliers" (click)="filterByActive()">
+        <h4>Active Suppliers</h4>
+        <p>{{ summary.activeSuppliers }}</p>
+      </div>
 
-    <!-- Inactive Suppliers Card -->
-    <div class="summary-card inactive-suppliers" (click)="filterByInactive()">
-      <h4>Inactive Suppliers</h4>
-      <p>{{ summary.inactiveSuppliers }}</p>
-    </div>
+      <!-- Inactive Suppliers Card -->
+      <div class="summary-card inactive-suppliers" (click)="filterByInactive()">
+        <h4>Inactive Suppliers</h4>
+        <p>{{ summary.inactiveSuppliers }}</p>
+      </div>
 
-    <!-- New Suppliers This Month Card -->
-    <div class="summary-card new-suppliers" (click)="filterByNew()">
-      <h4>New Suppliers This Month</h4>
-      <p>{{ summary.newSuppliersThisMonth }}</p>
+      <!-- New Suppliers This Month Card -->
+      <div class="summary-card new-suppliers" (click)="filterByNew()">
+        <h4>New Suppliers This Month</h4>
+        <p>{{ summary.newSuppliersThisMonth }}</p>
+      </div>
     </div>
   </div>
+
+  <!-- Test Supplier Prediction Button -->
+  <button mat-button (click)="goToPrediction()">Test Supplier Prediction</button>
+
+  <!-- View Supplier Distribution on Map Button -->
+  <button class="go-to-map-button" (click)="goToMap()">
+    View Supplier Distribution on Map
+  </button>
+
+  <!-- Go Back Button -->
+  <button class="btn-back" (click)="goBack()">⬅ Back to Suppliers</button>
 </div>
-
-<button class="go-to-map-button" (click)="goToMap()">
-  View Supplier Distribution on Map
-</button>
-
-<!-- Go Back Button -->
-<button class="btn-back" (click)="goBack()">⬅ Back to Suppliers</button>
