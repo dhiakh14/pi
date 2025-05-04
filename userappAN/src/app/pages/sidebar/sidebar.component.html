@@ -16,11 +16,23 @@
         <i class="fas fa-chart-pie"></i> Charts
       </a>
     </li>
+    <li (click)="toggleProjectMenu()" [class.active]="isProjectMenuOpen">
+      <a href="javascript:void(0)">📝 Project ▾</a>
+      <ul class="submenu" [class.show]="isProjectMenuOpen">
+        <li><a routerLink="/project">📄 Management</a></li>
+        <li><a routerLink="/stats">📊 Stats</a></li>
+        <li><a routerLink="/map">🗺️ Map</a></li>
+  <!--      <li><a routerLink="/predict">🔮 Predict Status</a></li> -->
+      </ul>
+    </li>
+
     <li *ngIf="isAdmin">
       <a routerLink="/camera">
         <i class="fas fa-shield-alt"></i> Safety Check
       </a>
     </li>
+    <li><a routerLink="/facture">💸 Factures</a></li>
+
     
     
 

@@ -323,7 +323,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
    
 
     const swaggerCompatibleGanttData = {
-      id: 0, // Set to 0 or omit if the backend generates the ID
+      id: 0, 
       taskName: ganttData.taskName,
       startDate: ganttData.startDate,
       endDate: ganttData.endDate,

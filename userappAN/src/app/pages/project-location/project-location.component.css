@@ -1,0 +1,41 @@
+.map-container {
+  height: 500px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  position: relative;
+}
+
+google-map {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* Style du label sur les marqueurs */
+.map-container .map-marker {
+  background-color: rgba(0, 0, 0, 0.6); /* Fond plus sombre pour plus de contraste */
+  color: white; /* Texte blanc pour améliorer la lisibilité */
+  font-size: 14px; /* Taille du texte */
+  font-weight: bold; /* Poids du texte */
+  border-radius: 8px; /* Bordures arrondies */
+  padding: 6px; /* Un peu d'espace autour du texte */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Ombre pour donner du relief au texte */
+  text-align: center; /* Centrer le texte */
+}
+
+.map-container .map-marker:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Fond plus foncé au survol */
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 350px; /* Réduire la hauteur sur les petits écrans */
+  }
+
+  .map-container .map-marker {
+    font-size: 12px; /* Taille du texte plus petite pour les petits écrans */
+  }
+}

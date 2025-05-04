@@ -34,6 +34,20 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { TaskChatComponent } from './pages/task-chat/task-chat.component';
 import { CameraControlComponent } from './pages/camera-control/camera-control.component';
 import { MatCardModule } from '@angular/material/card';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ProjectComponent } from './pages/project/project.component';
+import { AddProjectComponent } from './pages/add-project/add-project.component';
+import { ProjectDetailsComponent } from './pages/project-details/project-details.component';
+import { EditProjectComponent } from './pages/edit-project/edit-project.component';
+import { ProjectStatsComponent } from './pages/project-stats/project-stats.component';
+import { ProjectLocationComponent } from './pages/project-location/project-location.component';
+import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
+import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
+import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
+import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
+import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
+import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
+import { ExchangeRatesComponent } from './pages/aziz1/exchange-rates/exchange-rates.component';
 
 
 
@@ -65,6 +79,20 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResetPasswordComponent,
     TaskChatComponent,
     CameraControlComponent,
+    ProjectComponent,
+    AddProjectComponent,
+    ProjectDetailsComponent,
+    EditProjectComponent,
+    ProjectStatsComponent,
+    ProjectLocationComponent,
+    ProjectDurationComponent,
+    PredictionStatutComponent,
+    FactureListComponent,
+    FactureDetailsComponent,
+    FactureFormComponent,
+    FactureStatComponent,
+    ExchangeRatesComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -74,12 +102,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     CodeInputModule,
     MatDialogModule,
+    NgxPaginationModule,
+
     QRCodeModule,
     NgbModule,
     MatCardModule ,
     MatProgressSpinnerModule,
     NgChartsModule,
     NgxPaginationModule,
+    GoogleMapsModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

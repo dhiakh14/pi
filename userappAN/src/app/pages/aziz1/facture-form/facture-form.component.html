@@ -1,0 +1,34 @@
+
+  <form [formGroup]="factureForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="dateecheance">Date d'Echéance</label>
+      <input id="dateecheance" formControlName="dateecheance" type="date">
+    </div>
+  
+    <div>
+      <label for="dateemission">Date d'Émission</label>
+      <input id="dateemission" formControlName="dateemission" type="date">
+    </div>
+  
+    <div>
+      <label for="etatFacture">État de la Facture</label>
+      <select id="etatFacture" formControlName="etatFacture">
+        <option value="PAYE">PAYE</option>
+        <option value="ATTENTE">ATTENTE</option>
+        <option value="RETARD">RETARD</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="montant">Montant</label>
+      <input id="montant" formControlName="montant" type="number">
+    </div>
+  
+    <div>
+      <label for="number">Numéro</label>
+      <input id="number" formControlName="number" type="number">
+    </div>
+  
+    <button type="submit" [disabled]="factureForm.invalid">Add Facture</button>
+  </form>
+  

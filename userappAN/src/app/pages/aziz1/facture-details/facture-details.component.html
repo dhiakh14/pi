@@ -1,0 +1,55 @@
+<div class="full-screen-background">
+  <button (click)="navigateToFactureList()"class="btn-update"> (←) factures</button>
+
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="facture && !loading" class="facture-details">
+    <h2>Facture Details</h2>
+    <p><strong>Number:</strong> {{ facture.number }}</p>
+    <p><strong>Montant:</strong> {{ facture.montant | currency: 'EUR' }}</p>
+    <p><strong>État:</strong> {{ facture.etatFacture }}</p>
+    <p><strong>Date d'Émission:</strong> {{ facture.dateemission | date: 'shortDate' }}</p>
+    <p><strong>Date d'Échéance:</strong> {{ facture.dateecheance | date: 'shortDate' }}</p>
+
+    <!-- Update Button -->
+    <button (click)="editFacture()" class="btn-update">Update Facture</button>
+
+
+    <!-- Update Form (Initially hidden) -->
+    <div *ngIf="isEditing" class="update-form">
+      <h3>Update Facture</h3>
+      <form (ngSubmit)="onSubmit()">
+        <label for="number">Number:</label>
+        <input *ngIf="tempFacture" type="text" id="number" [(ngModel)]="tempFacture.number" name="number" required />
+
+        <label for="montant">Montant:</label>
+        <input *ngIf="tempFacture" type="number" id="montant" [(ngModel)]="tempFacture.montant" name="montant" required />
+
+        <label for="etatFacture">État:</label>
+        <select *ngIf="tempFacture" id="etatFacture" [(ngModel)]="tempFacture.etatFacture" name="etatFacture" required>
+          <option value="ATTENTE">ATTENTE</option>
+          <option value="PAYE">PAYE</option>
+          <option value="RETARD">RETARD</option>
+        </select>
+
+        <label for="dateemission">Date d'Émission:</label>
+        <input *ngIf="tempFacture" type="text" id="dateemission" [(ngModel)]="tempFacture.dateemission" name="dateemission" required />
+
+        <label for="dateecheance">Date d'Échéance:</label>
+        <input *ngIf="tempFacture" type="text" id="dateecheance" [(ngModel)]="tempFacture.dateecheance" name="dateecheance" required />
+              
+
+
+        <button type="submit" class="btn-submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</div>
