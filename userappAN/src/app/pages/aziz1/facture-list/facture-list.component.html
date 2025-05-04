@@ -1,0 +1,100 @@
+<div class="full-screen-background">
+  <div class="add-facture-icon" (click)="addFacture()">
+    <i class="fas fa-plus-circle"></i>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="table-container">
+    <!-- Filter dropdown -->
+    <div class="filter-container">
+      <label for="etatFilter">Filter by État:</label>
+      <select id="etatFilter" [(ngModel)]="selectedEtat" (change)="filterFactures()">
+        <option value="ALL">All</option>
+        <option value="PAYE">PAYE</option>
+        <option value="ATTENTE">ATTENTE</option>
+        <option value="RETARD">RETARD</option>
+      </select>
+    </div>
+
+    <!-- Search by number -->
+    <div class="search-container">
+      <label for="numberSearch">Search by Number:</label>
+      <input
+        type="text"
+        id="numberSearch"
+        [(ngModel)]="searchNumber"
+        (ngModelChange)="searchFactures()"
+        placeholder="Enter Facture Number"
+      />
+    </div>
+    <div class="stat-button-container">
+      <button class="stat-button" (click)="goToStats()">Statistique Facture</button>
+    </div>
+
+    <div class="stat-button-container">
+      <button class="stat-button" (click)="goToExchange()">Exchange €</button>
+    </div>
+    
+
+    <!-- Factures table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Date d'Émission</th>
+          <th>Date d'Échéance</th>
+          <th>État</th>
+          <th>Montant</th>
+          <th>Numéro</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let facture of paginatedFactures">          <td>{{ facture.dateemission | date: 'shortDate' }}</td>
+          <td>{{ facture.dateecheance | date: 'shortDate' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="{
+              'status-paid': facture.etatFacture === 'PAYE',
+              'status-pending': facture.etatFacture === 'ATTENTE',
+              'status-late': facture.etatFacture === 'RETARD'
+            }">
+              {{ facture.etatFacture }}
+            </span>
+          </td>
+          <td>{{ facture.montant | currency: 'EUR' }}</td>
+          <td>{{ facture.number }}</td>
+          <td>
+            <button class="delete-button" (click)="facture.idF !== undefined && deleteFacture(facture.idF)">Delete</button>
+            <button class="show-details-button" (click)="facture.idF !== undefined && showDetails(facture.idF)">Show Details</button>
+            <button (click)="exportFacturesToExcel()" class="export-button">
+              Exporter en Excel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  <!-- Pagination Controls -->
+<div class="pagination-controls" *ngIf="totalPages() > 1">
+  <button class="page-button prev-next" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+  
+  <button *ngFor="let page of getPages()" 
+          class="page-button" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+    {{ page }}
+  </button>
+  
+  <button class="page-button prev-next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages()">Suivant</button>
+  
+  <span class="page-info">Page {{ currentPage }} sur {{ totalPages() }}</span>
+</div>
+</div>

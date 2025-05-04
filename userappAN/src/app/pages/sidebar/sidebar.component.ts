@@ -38,4 +38,12 @@ export class SidebarComponent implements OnInit {
     this.toggle.emit(this.isVisible); 
   }
 
+  isProjectMenuOpen = false;
+
+  toggleProjectMenu() {
+  this.isProjectMenuOpen = !this.isProjectMenuOpen;
+}
+
+
+
 }

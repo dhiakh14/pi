@@ -1,0 +1,62 @@
+<br>
+<div class="add-project-container">
+  <h2>Add Project</h2>
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="form-group">
+      <label for="projectName">Project name</label>
+      <input type="text" id="projectName" name="projectName" [(ngModel)]="project.name" required>
+      <div *ngIf="!project.name && formSubmitted" class="error">Project name is required.</div>
+    </div>
+  
+    <div class="form-group">
+      <label for="projectDescription">Description</label>
+      <textarea id="projectDescription" name="projectDescription" [(ngModel)]="project.description" required></textarea>
+      <div *ngIf="!project.description && formSubmitted" class="error">Description is required.</div>
+    </div>
+  
+    <div class="form-group">
+      <label for="projectStartDate">Start date</label>
+      <input type="date" id="projectStartDate" name="projectStartDate" [(ngModel)]="project.startDate" required>
+      <div *ngIf="!project.startDate && formSubmitted" class="error">Start date is required.</div>
+    </div>
+  
+    <div class="form-group">
+      <label for="projectEndDate">End date</label>
+      <input type="date" id="projectEndDate" name="projectEndDate" [(ngModel)]="project.endDate" required>
+      <div *ngIf="!project.endDate && formSubmitted" class="error">End date is required.</div>
+    </div>
+  
+    <div class="form-group">
+      <label>Location on map</label>
+      <div id="map" class="map-container"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="latitude">Latitude</label>
+      <input type="text" id="latitude" name="latitude" [(ngModel)]="project.latitude" readonly>
+    </div>
+    
+    <div class="form-group">
+      <label for="longitude">Longitude</label>
+      <input type="text" id="longitude" name="longitude" [(ngModel)]="project.longitude" readonly>
+    </div>
+        
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" [(ngModel)]="project.city" required>
+      <div *ngIf="!project.city && formSubmitted" class="error">City is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" [(ngModel)]="project.location" required>
+      <div *ngIf="!project.location && formSubmitted" class="error">Location is required.</div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add project</button>
+  </form>
+  
+  <i class="fas fa-arrow-left go-back" (click)="goBack()"></i>
+</div>
+<br>
+<br>

@@ -1,0 +1,35 @@
+<div class="stats-container">
+    <h2>Statistiques des factures par état</h2>
+    <button (click)="navigateToFactureList()"class="facturelist">Liste des factures</button>
+
+    
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Chargement des statistiques...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+      <button (click)="loadStatistics()">Réessayer</button>
+    </div>
+  
+    <div *ngIf="!loading && !error">
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="barChartType">
+        </canvas>
+      </div>
+  
+      <div class="stats-summary">
+  <h3>Résumé</h3>
+  <ul>
+    <li *ngFor="let key of objectKeys(statsData)">
+      {{ key }}: <strong>{{ statsData[key] }}</strong> factures
+    </li>
+    <li class="total">Total: <strong>{{ getTotalFactures() }}</strong> factures</li>
+  </ul>
+</div>
+
+  </div>

@@ -1,0 +1,42 @@
+<br>
+<div class="edit-project">
+  <h2>Edit Project</h2>
+
+  <div *ngIf="project">
+    <form (ngSubmit)="updateProject()">
+      <div class="form-group">
+        <label for="name">Nom du Projet</label>
+        <input id="name" [(ngModel)]="project.name" name="name" type="text" placeholder="Nom du Projet">
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="project.description" name="description" placeholder="Description"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="startDate">Date de Début</label>
+        <input id="startDate" [(ngModel)]="project.startDate" name="startDate" type="date">
+      </div>
+  
+      <div class="form-group">
+        <label for="endDate">Date de Fin</label>
+        <input id="endDate" [(ngModel)]="project.endDate" name="endDate" type="date">
+      </div>
+
+      <button type="submit">Update Project</button>
+    </form>
+
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!project">
+    <p>Loading project data...</p>
+  </div>
+
+  <i class="fas fa-arrow-left go-back" (click)="goBack()"></i>
+</div>
+<br>
+<br>

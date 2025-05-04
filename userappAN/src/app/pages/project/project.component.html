@@ -1,0 +1,42 @@
+<div class="projects-container">
+  <h2>Display Projetcs</h2>
+
+  <br>
+  <br>
+  <div class="toolbar">
+    <button (click)="navigateToAddProject()" class="add-button">+ Add new project</button>
+
+    <div class="filters">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search..." (input)="filterProjects()" />
+      <select [(ngModel)]="selectedStatus" (change)="filterProjects()">
+        <option value="">By status</option>
+        <option value="ON_GOING">On Going</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="DELAYED">Delayed</option>
+      </select>
+    </div>
+    <button (click)="changeSort('startDate')">Sort by Start Date ↑</button> 
+    <button (click)="changeSort('endDate')">Sort by End Date ↓</button>
+  </div>
+
+  <div class="card-grid">
+    <div *ngFor="let project of filteredProjects" class="project-card">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+      <div class="dates">
+        <span>Début : {{ project.startDate | date:'dd/MM/yyyy' }}</span>
+        <span>Fin : {{ project.endDate | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <span class="badge" [ngClass]="project.status">{{ project.status }}</span>
+
+      <div class="actions">
+        <button class="view-button" (click)="viewProjectDetails(project.idProject)"*ngIf="project.idProject !== undefined">Details</button>
+        <button class="delete-button" (click)="deleteProject(project.idProject)"*ngIf="project.idProject !== undefined">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredProjects.length === 0" class="no-results">
+    Aucun projet ne correspond à votre recherche.
+  </div>
+</div>

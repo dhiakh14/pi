@@ -18,6 +18,20 @@ import { connectedGuard } from './guards/connected.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TaskChatComponent } from './pages/task-chat/task-chat.component';
 import { CameraControlComponent } from './pages/camera-control/camera-control.component';
+import { ProjectComponent } from './pages/project/project.component';
+import { AddProjectComponent } from './pages/add-project/add-project.component';
+import { EditProjectComponent } from './pages/edit-project/edit-project.component';
+import { ProjectDetailsComponent } from './pages/project-details/project-details.component'
+import { ProjectStatsComponent } from './pages/project-stats/project-stats.component'
+import { ProjectLocationComponent } from './pages/project-location/project-location.component';
+import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
+import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
+import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
+import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
+import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
+import { FactureStatComponent } from './pages/aziz1/facture-stat/facture-stat.component';
+import { ExchangeRatesComponent } from './pages/aziz1/exchange-rates/exchange-rates.component';
+
 
 
 const routes: Routes = [
@@ -42,7 +56,22 @@ const routes: Routes = [
   { path: 'notadminusers', component: ProfileComponent, canActivate: [nonAdminGuardGuard] },
   { path: 'addtask', component: AddTaskComponent, canActivate:[connectedGuard] },
   { path: 'tasks/edit/:id', component: AddTaskComponent, canActivate:[connectedGuard] },
-  {path:'camera', component:CameraControlComponent}
+  {path:'camera', component:CameraControlComponent},
+  { path: 'project', component:ProjectComponent},
+  { path: 'addproject', component:AddProjectComponent},
+  { path: 'editproject/:id', component:EditProjectComponent},
+  { path: 'project-details/:id', component: ProjectDetailsComponent },
+  { path: 'stats', component: ProjectStatsComponent },
+  { path: 'map', component: ProjectLocationComponent },
+  { path: 'duration', component: ProjectDurationComponent },
+  { path: 'predict', component: PredictionStatutComponent },
+  {path: 'facture', component: FactureListComponent},
+  {path: 'addfacture', component: FactureFormComponent},
+  { path: 'facture-details/:idF', component: FactureDetailsComponent },
+  {path: 'stataziz', component:FactureStatComponent},
+  {path: 'rate', component: ExchangeRatesComponent},
+  
+
 
 ];
 

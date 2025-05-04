@@ -1,0 +1,33 @@
+<div class="full-screen-background">
+  <!-- Votre code existant COPIER-COLLER ici SANS MODIFICATIONS -->
+  <div class="rates-container">
+    <button (click)="loadRates()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Load Exchange Rates' }}
+    </button>
+    
+    <button (click)="navigateToFactureList()">Retour à la liste des factures</button>
+
+  
+    <div *ngIf="error" class="error">
+      Error: {{ error }}
+    </div>
+  
+    <div *ngIf="ratesResponse" class="rates-data">
+      <div *ngIf="ratesResponse.error" class="api-error">
+        API Error: {{ ratesResponse.error | json }}
+      </div>
+  
+      <div *If="ratesResponse.base" class="rates-info">
+        <h3>Base Currency: {{ ratesResponse.base }}</h3>
+        <p *If="ratesResponse.date">Date: {{ ratesResponse.date }}</p>
+      </div>
+  
+      <div class="rates-grid">
+        <div class="rate-row" *ngFor="let pair of getCurrencyPairs()">
+          <span class="currency">{{ pair.currency }}</span>
+          <span class="rate">{{ pair.rate | number:'1.2-4' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
