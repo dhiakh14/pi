@@ -1,0 +1,154 @@
+/* Sidebar container */
+.sidebar {
+  position: fixed;
+  left: -250px; /* Initially hidden */
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(135deg, #2c3e50, #34495e); /* Gradient background */
+  color: white;
+  transition: left 0.3s ease-in-out;
+  padding-top: 80px; /* Increased padding for better spacing */
+  box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  z-index: 1000; /* Ensures sidebar is above other elements */
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Show sidebar when visible */
+.sidebar.visible {
+  left: 0;
+}
+
+h3 {
+  text-align: center;
+}
+
+/* Menu title */
+.menu-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 30px; /* Increased margin for better spacing */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Adds a professional touch */
+  color: #ecf0f1; /* Lighter shade for better contrast */
+  position: relative;
+}
+
+.menu-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #e67e22; /* Accent color */
+  margin: 10px auto 0; /* Center the line */
+  border-radius: 2px;
+}
+
+/* Sidebar menu items */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px; /* Increased padding for better spacing */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.sidebar ul li:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Increased gap between icon and text */
+  font-size: 1.1em;
+  transition: color 0.3s ease, padding-left 0.3s ease; /* Smooth transitions */
+}
+
+.sidebar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle hover effect */
+  padding-left: 15px; /* Indent on hover */
+  color: #e67e22; /* Highlight color on hover */
+}
+
+.sidebar ul li:hover {
+  transform: translateX(5px); /* Slight move effect on hover */
+}
+
+.toggle-btn {
+  position: fixed;
+  left: 20px; 
+  top: 10px; 
+  background-color: #e67e22; /* Orange background */
+  color: white;
+  border: none;
+  padding: 9px 12px; /* Slightly larger padding */
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  z-index: 1100; /* Ensures button is above the header */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.toggle-btn:hover {
+  background-color: #d35400; /* Darker orange on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar ul li ul.submenu {
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.sidebar ul li ul.submenu.show {
+  display: flex;
+}
+
+.sidebar ul li ul.submenu li {
+  padding: 10px 0;
+  border: none;
+}
+
+.sidebar ul li ul.submenu li a {
+  font-size: 0.95em;
+  color: #ecf0f1;
+}
+
+.sidebar ul li ul.submenu li a:hover {
+  color: #e67e22;
+  padding-left: 10px;
+}

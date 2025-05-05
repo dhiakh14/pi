@@ -1,0 +1,487 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8082/GE",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/users/{idUser}/ban": {
+            "put": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "banUser",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "lockStatus",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{idUser}/assignAndReplaceRoleToUser": {
+            "post": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "assignAndReplaceRoleToUser",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "roleName",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{idUser}/assign-role": {
+            "post": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "assignRoleToUser",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "roleName",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles/add": {
+            "post": {
+                "tags": [
+                    "role-controller"
+                ],
+                "operationId": "addRole",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/authenticate": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "operationId": "authenticate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthenficationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthenficationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/Register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "operationId": "register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegistrationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/getUserById/{idUser}": {
+            "get": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "getProfile",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/all-except-me": {
+            "get": {
+                "tags": [
+                    "user-controller"
+                ],
+                "operationId": "getAllUsersExceptMe",
+                "parameters": [
+                    {
+                        "name": "currentUserId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles/getRoles": {
+            "get": {
+                "tags": [
+                    "role-controller"
+                ],
+                "operationId": "getRoles",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json ": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/activate-account": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "operationId": "confirm",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthenficationRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "maxLength": 2147483647,
+                        "minLength": 8,
+                        "type": "string"
+                    }
+                }
+            },
+            "AuthenficationResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RegistrationRequest": {
+                "required": [
+                    "dateOfBirth",
+                    "email",
+                    "firstName",
+                    "lastName",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "maxLength": 2147483647,
+                        "minLength": 8,
+                        "type": "string"
+                    }
+                }
+            },
+            "GrantedAuthority": {
+                "type": "object",
+                "properties": {
+                    "authority": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "idRole": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lastModifiedDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "idUser": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "accountLocked": {
+                        "type": "boolean"
+                    },
+                    "enabled": {
+                        "type": "boolean"
+                    },
+                    "createDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lastModifiedDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "roles": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "authorities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GrantedAuthority"
+                        }
+                    },
+                    "accountNonLocked": {
+                        "type": "boolean"
+                    },
+                    "credentialsNonExpired": {
+                        "type": "boolean"
+                    },
+                    "accountNonExpired": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}

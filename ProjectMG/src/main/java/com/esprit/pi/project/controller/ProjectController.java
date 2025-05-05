@@ -3,17 +3,11 @@ package com.esprit.pi.project.controller;
 import com.esprit.pi.project.entity.Project;
 import com.esprit.pi.project.entity.Status;
 import com.esprit.pi.project.service.ProjectService;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -74,11 +68,11 @@ public class ProjectController {
         return projectService.getProjectLocation(idProject);
     }
 
-    @PostMapping("/predictStatus")
-    public ResponseEntity<String> predictProjectStatus(@RequestBody Project project) {
-        String prediction = projectService.predictStatus(project);
-        return ResponseEntity.ok(prediction);
-    }
+//    @PostMapping("/predictStatus")
+//    public ResponseEntity<String> predictProjectStatus(@RequestBody Project project) {
+//        String prediction = projectService.predictStatus(project);
+//        return ResponseEntity.ok(prediction);
+//    }
 
     @GetMapping("/progress/{idProject}")
     public ResponseEntity<?> getProjectProgress(@PathVariable Long idProject) {
@@ -96,4 +90,5 @@ public class ProjectController {
         if (data == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(data);
     }
+
 }

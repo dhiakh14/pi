@@ -1,0 +1,126 @@
+<div class="background-container">
+  <div class="add-task-container">
+    <button (click)="addTask()" class="add-task-btn">
+      <i class="fas fa-plus-circle"></i> Add Task
+    </button>
+    <button (click)="showPredictionForm = !showPredictionForm" class="add-task-btn">
+      <i class="fas fa-chart-line"></i> Prediction
+    </button>
+  </div>
+
+  <div *ngIf="showPredictionForm" class="prediction-form-container">
+    <h3>Predict Task Duration</h3>
+    <form (ngSubmit)="predictTaskDuration(predictionName.value, predictionDescription.value)">
+      <div class="form-group">
+        <label for="predictionName">Task Name:</label>
+        <input id="predictionName" #predictionName type="text" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="predictionDescription">Task Description:</label>
+        <textarea id="predictionDescription" #predictionDescription required class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    <div *ngIf="predictedDuration !== null" class="prediction-result">
+      <h4>Predicted Duration:</h4>
+      <p>{{ predictedDuration }} days</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <h4>Error:</h4>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="tasks.length > 0; else noTasks">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="filterTasks()" 
+        placeholder="Search by task name or description" 
+        class="search-input" />
+      <button (click)="startVoiceSearch()" class="voice-search-btn">
+        <i class="fas fa-microphone"></i> 
+      </button>
+    </div>
+
+    <button (click)="exportToExcel()" class="export-excel-btn">Export to Excel</button>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Task Name</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>Planned End Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+          <th>QR Code</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filteredTasks | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" [routerLink]="['/task-details', task.idTask]" class="clickable-row">
+          <td>
+            <input 
+              type="checkbox" 
+              [checked]="selectedTaskIds.has(task.idTask!)" 
+              (click)="$event.stopPropagation()" 
+              (change)="toggleSelection(task.idTask!)">
+          </td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.startDate | date }}</td>
+          <td>{{ task.planned_end_date | date }}</td>
+          <td>{{ task.status }}</td>
+          <td>
+            <button (click)="deleteTask(task.idTask!); $event.stopPropagation()" class="delete-btn">Delete</button>
+            <button (click)="editTask(task); $event.stopPropagation()" class="edit-btn">
+              <a [routerLink]="['/tasks/edit', task.idTask]">Edit</a>
+            </button>
+          </td>
+          <td>
+            <button (click)="showQRCode(task, qrCodeModal); $event.stopPropagation()" class="btn btn-sm btn-info">
+              <i class="fas fa-qrcode"></i> <!-- Font Awesome QR code icon -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-controls">
+      <pagination-controls 
+        (pageChange)="currentPage = $event" 
+        previousLabel="Previous" 
+        nextLabel="Next"
+        [responsive]="true">
+      </pagination-controls>
+    </div>
+
+    <button (click)="generateGanttChart()" class="generate-gantt-btn">Generate Gantt Chart</button>
+    <button (click)="saveGanttChart(ganttData)" class="save-gantt-btn">Save Gantt Chart</button>
+  </div>
+
+  <ng-template #noTasks>
+    <p class="no-tasks-message">No tasks available.</p>
+  </ng-template>
+
+  <div id="gantt-container" class="gantt-chart"></div>
+</div>
+
+<ng-template #qrCodeModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Task QR Code</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
