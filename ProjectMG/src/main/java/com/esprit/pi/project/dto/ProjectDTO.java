@@ -19,4 +19,12 @@ public class ProjectDTO {
     public void setDuration(double duration) {
         this.duration = duration;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
 }
