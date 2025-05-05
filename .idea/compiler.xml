@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
+        <module name="GestionLivrables" />
         <module name="Gateway" />
         <module name="GestioPlanning" />
         <module name="Discovery" />
@@ -51,6 +52,7 @@
       <module name="GestioPlanning" options="-parameters" />
       <module name="GestioPlanning (1)" options="-parameters" />
       <module name="GestioPlanning (2)" options="-parameters" />
+      <module name="GestionLivrables" options="-parameters" />
       <module name="GestionRessource" options="-parameters" />
       <module name="KhalfaouiMohamedDhia" options="-parameters" />
       <module name="ProjectMG" options="-parameters" />

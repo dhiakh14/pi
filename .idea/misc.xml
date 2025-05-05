@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -15,6 +16,7 @@
         <option value="$PROJECT_DIR$/lahmeraziz1/pom.xml" />
         <option value="$PROJECT_DIR$/Supplier/pom.xml" />
         <option value="$PROJECT_DIR$/GestionRessources/pom.xml" />
+        <option value="$PROJECT_DIR$/GestionLivrables/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

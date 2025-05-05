@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Discovery/target/classes/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Discovery/target/classes/com/pi/Discovery/DiscoveryApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Controller/CameraController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Controller/GanttChartController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Controller/TaskController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Entity/GanttChart.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Entity/Status.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Entity/Task.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/PlanningApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Service/GanttChartService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Service/GeminiChatbotService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Service/TaskService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/config/WebConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/repository/GanttChartRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/repository/TaskRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/SprinProjectApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest$AuthenficationRequestBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse$AuthenficationResponseBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest$RegistrationRequestBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/config/BeansConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailTemplateName.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/BusinessErrorCodes.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse$ExceptionResponseBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/GlobalExceptionHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role$RoleBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/SecurityConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/UserDetailsServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token$TokenBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/TokenRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User$UserBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/userRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/templates/activate_account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pi4/target/classes/templates/reset_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/SupplierApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/config/AppConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/EmailController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/PredictionController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/SupplierController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/dto/SummarizeRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/dto/SupplierSummaryDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/MaterialResource$Category.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/MaterialResource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/PredictionRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/PredictionResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/Status.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/Supplier.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/repository/MaterialResourceRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/repository/SupplierRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/AISentimentService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/AISummarizationService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/EmailService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/SupplierPredictionService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/SupplierService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config-server/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config-server/target/classes/com/pi/configserver/ConfigServerApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/config/BeansConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/controlles/Rest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/entities/Facture.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/entities/etatFacture.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/nomPrenomClasseExamenApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/repositories/IFactureRespository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/services/IService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/services/Servicelahmer$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lahmeraziz1/target/classes/tn/esprit/examen/nomPrenomClasseExamen/services/Servicelahmer.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2we9uwx98d7sZO3qxZwLllYCY7V" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/moham/Documents/GitHub/pi/GestionLivrables/pom.xml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DiscoveryApplication">
+    <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pi.configserver.ConfigServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Discovery" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pi.Discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExamApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="GestionRessource" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tn.esprit.exam.ExamApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pi.Gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GestionLivrablesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="GestionLivrables" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gestionlivrables.GestionLivrablesApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlanningApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="GestioPlanning" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.sprinproject.PlanningApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProjectMgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ProjectMG" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.esprit.pi.project.ProjectMgApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SprinProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="KhalfaouiMohamedDhia" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.sprinproject.SprinProjectApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SupplierApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Supplier" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.supplier.SupplierApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="nomPrenomClasseExamenApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="nomPrenomClasseExamen" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tn.esprit.examen.nomPrenomClasseExamen.nomPrenomClasseExamenApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="" />
+      <created>1746391398974</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746391398974</updated>
+      <workItem from="1746391400049" duration="2810000" />
+      <workItem from="1746400893744" duration="5190000" />
+      <workItem from="1746440490095" duration="1634000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
