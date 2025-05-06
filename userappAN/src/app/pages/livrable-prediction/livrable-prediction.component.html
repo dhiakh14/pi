@@ -1,0 +1,39 @@
+<!-- livrable-prediction.component.html -->
+<div class="livrable-prediction">
+    <h2>Livrable Status Prediction</h2>
+  
+    <!-- Display Loading Indicator -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading...</p>
+    </div>
+  
+    <!-- Display Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="description" name="description" required></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="createdAt">Created At:</label>
+        <input type="date" id="createdAt" [(ngModel)]="createdAt" name="createdAt" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" [(ngModel)]="dueDate" name="dueDate" required />
+      </div>
+  
+      <button type="submit">Predict Status</button>
+    </form>
+  
+    <!-- Display Predicted Status -->
+    <div *ngIf="predictedStatus">
+      <h3>Predicted Status: {{ predictedStatus }}</h3>
+    </div>
+  </div>
+  

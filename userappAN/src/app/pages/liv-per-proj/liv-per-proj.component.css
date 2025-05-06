@@ -1,0 +1,43 @@
+/* grouped-livrables.component.css */
+/* grouped-livrables.component.css */
+.table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+  
+  .table thead th {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+  }
+  
+  .table td {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    vertical-align: middle;
+  }
+  
+  h3 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    padding-left: 10px;
+    color: #ffc107;
+  }
+  /* grouped-livrables.component.css */
+
+.background-container {
+    background-image: linear-gradient(rgba(40, 42, 55, 0.9), rgba(40, 42, 55, 0.9)), url('/assets/v.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  

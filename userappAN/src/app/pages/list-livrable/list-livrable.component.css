@@ -1,0 +1,215 @@
+/* Main container for the component */
+.component-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+.background-container {
+  background-image: linear-gradient(rgba(40, 42, 55, 0.9), rgba(40, 42, 55, 0.9)), url('src/assets/back.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%; /* Ensure it spans full width */
+  padding: 40px 20px; /* Keep vertical padding but no horizontal */
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Livrable container */
+.livrable-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center the cards horizontally */
+  align-items: flex-start; /* Align cards at the top */
+}
+
+/* Livrable card styles */
+.livrable-card {
+  width: 250px; /* Set a fixed width */
+  height: 250px; /* Set height equal to width to make it a square */
+  background-color: #ffffff !important; /* Semi-transparent white */
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(10px); /* Optional, keeps the blur effect */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 5);/*transparency*/
+  background: rgba(255, 255, 255, 0.8);
+  
+}
+
+
+.livrable-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  display: flex;
+  background-color:linear-gradient(135deg, #50575e, #343a40);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.card-body {
+  flex-grow: 1;
+}
+.card-footer {
+  width: 100%;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color:#212529;
+}
+
+.card-status {
+  position: absolute;
+
+  right: 30px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Couleurs des statuts */
+.completed {
+  background-color: #28a745; /* Vert */
+}
+
+.in-progress {
+  background-color: #ffc107; /* Jaune */
+  color: #333; /* Texte noir pour contraste */
+}
+
+.late {
+  background-color: #df1428; /* Rouge */
+}
+
+.approved {
+  background-color: #17a2b8; /* Bleu clair */
+}
+
+.rejected {
+  background-color: #6c757d; /* Gris */
+}
+.card-body {
+  margin-bottom: 15px;
+}
+
+.card-info {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card-info strong {
+  color: #333;
+}
+
+
+.features-item {
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 60px 30px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 992px) {
+  .features-item {
+      margin-bottom: 45px;
+  }
+}
+/* Add Livrable Button */
+.add-button-container {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.add-livrable-button {
+  padding: 8px 20px;
+  background: linear-gradient(145deg, #ff8800, #ff6600); /* Gradient background */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(250, 76, 7, 0.3);
+
+}
+.add-livrable-button:hover {
+  background: linear-gradient(145deg, #e35300, #e35300); /* Darker gradient on hover */
+  box-shadow: 0 6px 15px rgba(255, 94, 0, 0.5); /* Larger shadow on hover */
+  transform: translateY(-2px); /* Slight lift */
+}
+
+
+.detail-btn {
+  padding: 5px 20px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  transition: all 0.3sease;
+  box-shadow: 0 4px 10px rgba(21, 118, 197, 0.3);
+  
+}
+.detail-btn:hover {
+  background: linear-gradient(145deg, #e35300, #e35300); /* Darker gradient on hover */
+  box-shadow: 0 6px 15px rgba(255, 94, 0, 0.5); /* Larger shadow on hover */
+  transform: translateY(-2px); /* Slight lift */
+}
+.download-btn {
+  background: rgba(255, 255, 255, 0.8);
+  color: #34495e;
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-size: 10px;
+  margin-left: 0px;
+  border-radius: 5px;
+  
+}
+
+.download-btn:hover {
+   /* Darker gradient on hover */
+  box-shadow: 0 6px 15px rgba(255, 94, 0, 0.5); /* Larger shadow on hover */
+  transform: translateY(-2px); /* Slight lift */
+}
+
+.download-btn i {
+  margin-right: 5px;
+}
+
+

@@ -1,0 +1,68 @@
+<div *ngIf="livrable" class="livrable-detail">
+    <h2 (dblclick)="editField('title')">
+        <span *ngIf="!editMode['title']">{{ livrable.title }}</span>
+        <input *ngIf="editMode['title']" [(ngModel)]="livrable.title" (blur)="saveUpdate('title')" (keyup.enter)="saveUpdate('title')" />
+    </h2>
+
+    <p><strong>Project :</strong> 
+        <span (dblclick)="editField('projectName')" *ngIf="!editMode['projectName']">{{ livrable.projectName }}</span>
+        <input *ngIf="editMode['projectName']" [(ngModel)]="livrable.projectName" (blur)="saveUpdate('projectName')" (keyup.enter)="saveUpdate('projectName')" />
+    </p>
+
+    <p><strong>Format :</strong> {{ livrable.format }}</p>
+
+    <p><strong>Description :</strong> 
+        <span (dblclick)="editField('description')" *ngIf="!editMode['description']">{{ livrable.description }}</span>
+        <input *ngIf="editMode['description']" [(ngModel)]="livrable.description" (blur)="saveUpdate('description')" (keyup.enter)="saveUpdate('description')" />
+    </p>
+
+    <p><strong>Created At :</strong> {{ livrable.createdAt | date: 'dd/MM/yyyy' }}</p>
+    
+    <p><strong>Due Date :</strong> {{ livrable.due_date | date: 'dd/MM/yyyy' }}</p>
+
+    <p><strong>Updated At :</strong> {{ livrable.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p> <!-- Added Updated At -->
+
+    <p><strong>Completed Count :</strong> {{ livrable.completed_count }}</p> <!-- Added Completed Count -->
+
+    <!-- Progress -->
+<div class="mt-4">
+    <p><strong>Progress:</strong></p>
+    <div class="progress" style="height: 20px;">
+      <div class="progress-bar bg-info" role="progressbar"
+           [style.width.%]="progressPercentage">
+        {{ progressPercentage }}%
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overdue Indicator -->
+  <div *ngIf="isOverdue" class="mt-3">
+    <span class="badge bg-danger">Overdue</span>
+  </div>
+  
+    
+    <p><strong>Status :</strong> 
+        <span *ngIf="!editMode['status']" [ngClass]="{
+            'status-inprogress': livrable.status === 'InProgress',
+            'status-completed': livrable.status === 'Completed',
+            'status-late': livrable.status === 'Late',
+            'status-approved': livrable.status === 'Approved',
+            'status-rejected': livrable.status === 'Rejected'
+        }" (dblclick)="editField('status')">
+            {{ livrable.status }}
+        </span>
+
+        <select *ngIf="editMode['status']" [(ngModel)]="livrable.status" (blur)="saveUpdate('status')">
+            <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+        </select>
+    </p>
+
+    <!-- Buttons to Save or Discard Changes -->
+    <div class="form-actions">
+        <button class="detail-btn" (click)="saveChanges()" style="margin-right: 10px;">Save Changes</button>
+        <button class="detail-btn" routerLink="/livrables" style="margin-right: 10px;">Discard Changes</button>
+        <button class="detail-btn delete-btn" (click)="deleteLivrable()">Delete</button>
+        <button class="detail-btn delete-btn" (click)="downloadPdf(livrable.idLivrable)">Download PDF</button>
+
+    </div>
+</div>

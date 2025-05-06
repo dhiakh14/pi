@@ -1,0 +1,29 @@
+<!-- stats.component.html -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-4">
+
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-xl font-bold">Total Livrables</h3>
+      <p class="text-3xl">{{ stats?.total }}</p>
+    </div>
+  
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-xl font-bold">Late Livrables</h3>
+      <p class="text-3xl text-red-600">{{ stats?.late }}</p>
+    </div>
+  
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-xl font-bold">Completion Rate</h3>
+      <p class="text-3xl text-green-500">{{ stats?.completionRate | number: '1.1-1' }}%</p>
+    </div>
+  </div>
+  
+  <div class="p-4">
+    <apx-chart
+      *ngIf="statusChart"
+      [series]="statusChart.series"
+      [chart]="statusChart.chart"
+      [labels]="statusChart.labels"
+      [plotOptions]="statusChart.plotOptions">
+    </apx-chart>
+  </div>
+  

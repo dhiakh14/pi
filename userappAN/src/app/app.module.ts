@@ -63,6 +63,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DashboardArijComponent } from './pages/dashboardArij/dashboardArij.component';
+import { ListLivrableComponent } from './pages/list-livrable/list-livrable.component';
+import { LivrableService } from './servicesEmira/livrable.service';
+import { AddLivrableComponent } from './pages/add-livrable/add-livrable.component';
+import { LivrableDetailComponent } from './pages/livrable-detail/livrable-detail.component';
+import { LivrableProgressComponent } from './livrable-progress/livrable-progress.component';
+import { StatsComponent } from './pages/stats/stats.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { StatsService } from './servicesEmira/stats.service';
+import { LivPerProjComponent } from './pages/liv-per-proj/liv-per-proj.component';
+import { LivrableAlertService } from './servicesEmira/livrable-alert.service';
+import { LivrablePredictionComponent } from './pages/livrable-prediction/livrable-prediction.component';
+
+
+
 
 
 
@@ -121,7 +135,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupplierAddComponent,
     SupplierRatingComponent,
     SupplierMapComponent,
-    SuppPredictionComponent
+    SuppPredictionComponent,
+    ListLivrableComponent,
+    AddLivrableComponent,
+    LivrableDetailComponent,
+    LivrableProgressComponent,
+    StatsComponent,
+    LivPerProjComponent,
+    LivrablePredictionComponent,
+
 
   ],
   imports: [
@@ -133,6 +155,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     MatInputModule,
     MatNativeDateModule,
+    NgApexchartsModule,
+
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -157,10 +181,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 8000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
-  providers: [
-  ],
+  providers: [LivrableService, StatsService, LivrableAlertService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

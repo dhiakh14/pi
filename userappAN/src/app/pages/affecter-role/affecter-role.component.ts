@@ -48,6 +48,15 @@ export class AffecterRoleComponent implements OnInit {
     }
   }
 
+  get adminCount(): number {
+    return this.users?.filter(user => user.roles?.some(role => role.name === 'ADMIN')).length || 0;
+}
+
+get bannedUserCount(): number {
+  return this.users ? this.users.filter(u => u.accountLocked).length : 0;
+}
+
+
   banUser(userId: number, lockStatus: boolean): void {
     console.log(`Banning user with ID: ${userId} and lockStatus: ${lockStatus}`);
 

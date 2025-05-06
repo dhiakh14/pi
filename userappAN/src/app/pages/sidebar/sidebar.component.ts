@@ -14,6 +14,8 @@ export class SidebarComponent implements OnInit {
 
   isVisible = false; 
   isAdmin = false;  
+  dropdownVisible = false; // control dropdown visibility
+
 
   constructor(private tokenService: TokenService, private router: Router) {}
 
@@ -42,6 +44,10 @@ export class SidebarComponent implements OnInit {
 
   toggleProjectMenu() {
   this.isProjectMenuOpen = !this.isProjectMenuOpen;
+}
+
+toggleDropdown() {
+  this.dropdownVisible = !this.dropdownVisible;
 }
 
 

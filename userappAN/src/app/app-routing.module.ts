@@ -40,6 +40,13 @@ import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update
 import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component'; // Import the map component
 import { SuppPredictionComponent } from './pages/supp-prediction/supp-prediction.component';
 import { DashboardArijComponent } from './pages/dashboardArij/dashboardArij.component';
+import { ListLivrableComponent } from './pages/list-livrable/list-livrable.component';
+import { AddLivrableComponent } from './pages/add-livrable/add-livrable.component';
+import { LivrableDetailComponent } from './pages/livrable-detail/livrable-detail.component';
+import { StatsComponent } from './pages/stats/stats.component';
+import { LivPerProjComponent } from './pages/liv-per-proj/liv-per-proj.component';
+import { LivrableChartComponent } from './pages/livrable-chart/livrable-chart.component';
+import { LivrablePredictionComponent } from './pages/livrable-prediction/livrable-prediction.component';
 
 
 
@@ -86,6 +93,13 @@ const routes: Routes = [
   { path: 'supplier-map', component: SupplierMapComponent },
   { path: 'prediction', component: SuppPredictionComponent },
   {path : 'dashboard', component:DashboardArijComponent},
+  { path: 'livrables', component: ListLivrableComponent },
+  { path: 'add-livrable', component: AddLivrableComponent },
+  {path:"details/:id",component:LivrableDetailComponent},
+  { path: 'stats', component: StatsComponent },
+  { path: 'liv-per-proj', component: LivPerProjComponent }, // Add this line to include the chart component
+  { path: 'livrable-prediction', component: LivrablePredictionComponent }, // Add this line to include the chart component
+
   
 
 

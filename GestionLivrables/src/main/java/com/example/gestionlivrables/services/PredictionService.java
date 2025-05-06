@@ -19,7 +19,7 @@ public class PredictionService {
     }
 
     public String predictLivrableStatus(LivrableDTO livrableDTO) {
-        String url = "http://127.0.0.1:5000/predict";
+        String url = "http://localhost:5000/predictEmira";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
