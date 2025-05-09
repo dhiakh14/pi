@@ -7,6 +7,7 @@ import com.example.supplier.model.MaterialResource;
 import com.example.supplier.repository.SupplierRepository;
 import com.example.supplier.service.AISentimentService;
 import com.example.supplier.service.AISummarizationService;
+import com.example.supplier.service.SupplierPredictionService;
 import com.example.supplier.service.SupplierService;
 import com.example.supplier.repository.MaterialResourceRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,6 +30,8 @@ public class SupplierController {
     private final MaterialResourceRepository materialResourceRepository;
     private final AISentimentService sentimentService;
     private final AISummarizationService summarizationService;
+    private final SupplierPredictionService predictionService;
+
 
     @Value("${huggingface.api.key}")
     private String API_KEY;
@@ -39,19 +42,34 @@ public class SupplierController {
             SupplierRepository supplierRepository,
             MaterialResourceRepository materialResourceRepository,
             AISentimentService sentimentService,
-            AISummarizationService summarizationService
+            AISummarizationService summarizationService,
+            SupplierPredictionService predictionService
     ) {
         this.supplierService = supplierService;
         this.supplierRepository = supplierRepository;
         this.materialResourceRepository = materialResourceRepository;
         this.sentimentService = sentimentService;
         this.summarizationService = summarizationService;
+        this.predictionService = predictionService;
     }
 
     // ✅ Get all suppliers
     @GetMapping
     public List<Supplier> getAll() {
         return supplierService.getAllSuppliers();
+    }
+
+    @GetMapping("/prediction-dashboard")
+    public List<Supplier> getSupplierPredictions() {
+        List<Supplier> suppliers = supplierService.getAllSuppliers();
+
+        // Fetch prediction for each supplier and set the prediction status
+        for (Supplier supplier : suppliers) {
+            String predictionStatus = supplierService.getPredictionForSupplier(supplier);
+            supplier.setPredictionStatus(predictionStatus);  // Set the prediction status on the supplier object
+        }
+
+        return suppliers;
     }
 
     // ✅ Get supplier by ID and increment click count
