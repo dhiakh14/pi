@@ -23,18 +23,26 @@ public class SupplierPredictionService {
     }
 
     public PredictionResponse getPredictionFromFlaskApi(PredictionRequest predictionRequest) {
-        // Directly use the createdAt timestamp as it is already a Long
-        Long timestamp = predictionRequest.getCreatedAt();
-
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
         HttpEntity<PredictionRequest> entity = new HttpEntity<>(predictionRequest, headers);
 
-        // Sending the POST request to the Flask API
+        // Sending the POST request to Flask API and expecting a PredictionResponse
         ResponseEntity<PredictionResponse> response = restTemplate.exchange(
-                flaskApiUrl + "/predict/supplier_prediction", HttpMethod.POST, entity, PredictionResponse.class);
+                "http://localhost:5000/predict/supp", HttpMethod.POST, entity, PredictionResponse.class);
 
-        return response.getBody();  // Return the prediction response
+        // Log the Flask API response to verify the data
+        System.out.println("Flask API Response: " + response.getBody());
+
+        // Populate predictionStatus here based on the returned data
+        PredictionResponse predictionResponse = response.getBody();
+        predictionResponse.setPredictionStatus(predictionResponse.getPrediction() == 1 ? "active" : "inactive");
+
+        return predictionResponse;
     }
+
+
+
+
 }

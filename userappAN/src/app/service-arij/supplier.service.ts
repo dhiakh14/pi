@@ -89,15 +89,25 @@ export class SupplierService {
 
 
   // Update the method to accept a plain object instead of Supplier
-  getPredictionForSupplier(supplierData: any): Observable<any> {
+  /*getPredictionForSupplier(supplierData: any): Observable<any> {
     console.log('Sending request with data:', supplierData);  // Debug log
 
     return this.http.post<any>(this.predictionUrl, supplierData);
+  }*/
+
+  // Fetch suppliers with prediction status from the backend
+  getSuppliersPrediction(): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>('http://localhost:8095/api/suppliers/prediction-dashboard');
   }
 
+  getPredictionDetails(id: string): Observable<Supplier> {
+    return this.http.get<Supplier>(`http://localhost:8095/prediction/supplier-prediction-details/${id}`);
+  }
   
-  
-  
+
+  sendWarningEmail(id: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8095/email/send-warning-email/${id}`, {});
+  }
   
   
   

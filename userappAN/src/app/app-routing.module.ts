@@ -37,7 +37,7 @@ import { SupplierListComponent } from './pages/supplier-list/supplier-list.compo
 import { SupplierUpdateComponent } from './pages/supplier-update/supplier-update.component';
 
 
-import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component'; // Import the map component
+import { SupplierMapComponent } from './pages/supplier-map/supplier-map.component'; 
 import { SuppPredictionComponent } from './pages/supp-prediction/supp-prediction.component';
 import { DashboardArijComponent } from './pages/dashboardArij/dashboardArij.component';
 import { ListLivrableComponent } from './pages/list-livrable/list-livrable.component';
@@ -47,6 +47,13 @@ import { StatsComponent } from './pages/stats/stats.component';
 import { LivPerProjComponent } from './pages/liv-per-proj/liv-per-proj.component';
 import { LivrableChartComponent } from './pages/livrable-chart/livrable-chart.component';
 import { LivrablePredictionComponent } from './pages/livrable-prediction/livrable-prediction.component';
+
+import { AddHRComponent } from './pages/add-hr/add-hr.component';
+import { ListHrComponent } from './pages/list-hr/list-hr.component';
+import { HrDetailsComponent } from './pages/hr-details/hr-details.component';
+import { AddMatComponent } from './pages/add-mat/add-mat.component';
+import { MaterialResourceListComponent } from './pages/materialslist/materialslist.component';
+import { SupplierPredictionDetailsComponent } from './pages/supplier-prediction-details/supplier-prediction-details.component';
 
 
 
@@ -97,8 +104,16 @@ const routes: Routes = [
   { path: 'add-livrable', component: AddLivrableComponent },
   {path:"details/:id",component:LivrableDetailComponent},
   { path: 'stats', component: StatsComponent },
-  { path: 'liv-per-proj', component: LivPerProjComponent }, // Add this line to include the chart component
-  { path: 'livrable-prediction', component: LivrablePredictionComponent }, // Add this line to include the chart component
+  { path: 'liv-per-proj', component: LivPerProjComponent }, 
+  { path: 'livrable-prediction', component: LivrablePredictionComponent }, 
+  { path: 'addHr', component: AddHRComponent },
+  { path: 'listHr', component: ListHrComponent },
+  { path: 'hr-details/:id', component: HrDetailsComponent },
+  { path: 'add-mat', component: AddMatComponent },
+  {path: 'matlist', component:MaterialResourceListComponent},
+  { path: 'supp_prediction', component: SuppPredictionComponent },
+  { path: 'prediction-details/:id', component: SupplierPredictionDetailsComponent },
+
 
   
 

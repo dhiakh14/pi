@@ -8,6 +8,8 @@ import joblib
 import numpy as np
 from scipy.sparse import hstack
 import pandas as pd
+from flask_cors import CORS
+
 
 
 
@@ -17,6 +19,8 @@ import base64
 import time
 
 app = Flask(__name__)
+CORS(app)
+
 
 
 modelAziz= joblib.load('modele_regression.joblib')
@@ -34,6 +38,9 @@ label_encoderEmira = joblib.load('label_encoderEmira.pkl')
 
 modelMaram = joblib.load('price_predictor (1).pkl')
 label_encodersMaram = joblib.load('label_encoders (1).pkl')
+
+features = ['sentiment', 'aiRating', 'clickCount', 'createdAt']
+
 
 camera_state = {
     "running": False,
@@ -297,29 +304,58 @@ def predict_dateecheance():
 
 
     
-@app.route('/predict/supplier_prediction', methods=['POST'])
-def predict_supplier():
+@app.route('/predict/supp', methods=['POST'])
+def predictsupp():
     try:
-        data = request.json
-        created_at = int(data['createdAt'])  
-        ai_rating = data['aiRating']
-        click_count = data['clickCount']
+        # Get the JSON input from the request
+        data = request.get_json()
 
-        prediction = rf_model.predict([[created_at, ai_rating, click_count]])
-        probabilities = rf_model.predict_proba([[created_at, ai_rating, click_count]])
+        # Convert the data into a DataFrame
+        input_data = pd.DataFrame([data])
 
-        status = "active" if prediction[0] == 1 else "inactive"
+        # Handle categorical columns (e.g., 'sentiment')
+        encoder = LabelEncoder()
+        input_data['sentiment'] = encoder.fit_transform(input_data['sentiment'])
 
-        response = {
-            'status': status,  
-            'probabilities': probabilities.tolist()  
-        }
+        # Ensure all the expected columns are present
+        for col in features:
+            if col not in input_data.columns:
+                input_data[col] = 0
 
-        return jsonify(response)
+        # Reorder the columns to match the training order
+        input_data = input_data[features]
+
+        # Preprocess the data (scaling)
+        input_scaled = scaler.transform(input_data)  # Scaling the input
+
+        # Predict using the trained model
+        prediction = rf_model.predict(input_scaled)
+
+        # Calculate feature contributions (for Random Forest model)
+        feature_importances = rf_model.feature_importances_
+
+        # Create a dictionary for feature contributions
+        feature_contributions = {}
+        for feature, importance in zip(features, feature_importances):
+            feature_contributions[feature] = round(importance, 4)
+
+        # Add predictionStatus to the response
+        prediction_status = "active" if prediction[0] == 1 else "inactive"
+
+        # Return the prediction and feature contributions as a JSON response
+        return jsonify({
+            'prediction': int(prediction[0]),
+            'sentiment': data['sentiment'],
+            'aiRating': data['aiRating'],
+            'clickCount': data['clickCount'],
+            'createdAt': data['createdAt'],
+            'predictionStatus': prediction_status,  # Add predictionStatus here
+            'featureImportance': feature_contributions
+        })
 
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({'error': str(e)}), 400
+
     
 
 @app.route('/predict/project_status', methods=['POST'])

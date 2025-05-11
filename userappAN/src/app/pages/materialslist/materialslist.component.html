@@ -1,0 +1,198 @@
+<div class="container">
+  <h2>List of Material Resources</h2>
+<!-- Price Prediction Form at Top -->
+<div class="top-form-container mt-3" *ngIf="showPredictionForm">
+  <form [formGroup]="predictionForm" (ngSubmit)="submitPrediction()" class="inline-form">
+    <input type="text" formControlName="name" placeholder="Name" class="form-control" />
+    
+    <select formControlName="category" class="form-control">
+      <option value="" disabled selected>Category</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <input type="number" formControlName="quantity" placeholder="Quantity" class="form-control" />
+
+    <button type="submit" class="btn btn-primary me-2" [disabled]="predictionForm.invalid">Predict Price</button>
+    <button type="button" class="btn btn-secondary" (click)="togglePredictionForm()">Cancel</button>
+  </form>
+
+  <div *ngIf="predictedPrice !== null" class="mt-2 alert alert-info">
+    Predicted Price: <strong>{{ predictedPrice | number:'1.2-2' }}</strong>
+  </div>
+</div>
+
+  <!-- Search and Filter Section -->
+  <div class="search-filter-container">
+    <!-- Search -->
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search materials..."
+      class="search-input"
+      (input)="filterResources()"
+    />
+
+    <!-- Filter by Category -->
+    <select [(ngModel)]="selectedCategory" (change)="filterResources()">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <!-- Add New Material Button -->
+    <button (click)="navigateToAddMaterial()" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Add New Material
+    </button>
+
+    <!-- Export to Excel Button -->
+    <button (click)="exportToExcel()" class="btn btn-success">
+      Export to Excel
+    </button>
+
+    <!-- Gemini Button -->
+    <button class="btn btn-primary" (click)="toggleGeminiForm()">
+      {{ showGeminiForm ? 'Hide Gemini' : 'Ask Gemini' }}
+    </button>
+  </div>
+<!-- Toggle Price Prediction Button -->
+<button class="btn btn-warning" (click)="togglePredictionForm()">
+  {{ showPredictionForm ? 'Close Prediction' : 'Price Prediction' }}
+</button>
+>
+
+  <!-- Material Resources Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th (click)="sortBy('firstName')">Name</th>
+        <th (click)="sortBy('price')">Price</th>
+        <th (click)="sortBy('category')">Category</th>
+        <th (click)="sortBy('quantity')">Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of paginatedResources">
+        <td>{{ material.firstName }}</td>
+        <td>{{ material.price }}</td>
+        <td>{{ material.category }}</td>
+        <td>{{ material.quantity }}</td>
+        <td>
+          <button class="btn btn-info me-2" (click)="updateResource(material.idMR)">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteResource(material.idMR)">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <div class="pagination-info">
+      Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, totalItems) }} of {{ totalItems }} entries
+    </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <!-- First Page -->
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(1)" aria-label="First">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+          </a>
+        </li>
+        
+        <!-- Previous Page -->
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        
+        <!-- Page Numbers -->
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+            [class.active]="currentPage === i + 1">
+          <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+        </li>
+        
+        <!-- Next Page -->
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        
+        <!-- Last Page -->
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="changePage(totalPages)" aria-label="Last">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Gemini Section -->
+  <div *ngIf="showGeminiForm" class="gemini-section mt-4">
+    <div class="gemini-form p-4 border rounded">
+      <h4>Ask Gemini About Material Resources</h4>
+      <form [formGroup]="questionForm" (ngSubmit)="submitQuestion()">
+        <div class="form-group">
+          <label for="geminiQuestion">Your Question:</label>
+          <textarea 
+            id="geminiQuestion"
+            class="form-control" 
+            rows="4"
+            placeholder="Example: What are the most expensive resources? How many items are in stock?"
+            formControlName="question"
+            [disabled]="isLoading"
+          ></textarea>
+          <small class="form-text text-muted">
+            Ask any question about the material resources
+          </small>
+        </div>
+        
+        <div class="form-buttons mt-3">
+          <button 
+            type="submit" 
+            class="btn btn-success me-2"
+            [disabled]="questionForm.invalid || isLoading"
+          >
+            <span *ngIf="!isLoading">Submit Question</span>
+            <span *ngIf="isLoading">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Processing...
+            </span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="toggleGeminiForm()"
+            [disabled]="isLoading"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+
+      <!-- Gemini Response -->
+      <div *ngIf="geminiResponse" class="gemini-response mt-4">
+        <h5>Gemini's Response:</h5>
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text">{{ geminiResponse }}</p>
+          </div>
+        </div>
+        <button 
+          class="btn btn-outline-primary mt-2"
+          (click)="geminiResponse = ''"
+        >
+          Clear Response
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  

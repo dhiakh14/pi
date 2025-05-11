@@ -1,0 +1,198 @@
+/* Background container with gradient overlay and image */
+.background-container {
+  background-image: linear-gradient(rgba(40, 42, 55, 0.85), rgba(40, 42, 55, 0.85)), url('src/assets/images/v.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 30px;
+  color: #ffffff; /* White text for readability */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 1s ease-in-out; /* Smooth fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Selected HR section */
+.selected-hr {
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* Stronger blur for glassmorphism */
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.selected-hr:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+.selected-hr h3 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.selected-hr p {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #e0e0e0; /* Light gray for better readability */
+  line-height: 1.6;
+}
+
+.selected-hr p strong {
+  color: #ffffff; /* White for labels */
+  font-weight: 600;
+}
+
+.selected-hr button {
+  background-color: #4a90e2; /* Soft blue */
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 25px;
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.selected-hr button:hover {
+  background-color: #357abd; /* Darker blue on hover */
+  transform: scale(1.02); /* Slight scale-up on hover */
+}
+
+/* Edit form section */
+.edit-form {
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* Stronger blur for glassmorphism */
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-form:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+.edit-form h3 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #e0e0e0; /* Light gray for better readability */
+  font-weight: 500;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-form input[type="text"]:focus,
+.edit-form input[type="email"]:focus,
+.edit-form select:focus {
+  border-color: #4a90e2; /* Highlight border on focus */
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); /* Glow effect on focus */
+  outline: none;
+}
+
+.edit-form input[type="text"]::placeholder,
+.edit-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* Placeholder text color */
+}
+
+.edit-form input[type="checkbox"] {
+  margin-bottom: 20px;
+}
+
+.edit-form button {
+  background-color: #4a90e2; /* Soft blue */
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-right: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.edit-form button[type="button"] {
+  background-color: #e74c3c; /* Soft red for cancel button */
+}
+
+.edit-form button:hover {
+  transform: scale(1.02); /* Slight scale-up on hover */
+  opacity: 0.9;
+}
+
+/* No data view */
+.no-data {
+  text-align: center;
+  color: #e0e0e0; /* Light gray for better readability */
+  font-style: italic;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* Stronger blur for glassmorphism */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.no-data:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}

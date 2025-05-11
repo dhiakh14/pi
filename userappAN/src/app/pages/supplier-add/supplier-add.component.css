@@ -6,8 +6,12 @@
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #f4f7fc, #e0e5ec);
+  background: 
+    linear-gradient(135deg, rgba(244, 247, 252, 0.9), rgba(224, 229, 236, 0.9)),
+    url('/assets/bacck_supp.jpg') no-repeat center center fixed;
+  background-size: cover;
   text-align: center;
+  position: relative;
 }
 
 /* ✅ Header Section */

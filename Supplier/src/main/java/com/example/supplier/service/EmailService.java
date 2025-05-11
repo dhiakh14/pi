@@ -1,23 +1,31 @@
 package com.example.supplier.service;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSender javaMailSender;
 
-    public void sendEmail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        message.setFrom("your-email@gmail.com");
+    // Method to send an email with a subject and content
+    public void sendEmail(String to, String subject, String content) throws MessagingException {
+        // Create a MimeMessage object
+        MimeMessage message = javaMailSender.createMimeMessage();
 
-        mailSender.send(message);
+        // Create a helper to set the email details
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("benelkaab.arij@gmail.com");  // Sender email
+        helper.setTo(to);  // Recipient email
+        helper.setSubject(subject);  // Subject
+        helper.setText(content, true);  // Email content (true for HTML content)
+
+        // Send the email
+        javaMailSender.send(message);
     }
 }

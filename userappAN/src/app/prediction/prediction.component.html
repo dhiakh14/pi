@@ -1,0 +1,34 @@
+<!-- prediction.component.html -->
+
+<div class="prediction-form">
+    <h2>Material Price Prediction</h2>
+  
+    <!-- Input fields for first name, quantity, and category -->
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" [(ngModel)]="firstName" placeholder="Enter first name" />
+    </div>
+  
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" [(ngModel)]="quantity" placeholder="Enter quantity" />
+    </div>
+  
+    <div>
+      <label for="category">Category:</label>
+      <input type="text" id="category" [(ngModel)]="category" placeholder="Enter category" />
+    </div>
+  
+    <!-- Predict button -->
+    <button (click)="getPrediction()">Predict</button>
+  
+    <!-- Display predicted price or error message -->
+    <div *ngIf="predictedPrice !== null">
+      <h3>Predicted Price: {{ predictedPrice }}</h3>
+    </div>
+  
+    <div *ngIf="errorMessage">
+      <p class="error">{{ errorMessage }}</p>
+    </div>
+  </div>
+  

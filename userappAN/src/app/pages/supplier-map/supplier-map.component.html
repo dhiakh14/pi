@@ -1,16 +1,66 @@
+<div class="home-container">
+
 <div class="map-page-container">
-    <h2>Geographic Distribution of Suppliers</h2>
-    <p>Explore the map below to see the geographic distribution of our suppliers. Click on a marker to view more details about a supplier.</p>
-  
-    <div id="map" style="height: 500px; width: 100%; margin-top: 20px; border: 1px solid #ccc; border-radius: 10px;">
-      <!-- Google Map will be embedded here -->
-    </div>
-  
-    <div class="map-actions">
-      <button class="clear-markers-btn" (click)="clearMarkers()">Clear Markers</button>
+  <div class="map-header">
+    <h2>
+      <mat-icon class="map-icon">location_on</mat-icon>
+      Geographic Distribution of Suppliers
+    </h2>
+    <p class="map-description">
+      Explore supplier locations on the interactive map below. Click markers for details.
+    </p>
+  </div>
 
-      <button class="btn-dashboard" (click)="navigateToDashboard()">⬅ Back to Dashboard</button>
-
+  <div class="map-wrapper">
+    <div id="map" class="supplier-map"></div>
+    
+    <!-- Details Panel -->
+    <div class="details-panel" *ngIf="selectedSupplier">
+      <button class="close-btn" (click)="selectedSupplier = null; infoWindow?.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+      
+      <h3>{{selectedSupplier.name}}</h3>
+      
+      <div class="detail-item">
+        <mat-icon>location_on</mat-icon>
+        <span>{{selectedSupplier.address}}</span>
+      </div>
+      
+      <div class="detail-item" *ngIf="selectedSupplier.phone">
+        <mat-icon>phone</mat-icon>
+        <span>{{selectedSupplier.phone}}</span>
+      </div>
+      
+      <div class="detail-item" *ngIf="selectedSupplier.email">
+        <mat-icon>email</mat-icon>
+        <span>{{selectedSupplier.email}}</span>
+      </div>
+      
+      <button mat-raised-button 
+              color="primary"
+              (click)="openSupplierDetails(selectedSupplier)"
+              class="view-details-btn">
+        View Full Details
+      </button>
     </div>
   </div>
-  
+
+  <div class="map-controls">
+    <button mat-raised-button color="primary" (click)="clearMarkers()" class="control-btn">
+      <mat-icon>clear_all</mat-icon>
+      Clear Markers
+    </button>
+    
+    <button mat-raised-button color="accent" (click)="navigateToDashboard()" class="control-btn">
+      <mat-icon>dashboard</mat-icon>
+      Back to Dashboard
+    </button>
+  </div>
+  <div class="details-panel" *ngIf="selectedSupplier">
+    <h3>{{selectedSupplier.name}}</h3>
+    <p>{{selectedSupplier.address}}</p>
+    <!-- Add more details here -->
+ </div>
+ 
+</div>

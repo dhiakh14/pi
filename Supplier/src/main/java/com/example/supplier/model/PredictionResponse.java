@@ -1,28 +1,18 @@
 package com.example.supplier.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Map;
+
+@Getter
+@Setter
 public class PredictionResponse {
-    private String status;       // e.g., "active" or "inactive"
-    private double[][] probabilities;  // Probabilities returned by the model
-
-    // Constructor, getters, and setters
-    public PredictionResponse(String status, double[][] probabilities) {
-        this.status = status;
-        this.probabilities = probabilities;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public double[][] getProbabilities() {
-        return probabilities;
-    }
-
-    public void setProbabilities(double[][] probabilities) {
-        this.probabilities = probabilities;
-    }
+    private int prediction; // 1 for active, 0 for inactive
+    private String sentiment;
+    private int aiRating;
+    private int clickCount;
+    private long createdAt;
+    private Map<String, Double> featureImportance; // Add feature importance if needed
+    private String predictionStatus; // Add predictionStatus field
 }

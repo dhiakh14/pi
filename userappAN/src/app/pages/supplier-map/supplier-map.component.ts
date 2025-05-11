@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SupplierService } from 'src/app/service-arij/supplier.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 declare var google: any;
 
@@ -11,74 +11,94 @@ declare var google: any;
 })
 export class SupplierMapComponent implements OnInit {
   suppliers: any[] = [];
-  center = { lat: 36.8065, lng: 10.1815 }; // Default center (e.g., Tunis)
+  center = { lat: 36.8065, lng: 10.1815 };
   zoom = 13;
-  markers: any[] = []; // Store markers here for future reference
-  selectedSupplier: any = null;  // To store the currently selected supplier
+  markers: any[] = [];
+  selectedSupplier: any = null;
+  map: any;
+  infoWindow: any;
 
   constructor(private supplierService: SupplierService, private router: Router) {}
 
   ngOnInit(): void {
-    this.supplierService.getSuppliers().subscribe(data => {
-      this.suppliers = data.map(supplier => ({
-        name: supplier.name,
-        address: supplier.address
-      }));
-      
-      this.initMap();
-    });
+    this.loadSuppliers();
   }
 
-  initMap(): void {
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: this.center,
-      zoom: this.zoom,
-    });
-
-    // Loop through suppliers and convert their address to coordinates
-    this.suppliers.forEach(supplier => {
-      this.geocodeAddress(supplier.address, map, supplier);
-    });
-  }
-
-  // Geocode address to get latitude and longitude
-  geocodeAddress(address: string, map: any, supplier: any): void {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: address }, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
-      if (status === "OK" && results[0]) {
-        const position = results[0].geometry.location;
-
-        const marker = new google.maps.Marker({
-          map: map,
-          position: position,
-          label: supplier.name
-        });
-
-        // Add click event to show supplier details on marker click
-        marker.addListener('click', () => {
-          this.openSupplierDetails(supplier);  // Open supplier details when marker is clicked
-        });
-
-        this.markers.push(marker); // Add marker to the array
+  loadSuppliers(): void {
+    this.supplierService.getSuppliers().subscribe({
+      next: (data) => {
+        this.suppliers = data;
+        this.initMap();
+      },
+      error: (error) => {
+        console.error('Error loading suppliers:', error);
       }
     });
   }
 
-  // Open supplier details when clicking on a marker
-  openSupplierDetails(supplier: any): void {
-    this.selectedSupplier = supplier;
-    alert(`Supplier: ${supplier.name}\nAddress: ${supplier.address}`);  // This is just an example; you can enhance it
+  initMap(): void {
+    this.map = new google.maps.Map(document.getElementById("map"), {
+      center: this.center,
+      zoom: this.zoom,
+    });
+
+    this.infoWindow = new google.maps.InfoWindow();
+
+    this.suppliers.forEach(supplier => {
+      this.geocodeAddress(supplier.address, this.map, supplier);
+    });
   }
 
-  // Method to clear the markers from the map
+  geocodeAddress(address: string, map: any, supplier: any): void {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address }, (results: any[], status: string) => {
+      if (status === "OK" && results[0]) {
+        const position = results[0].geometry.location;
+        this.createMarker(position, map, supplier);
+      }
+    });
+  }
+
+  createMarker(position: any, map: any, supplier: any): void {
+    const marker = new google.maps.Marker({
+      map: map,
+      position: position,
+      title: supplier.name
+    });
+
+    const contentString = `
+      <div class="map-info-window">
+        <h3>${supplier.name}</h3>
+        <p>${supplier.address}</p>
+      </div>
+    `;
+
+    marker.addListener('click', () => {
+      this.openSupplierDetails(supplier);
+      this.infoWindow.setContent(contentString);
+      this.infoWindow.open(map, marker);
+    });
+
+    this.markers.push(marker);
+  }
+
+  openSupplierDetails(supplier: any): void {
+    this.selectedSupplier = supplier;
+    // You can replace the alert with a more complex UI interaction.
+    // For example, display supplier details in a modal or panel
+    // Example:
+    // this.router.navigate(['/supplier-details', supplier.idSupplier]);
+}
+
+
   clearMarkers(): void {
-    this.markers.forEach(marker => marker.setMap(null)); 
+    this.markers.forEach(marker => marker.setMap(null));
     this.markers = [];
+    this.selectedSupplier = null;
+    this.infoWindow.close();
   }
 
   navigateToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }
-
-  
 }

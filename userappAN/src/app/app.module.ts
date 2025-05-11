@@ -75,6 +75,17 @@ import { LivPerProjComponent } from './pages/liv-per-proj/liv-per-proj.component
 import { LivrableAlertService } from './servicesEmira/livrable-alert.service';
 import { LivrablePredictionComponent } from './pages/livrable-prediction/livrable-prediction.component';
 
+import { AddHRComponent } from './pages/add-hr/add-hr.component';
+import { ListHrComponent } from './pages/list-hr/list-hr.component';
+import { HrDetailsComponent } from './pages/hr-details/hr-details.component';
+import { AddMatComponent } from './pages/add-mat/add-mat.component';
+import { MaterialResourceListComponent } from './pages/materialslist/materialslist.component';
+import { PredictionComponent } from './prediction/prediction.component';
+import { SupplierPredictionDetailsComponent } from './pages/supplier-prediction-details/supplier-prediction-details.component';
+import { MatSelectModule } from '@angular/material/select'; 
+
+
+
 
 
 
@@ -144,6 +155,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     LivPerProjComponent,
     LivrablePredictionComponent,
 
+    AddHRComponent,
+    ListHrComponent,
+    HrDetailsComponent,
+    AddMatComponent,
+    MaterialResourceListComponent,
+    PredictionComponent,
+    SupplierPredictionDetailsComponent,
+    SuppPredictionComponent,
+
+
 
   ],
   imports: [
@@ -156,6 +177,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatNativeDateModule,
     NgApexchartsModule,
+    MatSelectModule ,
 
     HttpClientModule,
     FormsModule,

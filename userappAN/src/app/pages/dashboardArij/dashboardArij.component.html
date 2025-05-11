@@ -1,75 +1,90 @@
 <div class="dashboard-container">
   <h2 class="dashboard-title">📊 Supplier Statistics</h2>
 
-  <!-- Suppliers by Click Count Bar Chart -->
-  <div class="chart-container" [@slideInOut]="'in'">
-    <h3>Suppliers by Click Count</h3>
-    <div style="display: block;">
-      <canvas baseChart
-              [data]="clickCountChartData"
-              [type]="'bar'"
-              [options]="{ responsive: true }">
-      </canvas>
-    </div>
-    
-  </div>
-
-  <!-- Supplier Status Breakdown (Active vs Inactive) Pie Chart -->
-  <div class="chart-container" [@slideInOut]="'in'">
-    <h3>Supplier Status Breakdown</h3>
-    <canvas baseChart
-            [data]="chartData"
-            chartType="pie">
-    </canvas>
-  </div>
-
-  <!-- Suppliers' Product Categories Donut Chart -->
-  <div *ngIf="showCategoryChart" class="chart-container" [@slideInOut]="'in'">
-    <h3>Suppliers' Product Categories</h3>
-    <canvas baseChart
-            [data]="categoryChartData"
-            chartType="doughnut">
-    </canvas>
-  </div>
-
-  <!-- Supplier Summary -->
-  <div *ngIf="showSummary" class="summary-container" [@slideInOut]="'in'">
+  <!-- Summary Cards Section -->
+  <div class="summary-container">
     <h3>Supplier Overview</h3>
     <div class="summary-cards">
-      <!-- Total Suppliers Card -->
-      <div class="summary-card total-suppliers">
+      <div class="summary-card total-suppliers" >
         <h4>Total Suppliers</h4>
         <p>{{ summary.totalSuppliers }}</p>
       </div>
-
-      <!-- Active Suppliers Card -->
       <div class="summary-card active-suppliers" (click)="filterByActive()">
         <h4>Active Suppliers</h4>
         <p>{{ summary.activeSuppliers }}</p>
       </div>
-
-      <!-- Inactive Suppliers Card -->
       <div class="summary-card inactive-suppliers" (click)="filterByInactive()">
         <h4>Inactive Suppliers</h4>
         <p>{{ summary.inactiveSuppliers }}</p>
       </div>
-
-      <!-- New Suppliers This Month Card -->
       <div class="summary-card new-suppliers" (click)="filterByNew()">
-        <h4>New Suppliers This Month</h4>
+        <h4>New This Month</h4>
         <p>{{ summary.newSuppliersThisMonth }}</p>
       </div>
     </div>
   </div>
 
-  <!-- Test Supplier Prediction Button -->
-  <button mat-button (click)="goToPrediction()">Test Supplier Prediction</button>
+  <!-- Chart Carousel Section -->
+  <div class="chart-carousel">
+    <div class="carousel-controls">
+      <button class="nav-button" (click)="prevChart()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      
+      <div class="chart-wrapper">
+        <div *ngIf="currentChartIndex === 0">
+          <h3>Suppliers by Click Count</h3>
+          <canvas baseChart
+                  [data]="clickCountChartData"
+                  [type]="'bar'"
+                  [options]="{ responsive: true }">
+          </canvas>
+        </div>
+        
+        <div *ngIf="currentChartIndex === 1">
+          <h3>Supplier Status Breakdown</h3>
+          <canvas baseChart
+                  [data]="chartData"
+                  chartType="pie">
+          </canvas>
+        </div>
+        
+        <div *ngIf="currentChartIndex === 2 && showCategoryChart">
+          <h3>Suppliers' Product Categories</h3>
+          <canvas baseChart
+                  [data]="categoryChartData"
+                  chartType="doughnut">
+          </canvas>
+        </div>
+      </div>
+      
+      <button class="nav-button" (click)="nextChart()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    
+    <div class="carousel-indicators">
+      <span *ngFor="let indicator of [0, 1, 2]; let i = index" 
+            [class.active]="currentChartIndex === i"
+            (click)="goToChart(i)"></span>
+    </div>
+  </div>
 
-  <!-- View Supplier Distribution on Map Button -->
-  <button class="go-to-map-button" (click)="goToMap()">
-    View Supplier Distribution on Map
-  </button>
-
-  <!-- Go Back Button -->
-  <button class="btn-back" (click)="goBack()">⬅ Back to Suppliers</button>
+  <!-- Action Buttons Section -->
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" (click)="goToPrediction()" class="action-button">
+      <mat-icon>insights</mat-icon>
+      See Suppliers' Predictions
+    </button>
+    
+    <button mat-raised-button color="accent" (click)="goToMap()" class="action-button">
+      <mat-icon>map</mat-icon>
+      View Supplier Distribution
+    </button>
+    
+    <button mat-stroked-button (click)="goBack()" class="action-button">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Suppliers
+    </button>
+  </div>
 </div>

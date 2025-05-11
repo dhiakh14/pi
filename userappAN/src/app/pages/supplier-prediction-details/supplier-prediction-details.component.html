@@ -1,0 +1,128 @@
+<div class="details-container">
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading supplier details...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-container">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <p class="error-text">{{ error }}</p>
+      <button mat-stroked-button color="warn" (click)="retryLoading()">Retry</button>
+    </div>
+  
+    <div *ngIf="supplier && !isLoading" class="supplier-details">
+      
+      <div class="header-section">
+        <div class="supplier-title">
+          <h2>{{ supplier.name }}</h2>
+        </div>
+        <div class="header-actions">
+          <div [class]="getStatusClass(supplier.predictionStatus)" class="status-badge">
+            {{ supplier.predictionStatus || 'N/A' | titlecase }}
+            <mat-icon class="status-icon">{{ supplier.predictionStatus === 'active' ? 'check_circle' : 'cancel' }}</mat-icon>
+          </div>
+          <div *ngIf="isSupplierInactive()">
+            <button mat-raised-button color="warn" (click)="sendWarningEmail(supplier.idSupplier)">
+              Send Warning Email
+            </button>
+          </div>
+          <button mat-raised-button color="primary" (click)="goToPrediction()" class="prediction-button">
+            <mat-icon>insights</mat-icon>
+            View All Predictions
+          </button>
+        </div>
+      </div>
+  
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="card-header">
+            <mat-icon class="card-icon">assessment</mat-icon>
+            <h3 class="card-title">Performance Metrics</h3>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <mat-icon class="item-icon">star</mat-icon>
+              AI Rating:
+            </span>
+            <span class="detail-value rating-value">
+              {{ supplier.aiRating || 'N/A' }}
+              <span *ngIf="supplier.aiRating" class="rating-stars">
+                <mat-icon *ngFor="let star of getRatingStars(supplier.aiRating)">star</mat-icon>
+              </span>
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <mat-icon class="item-icon">mood</mat-icon>
+              Sentiment:
+            </span>
+            <span [class]="getSentimentClass(supplier.sentiment)" class="sentiment-badge">
+              <mat-icon class="sentiment-icon">
+                {{ getSentimentIcon(supplier.sentiment) }}
+              </mat-icon>
+              {{ supplier.sentiment || 'N/A' | titlecase }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <mat-icon class="item-icon">trending_up</mat-icon>
+              Engagement:
+            </span>
+            <span class="detail-value">
+              {{ supplier.clickCount || 0 }}
+              <span class="engagement-text">clicks</span>
+            </span>
+          </div>
+        </div>
+  
+        <div class="detail-card">
+          <div class="card-header">
+            <mat-icon class="card-icon">business</mat-icon>
+            <h3 class="card-title">Supplier Details</h3>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <mat-icon class="item-icon">person</mat-icon>
+              Primary Contact:
+            </span>
+            <span class="detail-value">
+              {{ supplier.materialResource?.firstName || 'N/A' }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">
+              <mat-icon class="item-icon">event</mat-icon>
+              Created At:
+            </span>
+            <span class="detail-value">
+              {{ supplier.createdAt | date:'mediumDate' }}
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="prediction-breakdown">
+        <div class="breakdown-header">
+          <h3>Prediction Factors</h3>
+          <button mat-icon-button class="info-button" matTooltip="These factors influence the supplier's prediction score">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+        
+        <div class="explanation-grid">
+          <div class="explanation-item" *ngFor="let feature of chartData.labels; let i = index">
+            <div class="feature-info">
+              <div class="feature-name">{{ formatFeatureName(feature) }}</div>
+              <div class="feature-description">{{ getFeatureDescription(feature) }}</div>
+            </div>
+            <div class="feature-visualization">
+              <div class="feature-bar">
+                <div class="bar-fill" [style.width.%]="chartData.datasets[0].data[i]"></div>
+                <div class="bar-value">{{ getFeatureValue(i) }}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

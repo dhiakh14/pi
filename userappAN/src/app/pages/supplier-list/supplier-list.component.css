@@ -1,10 +1,28 @@
 /* Container */
+
+/* Make sure the html and body take full viewport height */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: 
+    linear-gradient(135deg, rgba(244, 247, 252, 0.9), rgba(224, 229, 236, 0.9)),
+    url('/assets/bacck_supp.jpg') no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+  position: relative;
+}
 .supplier-list-container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
   text-align: center;
+  
 }
+
 
 /* Page Title */
 .page-title {
@@ -95,6 +113,7 @@
   justify-content: center;
   gap: 20px;
   padding: 20px;
+  
 }
 
 .supplier-card {

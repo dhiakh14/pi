@@ -1,0 +1,65 @@
+<div class="background-container">
+    <div *ngIf="selectedHr" class="selected-hr">
+      <h3>Selected Human Resource</h3>
+      <p><strong>Name:</strong> {{ selectedHr.name }}</p>
+      <p><strong>Last Name:</strong> {{ selectedHr.lastName }}</p>
+      <p><strong>Email:</strong> {{ selectedHr.email }}</p>
+      <p><strong>Phone Number:</strong> {{ selectedHr.phoneNumber }}</p>
+      <p><strong>Availability:</strong> {{ selectedHr.availability ? 'Available' : 'Not Available' }}</p>
+      <p><strong>Job Role:</strong> {{ selectedHr.job_Role }}</p>
+  
+      <!-- Edit Button -->
+      <button (click)="toggleEdit()">Edit</button>
+    </div>
+  
+    <!-- Edit Form -->
+    <div *ngIf="isEditMode && selectedHr" class="edit-form">
+      <h3>Edit Human Resource</h3>
+      <form (ngSubmit)="saveUpdatedHr()">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="selectedHr.name" name="name" required />
+        </div>
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" [(ngModel)]="selectedHr.lastName" name="lastName" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="selectedHr.email" name="email" required />
+        </div>
+        <div>
+          <label for="phoneNumber">Phone Number:</label>
+          <input 
+            type="number" 
+            id="phoneNumber" 
+            [(ngModel)]="selectedHr.phoneNumber" 
+            name="phoneNumber" 
+            required 
+            min="0"
+            pattern="[0-9]*"
+          />
+        </div>
+        <div>
+          <label for="availability">Availability:</label>
+          <input type="checkbox" id="availability" [(ngModel)]="selectedHr.availability" name="availability" />
+        </div>
+        <div>
+          <label for="jobRole">Job Role:</label>
+          <select id="jobRole" [(ngModel)]="selectedHr.job_Role" name="jobRole">
+            <option value="MASON">Mason</option>
+            <option value="ELECTRICIAN">Electrician</option>
+            <option value="PLUMBER">Plumber</option>
+          </select>
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" (click)="toggleEdit()">Cancel</button>
+      </form>
+    </div>
+  
+    <!-- No Data View -->
+    <div *ngIf="!selectedHr" class="no-data">
+      <p>No details available for this HR.</p>
+    </div>
+  </div>
+  

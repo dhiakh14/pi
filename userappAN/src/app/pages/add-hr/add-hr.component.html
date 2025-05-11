@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>Add Human Resource</h2>
+    <form (ngSubmit)="addHR()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="humanResource.name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" [(ngModel)]="humanResource.lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="humanResource.email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="phoneNumber" 
+          [(ngModel)]="humanResource.phoneNumber" 
+          name="phoneNumber" 
+          required
+          min="0"
+          pattern="[0-9]*"
+        >
+      </div>
+      <div class="form-group">
+        <label for="availability">Availability</label>
+        <select class="form-control" id="availability" [(ngModel)]="humanResource.availability" name="availability" required>
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="job_Role">Job Role</label>
+        <select class="form-control" id="job_Role" [(ngModel)]="humanResource.job_Role" name="job_Role" required>
+          <option value="MASON">Mason</option>
+          <option value="ELECTRICIAN">Electrician</option>
+          <option value="PLUMBER">Plumber</option>
+        </select>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Submit
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+      </div>
+    </form>
+  </div>

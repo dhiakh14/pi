@@ -1,0 +1,57 @@
+/* prediction.component.css */
+
+.prediction-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .prediction-form h2 {
+    text-align: center;
+  }
+  
+  .prediction-form div {
+    margin-bottom: 15px;
+  }
+  
+  .prediction-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .prediction-form input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .prediction-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .prediction-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  
+  h3 {
+    text-align: center;
+    color: green;
+  }
+  

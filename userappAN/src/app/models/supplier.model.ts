@@ -1,5 +1,5 @@
 export interface Supplier {
-  id: number;
+  idSupplier: number;
   name: string;
   address?: string;
   phoneNumber?: string;
@@ -11,6 +11,10 @@ export interface Supplier {
   createdAt:Date;
   aiRating?: number;
   sentiment?: string;
+  predictionStatus: string;  // Prediction status ("active" or "inactive")
+  featureImportance?: { [key: string]: number }; // This is the structure for feature importance
+
+
 
 }
 

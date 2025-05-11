@@ -1,0 +1,104 @@
+<div class="container">
+    <h2>List of Human Resources</h2>
+  
+    <!-- Search and Filter Section -->
+    <div class="search-filter-container">
+      <!-- Search by First Name -->
+      <input
+        type="text"
+        [(ngModel)]="searchFirstName"
+        placeholder="Search by first name..."
+        class="search-input"
+        (input)="filterHumanResources()"
+      />
+  
+      <!-- Filter by Job Role -->
+      <select [(ngModel)]="selectedJobRole" (change)="filterHumanResources()">
+        <option value="">All Job Roles</option>
+        <option *ngFor="let role of jobRoles" [value]="role">{{ role }}</option>
+      </select>
+  
+      <!-- Export to Excel Button -->
+      <button (click)="exportToExcel()" class="btn btn-success">
+        Export to Excel
+      </button>
+
+      <!-- Add New HR Button -->
+      <button (click)="navigateToAddHR()" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add New HR
+      </button>
+    </div>
+  
+    <!-- Human Resources Table -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th (click)="sortHumanResources('name')">First Name</th>
+          <th (click)="sortHumanResources('lastName')">Last Name</th>
+          <th (click)="sortHumanResources('email')">Email</th>
+          <th (click)="sortHumanResources('phoneNumber')">Phone Number</th>
+          <th (click)="sortHumanResources('availability')">Availability</th>
+          <th (click)="sortHumanResources('job_Role')">Job Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hr of paginatedHumanResources">
+          <td>{{ hr.name }}</td>
+          <td>{{ hr.lastName }}</td>
+          <td>{{ hr.email }}</td>
+          <td>{{ hr.phoneNumber }}</td>
+          <td>{{ hr.availability ? 'Available' : 'Not Available' }}</td>
+          <td>{{ hr.job_Role }}</td>
+          <td>
+            <button class="btn btn-info" (click)="findById(hr.idHR)">Find by ID</button>
+            <button class="btn btn-danger" (click)="deleteHr(hr.idHR)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-container" *ngIf="totalPages > 1">
+      <div class="pagination-info">
+        Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, totalItems) }} of {{ totalItems }} entries
+      </div>
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <!-- First Page -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(1)" aria-label="First">
+              <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+          </li>
+          
+          <!-- Previous Page -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          
+          <!-- Page Numbers -->
+          <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+              [class.active]="currentPage === i + 1">
+            <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+          </li>
+          
+          <!-- Next Page -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          
+          <!-- Last Page -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(totalPages)" aria-label="Last">
+              <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>

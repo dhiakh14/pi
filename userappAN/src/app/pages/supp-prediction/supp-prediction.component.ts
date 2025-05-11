@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';  // Import Router
 import { SupplierService } from 'src/app/service-arij/supplier.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Supplier } from 'src/app/models/supplier.model';
+import { MatSelectChange } from '@angular/material/select';
 
 
 @Component({
@@ -9,40 +11,84 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./supp-prediction.component.css']
 })
 export class SuppPredictionComponent implements OnInit {
-  createdAt: string = ''; // Date in string format
-  aiRating: number = 0;
-  clickCount: number = 0;
-  predictionStatus: string = '';
-  isLoading: boolean = false;
-  probabilities: number[] = [];  // Will hold the probabilities for active/inactive
+  suppliers: Supplier[] = [];
+  filteredSuppliers: Supplier[] = [];
+  filterStatus: string = '';
 
-  constructor(private supplierService: SupplierService, private router: Router) {}
+  constructor(
+    private supplierService: SupplierService,
+    private router: Router  // Inject Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadSuppliers();
+  }
 
-  getPrediction(): void {
-    this.isLoading = true;
-
-    const supplierData = {
-      createdAt: new Date(this.createdAt).getTime(),  // Convert to timestamp
-      aiRating: this.aiRating,
-      clickCount: this.clickCount
-    };
-
-    this.supplierService.getPredictionForSupplier(supplierData).subscribe({
-      next: (response: any) => {
-        this.predictionStatus = response.status;
-        this.probabilities = response.probabilities[0];  // Storing the probabilities
-        this.isLoading = false;
-        console.log('Prediction Status:', this.predictionStatus);
-        console.log('Probabilities:', this.probabilities);
+  loadSuppliers(): void {
+    this.supplierService.getSuppliersPrediction().subscribe({
+      next: (data) => {
+        console.log('Fetched Supplier Data:', data);  // Log the entire response data
+        this.suppliers = data;
+        this.filteredSuppliers = [...this.suppliers];
       },
-      error: (error: any) => {
-        console.error(error);
-        this.isLoading = false;
+      error: (error) => {
+        console.error('Error loading suppliers:', error);
       }
     });
   }
+
+  
+
+  filterByStatus(event: MatSelectChange): void {
+    this.filterStatus = event.value;
+    
+    if (!this.filterStatus) {
+      this.filteredSuppliers = [...this.suppliers];
+    } else {
+      this.filteredSuppliers = this.suppliers.filter(
+        supplier => supplier.predictionStatus?.toLowerCase() === this.filterStatus.toLowerCase()
+      );
+    }
+  }
+
+  // Add goToPredictionDetails method
+  goToPredictionDetails(supplier: Supplier): void {
+    console.log('Navigating to details for supplier ID:', supplier.idSupplier);  // Correct field
+    if (supplier.idSupplier) {
+      this.router.navigate(['/prediction-details', supplier.idSupplier]);
+    } else {
+      console.error('Invalid supplier ID:', supplier.idSupplier);
+    }
+  }
+  
+  
+
+  
+  
+  
+  
+
+  // Existing methods for handling sentiment, rating, etc.
+  getSentimentClass(sentiment: string | undefined): string {
+    if (!sentiment) return 'neutral';
+    const sentimentUpper = sentiment.toUpperCase();
+    if (sentimentUpper === 'POSITIVE') return 'positive';
+    if (sentimentUpper === 'NEGATIVE') return 'negative';
+    return 'neutral';
+  }
+
+  getAiRatingClass(rating: number | undefined): string {
+    if (rating === undefined || rating === null) return 'low-rating';
+    if (rating >= 4) return 'high-rating';
+    if (rating >= 3) return 'medium-rating';
+    return 'low-rating';
+  }
+
+  getPredictionStatusClass(status: string | undefined): string {
+    if (!status) return 'inactive-status';
+    return status.toLowerCase() === 'active' ? 'active-status' : 'inactive-status';
+  }
+
   navigateToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }

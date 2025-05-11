@@ -1,49 +1,284 @@
-.map-page-container {
-    padding: 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .map-page-container h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .map-page-container p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-  }
-  
-  .map-actions {
-    margin-top: 20px;
-  }
-  
-  .clear-markers-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-  
-  .clear-markers-btn:hover {
-    background-color: #0056b3;
-  }
-  
+.home-container {
 
-  .btn-dashboard {
-    background-color: #4CAF50; /* Green background */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px; /* Adds space above the button */
-    width: auto; /* Adjust width based on content */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
+  background: 
+    linear-gradient(135deg, rgba(244, 247, 252, 0.9), rgba(224, 229, 236, 0.9)),
+    url('/assets/bacck_supp.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+.map-page-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+.map-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.map-header h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.map-icon {
+  color: #4CAF50;
+  font-size: 2rem;
+  width: auto;
+  height: auto;
+}
+
+.map-description {
+  font-size: 1.1rem;
+  color: #5a5c69;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.map-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.supplier-map {
+  height: 600px;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.supplier-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  position: relative;
+}
+
+.supplier-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.supplier-card p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5a5c69;
+  margin: 10px 0;
+}
+
+.supplier-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.supplier-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 5px;
+}
+
+.map-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .supplier-map {
+    height: 450px;
   }
+  
+  .map-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+  
+  .supplier-card {
+    width: 220px;
+    padding: 15px;
+  }
+  
+  .map-overlay {
+    position: static;
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .supplier-card {
+    width: 100%;
+  }
+}
+
+/* Info Window Styling */
+.map-info-window {
+  font-family: 'Roboto', sans-serif;
+  padding: 8px;
+}
+
+.map-info-window h3 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.map-info-window p {
+  margin: 4px 0;
+  color: #5a5c69;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-info-window button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.map-info-window button:hover {
+  background-color: #3e8e41;
+}
+
+/* Selected marker styling */
+.gm-style-iw {
+  max-width: 250px !important;
+}
+
+/* Add these styles to your existing CSS */
+.map-info-window {
+  font-family: 'Roboto', sans-serif;
+  padding: 12px;
+  min-width: 200px;
+}
+
+.map-info-window h3 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.map-info-window p {
+  margin: 6px 0;
+  color: #5a5c69;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-info-window .material-icons {
+  font-size: 18px;
+  color: #4CAF50;
+}
+
+.details-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 280px;
+  z-index: 1000;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  color: #5a5c69;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.view-details-btn {
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Add these styles to your existing CSS */
+.supplier-details-panel {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.map-info-window h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.map-info-window p {
+  margin-bottom: 0;
+  color: #5a5c69;
+}
