@@ -10,7 +10,6 @@
         <module name="config-server" />
         <module name="GestionLivrables" />
         <module name="Gateway" />
-        <module name="GestioPlanning" />
         <module name="Discovery" />
         <module name="GestionRessource" />
         <module name="KhalfaouiMohamedDhia" />
@@ -36,7 +35,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GestioPlanning (1)" target="17" />
+      <module name="GestioPlanning (1)" target="20" />
       <module name="GestioPlanning (2)" target="17" />
       <module name="tacheEtLivrable" target="17" />
       <module name="tachEtLivrable" target="17" />

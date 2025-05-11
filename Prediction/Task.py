@@ -17,9 +17,7 @@ import base64
 import time
 
 app = Flask(__name__)
-modelMaram = joblib.load('knn_model.joblib')
-charVectorizer = joblib.load('char_vectorizer.joblib')
-priceScaler = joblib.load('price_scaler.joblib')
+
 
 modelAziz= joblib.load('modele_regression.joblib')
 modelSafety = YOLO('best.pt')
@@ -33,6 +31,9 @@ label_encoder = joblib.load("label_encoder.pkl")
 vectorizerEmira = joblib.load('vectorizerEmira.pkl')
 modelEmira = joblib.load('livrable_model.pkl')
 label_encoderEmira = joblib.load('label_encoderEmira.pkl')
+
+modelMaram = joblib.load('price_predictor (1).pkl')
+label_encodersMaram = joblib.load('label_encoders (1).pkl')
 
 camera_state = {
     "running": False,
@@ -50,7 +51,6 @@ def clean_text(text):
     text = re.sub(r'\s+', ' ', text)
     return text
 
-# Extract flags using your model's keywords
 def extract_flags(text):
     delay_keywords = [
         'delay', 'late', 'postpone', 'hold up', 'deferred',
@@ -68,6 +68,36 @@ def extract_flags(text):
     contains_completion = int(any(kw in text for kw in completion_keywords))
 
     return contains_delay, contains_progress, contains_completion
+
+@app.route('/predict-price', methods=['POST'])
+def predict_price():
+    data = request.get_json()
+
+    first_name = data.get('first_name', '').strip()
+    quantity = data.get('quantity')
+    category = data.get('category', '').strip()
+
+    if not first_name or quantity is None or not category:
+        return jsonify({'error': 'first_name, quantity, and category are required'}), 400
+
+    try:
+        quantity = int(quantity)
+    except ValueError:
+        return jsonify({'error': 'quantity must be an integer'}), 400
+
+    name_encoder = label_encodersMaram['first_name']
+    category_encoder = label_encodersMaram['category']
+
+    first_name_encoded = name_encoder.transform([first_name])[0] \
+        if first_name in name_encoder.classes_ else len(name_encoder.classes_)
+
+    category_encoded = category_encoder.transform([category])[0] \
+        if category in category_encoder.classes_ else len(category_encoder.classes_)
+
+    input_array = np.array([[first_name_encoded, quantity, category_encoded]])
+    predicted_price = modelMaram.predict(input_array)[0]
+
+    return jsonify({'predicted_price': float(predicted_price)})
 
 @app.route('/predictEmira', methods=['POST'])
 def predictEmira():
@@ -263,25 +293,7 @@ def predict_dateecheance():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-@app.route('/predictClass', methods=['POST'])
-def predictClass():
-    data = request.get_json()
-    
-    if not data or 'first_name' not in data or 'price' not in data:
-        return jsonify({"error": "Missing 'first_name' or 'price' in request"}), 400
 
-    first_name = data['first_name']
-    price = float(data['price'])
-
-    X_char = charVectorizer.transform([first_name])
-
-    X_price = priceScaler.transform([[price]])
-
-    X_combined = np.concatenate([X_char.toarray(), X_price], axis=1)
-
-    prediction = modelMaram.predict(X_combined)
-
-    return jsonify({"predicted_category": prediction[0]})
 
 
     
