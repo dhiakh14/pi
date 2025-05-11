@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'src/app/services1/models';
 import { TaskControllerService } from 'src/app/services1/services';
 import { GanttChartControllerService } from 'src/app/services1/services/gantt-chart-controller.service';
@@ -8,6 +8,8 @@ import * as XLSX from 'xlsx';
 import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controller/save-gantt-chart';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/predict-duration';
+import { serviceFeignAD } from 'src/app/servicesAbir/services/serviceFeignAD';
+import { ProjectControllerService } from 'src/app/servicesAbir/services';
  
 
 
@@ -27,13 +29,14 @@ export class TasksComponent implements OnInit, AfterViewInit {
   currentPage: number = 1; 
   itemsPerPage: number = 4;
   showPredictionForm: boolean = false;    
-  predictedDuration: number | null = null; 
   errorMessage: string | null = null;
   taskDescription: string = '';
   private ganttInitialized = false;
 
   trendAnalysisResult: string = '';
   isLoadingAnalysis: boolean = false;
+  projectName: string = '';
+
 
  
 
@@ -42,6 +45,12 @@ export class TasksComponent implements OnInit, AfterViewInit {
     private ganttChartService: GanttChartControllerService, 
     private router: Router,
     private modalService: NgbModal,
+    private serviceDA: serviceFeignAD,
+    private route: ActivatedRoute ,
+    private projectService: ProjectControllerService
+    
+
+    
   ) {}
 
   ngAfterViewInit(): void {
@@ -51,8 +60,23 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.loadTasks();
+    const id = this.route.snapshot.paramMap.get('projectId');
+    if (id) {
+      this.loadTasks(+id);
+    }
+
+    if (id !== null) {
+      this.projectService.findProjectById({ idProject: +id }).subscribe(
+        data => {
+          this.projectName = data.name || 'Unknown Project';
+        },
+        error => {
+          console.error('Erreur lors de la récupération du nom du projet', error);
+        }
+      );
+    }
   }
+  
 
   private initializeGantt(): void {
     if (typeof gantt === 'undefined') {
@@ -77,25 +101,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
 
 
-  predictTaskDuration(name: string, description: string) {
-    const params: PredictDuration$Params = {
-      body: {
-        name: name,
-        description: description
-      }
-    };
-
-    this.taskService.predictDuration(params).subscribe({
-      next: (response) => {
-        this.predictedDuration = response['The expected duration is '];
-        this.errorMessage = null;
-      },
-      error: (err) => {
-        this.errorMessage = 'Failed to predict duration: ' + err.message;
-        this.predictedDuration = null;
-      }
-    });
-  }
+  
 
   
 
@@ -209,37 +215,22 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
 
  
-  loadTasks(): void {
-    this.taskService.getAllTasks().subscribe(
-      (response) => {
-        if (response instanceof Blob) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            try {
-              const jsonResponse = JSON.parse(reader.result as string);
-              if (Array.isArray(jsonResponse)) {
-                this.tasks = jsonResponse;
-                this.filteredTasks = [...this.tasks];
-              } else {
-                console.error('Expected an array of tasks, but received:', jsonResponse);
-              }
-            } catch (error) {
-              console.error('Error parsing JSON from Blob:', error);
-            }
-          };
-          reader.readAsText(response);
-        } else if (Array.isArray(response)) {
-          this.tasks = response;
+  loadTasks(projectId: number): void {
+    this.serviceDA.getProjectWithTasks(projectId).subscribe({
+      next: (project) => {
+        if (project && Array.isArray(project.tasks)) {
+          this.tasks = project.tasks;
           this.filteredTasks = [...this.tasks];
         } else {
-          console.error('Unexpected response format:', response);
+          console.error('No tasks found in project:', project);
         }
       },
-      (error) => {
-        console.error('Error fetching tasks:', error);
+      error: (error) => {
+        console.error('Error loading project tasks:', error);
       }
-    );
+    });
   }
+  
 
 
   toggleSelection(taskId: number): void {
@@ -431,7 +422,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
 
   editTask(task: Task): void {
-    this.router.navigate(['/update-task', task.idTask]);
+    this.router.navigate(['/tasks/edit', task.idTask], { queryParams: { projectId: task.projectId } });
   }
 
   addTask(): void{

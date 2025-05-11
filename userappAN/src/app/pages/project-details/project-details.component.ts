@@ -120,4 +120,9 @@ export class ProjectDetailsComponent implements OnInit {
   goBack() {
     this.router.navigate(['/project']);
   }
+  viewTasks(): void {
+    if (this.project?.idProject) {
+      this.router.navigate(['/tasks', this.project.idProject]);
+    }
+}
 }

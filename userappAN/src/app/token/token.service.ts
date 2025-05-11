@@ -31,6 +31,13 @@
   isAuthenticated(): boolean {
     return this.token !== null;
   }
+  
+  getEmail(): string | null {
+    const decoded = this.getDecodedToken();
+    console.log('Decoded in getEmail:', decoded); 
+    return decoded?.email || decoded?.sub || null;
+  }
+  
 
   getDateOfBirth(): string | null {
     const decoded = this.getDecodedToken();

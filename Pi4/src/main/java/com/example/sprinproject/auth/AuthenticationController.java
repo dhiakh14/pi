@@ -1,11 +1,17 @@
 package com.example.sprinproject.auth;
 import com.example.sprinproject.user.Token;
+import com.example.sprinproject.user.User;
+import com.example.sprinproject.user.userRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -20,6 +26,7 @@ import java.util.Map;
 
 public class AuthenticationController {
     private final AuthenticationService authService;
+    private final userRepository userRepository;
 
 
     @PostMapping("/Register")
@@ -72,4 +79,15 @@ public class AuthenticationController {
                     .body(Map.of("message", e.getMessage()));
         }
     }
+
+    @PostMapping("/update-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+        try {
+            User updatedUser = authService.updatePassword(resetPasswordDto);
+            return ResponseEntity.ok(Map.of("message", "Password updated successfully"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
+    }
+
 }

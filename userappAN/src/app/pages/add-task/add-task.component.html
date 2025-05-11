@@ -2,32 +2,25 @@
   <button (click)="Back()" class="back-btn">
     <i class="fas fa-arrow-left"></i> Back
   </button>
+  <button class="help-btn" (click)="openHelpModal()">
+    <i class="fas fa-question-circle"></i> Help with Prediction
+  </button>
   <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="p-4 border rounded bg-light">
     <div class="mb-3">
       <label for="name">Task Name:</label>
       <input type="text" id="name" name="name" [(ngModel)]="task.name" required 
-             (blur)="predictDuration()" class="form-control" />
+              class="form-control" />
       <div *ngIf="taskForm.submitted && !task.name" class="text-danger">Task name is required.</div>
     </div>
 
     <div class="mb-3">
       <label for="description">Description:</label>
       <textarea id="description" name="description" [(ngModel)]="task.description" required
-                (blur)="predictDuration()" class="form-control"></textarea>
+                class="form-control"></textarea>
       <div *ngIf="taskForm.submitted && !task.description" class="text-danger">Description is required.</div>
     </div>
 
-    <!-- Prediction Suggestion -->
-    <div class="mb-3" *ngIf="suggestedDuration !== undefined">
-      <div class="alert alert-info">
-        <div *ngIf="isPredicting">
-          <i class="fas fa-spinner fa-spin"></i> Predicting duration...
-        </div>
-        <div *ngIf="!isPredicting">
-          <strong>Suggested duration:</strong> {{ suggestedDuration }} days
-        </div>
-      </div>
-    </div>
+   
 
     <div class="mb-3">
       <label for="startDate">Start Date:</label>
@@ -59,4 +52,63 @@
       {{ isEditMode ? 'Update Task' : 'Add Task' }}
     </button>
   </form>
-</div>
+  <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="helpModalLabel">Task Duration Assistant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="chat-container">
+            <div class="chat-messages" #chatMessages>
+              <div class="bot-message">
+                <p>👋 Hi! I'm here to help you estimate how long your task might take.</p>
+              </div>
+              <div class="bot-message">
+                <p>📝 What is the <strong>name of your task</strong>?</p>
+              </div>
+              <div class="user-input">
+                <input type="text" class="form-control mb-2" [(ngModel)]="predictionData.name" placeholder="Name of the task">
+              </div>
+              <div class="bot-message">
+                <p>💡 Can you briefly <strong>describe the task</strong>?</p>
+              </div>
+              <div class="user-input">
+                <textarea class="form-control mb-2" [(ngModel)]="predictionData.description" placeholder="Description of the task"></textarea>
+              </div>
+              <div class="bot-message">
+                <p>👥 How many people will work on this task?</p>
+              </div>
+              <div class="user-input">
+                <input type="number" class="form-control mb-2" [(ngModel)]="predictionData.effectif" min="1" placeholder="e.g., 3">
+              </div>
+              <div class="bot-message">
+                <p>⚙️ What is the <strong>complexity level</strong> of this task?</p>
+              </div>
+              <div class="user-input">
+                <select class="form-select mb-2" [(ngModel)]="predictionData.niveau_complexity">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+              <div class="bot-message">
+                <p>📊 When you're ready, click below to get your prediction.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="getPrediction()">Get Prediction</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  </div>
+    

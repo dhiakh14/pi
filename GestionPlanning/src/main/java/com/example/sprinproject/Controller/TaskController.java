@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -74,20 +75,40 @@ public class TaskController {
     }
 
     @PostMapping("/predictDuration")
-    public ResponseEntity<Map<String, Double>> predictDuration(@RequestBody Map<String, String> request) {
-        String name = request.get("name");
-        String description = request.get("description");
+    public ResponseEntity<Map<String, Object>> predictDuration(@RequestBody Map<String, Object> request) {
+        String name = (String) request.get("name");
+        String description = (String) request.get("description");
+        Integer effectif = (Integer) request.get("effectif");
+        String niveauComplexity = (String) request.get("niveau_complexity");
 
         if (name == null || description == null || name.trim().isEmpty() || description.trim().isEmpty()) {
-            return new ResponseEntity<>(Map.of("error", -1.0), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Name and description are required"));
+        }
+
+        if (effectif == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Effectif (team size) is required"));
+        }
+
+        if (niveauComplexity == null || !Arrays.asList("low", "medium", "hard").contains(niveauComplexity.toLowerCase())) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Niveau_complexity must be low, medium, or hard"));
         }
 
         try {
-            Double predictedDuration = taskService.predictTaskDuration(name, description);
+            Double predictedDuration = taskService.predictTaskDuration(
+                    name,
+                    description,
+                    effectif,
+                    niveauComplexity
+            );
 
-            return new ResponseEntity<>(Map.of("The expected duration is ", predictedDuration), HttpStatus.OK);
+            return ResponseEntity.ok()
+                    .body(Map.of("predicted_duration_days", predictedDuration));
         } catch (Exception e) {
-            return new ResponseEntity<>(Map.of("error", -1.0), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", e.getMessage()));
         }
     }
 

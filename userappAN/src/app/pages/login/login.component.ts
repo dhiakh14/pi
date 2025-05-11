@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         this.isLoading = false;
         
-        // Handle specific error cases
         if (err.status === 404) {
           this.resetError = this.translate.instant('Email not found');
         } else if (err.status === 429) {
@@ -138,7 +137,7 @@ export class LoginComponent implements OnInit {
                 queryParams: { requireBirthdate: true } 
               });
             } else {
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/notadminusers']);
             }
           },
           error: (err) => {
@@ -151,14 +150,12 @@ export class LoginComponent implements OnInit {
   }
 
   private handleSuccessfulAuthentication() {
-    // Extract and store birth date
     this.userBirthDate = this.tokenService.getDateOfBirth();
     
     if (!this.userBirthDate) {
       console.warn('User birth date not provided in token');
     }
 
-    // Handle navigation based on user role
     const decodedToken = this.tokenService.getDecodedToken();
     if (decodedToken) {
       const idUser = this.tokenService.getUserId();

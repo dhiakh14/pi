@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -50,6 +53,35 @@ public class UserController {
     public ResponseEntity<String> banUser(@PathVariable Long idUser, @RequestParam boolean lockStatus) {
         userService.banUser(idUser, lockStatus);
         return ResponseEntity.ok("User account lock status updated");
+    }
+
+    @PutMapping("/{idUser}/updateFullName")
+    public ResponseEntity<Map<String, String>> updateFullName(@PathVariable Long idUser, @RequestParam String fullName) {
+        try {
+            userService.updateFullName(idUser, fullName);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Full name updated successfully.");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @PutMapping("/{idUser}/updateDateOfBirth")
+    public ResponseEntity<Map<String, String>> updateDateOfBirth(@PathVariable Long idUser, @RequestParam String newDateOfBirth) {
+        try {
+            LocalDate dateOfBirth = LocalDate.parse(newDateOfBirth);
+            userService.updateDateOfBirth(idUser, dateOfBirth);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Date of birth updated successfully.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Invalid date format.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
 

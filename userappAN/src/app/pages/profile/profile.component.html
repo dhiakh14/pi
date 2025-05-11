@@ -1,24 +1,181 @@
 <div class="full-screen-background d-flex justify-content-center align-items-center min-vh-100">
-  <div class="profile-container">
-  <h2 class="full-name">{{ fullName }}</h2>
-
-  <div class="role-circle">
-    <span>{{ userRole }}</span>
-  </div>
-
-  <div class="profile-info">
-    <div class="info-item">
-      <i class="fas fa-birthday-cake"></i>
-      <p><strong>Date Of Birth:</strong> {{ dateOfBirth | date:'yyyy-MM-dd' }}</p>
+  <div *ngIf="showPasswordModal" class="modal-overlay">
+    <div class="password-modal">
+      <div class="modal-header">
+        <h3>Change Password</h3>
+        <button class="close-btn" (click)="togglePasswordModal()" [disabled]="isUpdating">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="passwordUpdateMessage" 
+             [class]="passwordUpdateSuccess ? 'alert alert-success' : 'alert alert-danger'">
+          {{ passwordUpdateMessage }}
+        </div>
+        
+        <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input type="password" id="currentPassword" 
+                 [(ngModel)]="currentPassword" 
+                 class="form-control" 
+                 [disabled]="isUpdating"
+                 required>
+        </div>
+        
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" 
+                 [(ngModel)]="newPassword" 
+                 (input)="checkPasswordStrength()"
+                 (focus)="showPasswordRequirements = true"
+                 (blur)="showPasswordRequirements = false"
+                 class="form-control" 
+                 [disabled]="isUpdating"
+                 required>
+          
+          <div *ngIf="showPasswordRequirements" class="password-requirements">
+            <p>Password must contain:</p>
+            <ul>
+              <li [class.valid]="newPassword.length >= 8">At least 8 characters</li>
+          
+            </ul>
+          </div>
+          
+          <div class="password-strength-meter">
+            <div class="strength-bar" [style.width.%]="passwordStrength" 
+                 [class.weak]="passwordStrength <= 25"
+                 [class.fair]="passwordStrength > 25 && passwordStrength <= 50"
+                 [class.good]="passwordStrength > 50 && passwordStrength <= 75"
+                 [class.strong]="passwordStrength > 75"></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password</label>
+          <input type="password" id="confirmPassword" 
+                 [(ngModel)]="confirmPassword" 
+                 class="form-control" 
+                 [disabled]="isUpdating"
+                 required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" 
+                (click)="togglePasswordModal()" 
+                [disabled]="isUpdating">Cancel</button>
+        <button class="btn btn-primary" 
+                (click)="updatePassword()"
+                [disabled]="isUpdating || !currentPassword || !newPassword || !confirmPassword || newPassword !== confirmPassword">
+          <span *ngIf="!isUpdating">Update Password</span>
+          <span *ngIf="isUpdating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <button class="logout-btn" (click)="logout()">
-    <i class="fas fa-sign-out-alt"></i> Logout
-  </button>
-</div>
-</div>
+<div class="profile-dashboard">
+  <div class="profile-header">
+    <div class="profile-identity">
+      <h1 class="profile-name" *ngIf="!isEditingFullName">
+        {{ fullName }}
+        <i class="fas fa-edit edit-icon" (click)="toggleEditFullName()"></i>
+        <i class="fas fa-cog settings-icon" (click)="togglePasswordModal()"></i>
 
-<ng-template #noUsers>
-  <p class="no-users">No other users found.</p>
-</ng-template>
+      </h1>
+      <div *ngIf="isEditingFullName" class="edit-section">
+        <input type="text" [(ngModel)]="newFullName" class="form-control name-input">
+        <div class="action-buttons">
+          <button class="btn btn-primary save-btn" (click)="submitFullNameUpdate()">
+            <i class="fas fa-check"></i> Confirm
+          </button>
+          <button class="btn btn-outline-secondary cancel-btn" (click)="toggleEditFullName()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-badge">
+      <span class="badge-role">{{ userRole }}</span>
+      <div class="badge-circle"></div>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-card">
+      <div class="card-header">
+        <i class="fas fa-user-circle"></i>
+        <h3>Personal Information</h3>
+      </div>
+      <div class="card-body">
+        <div class="info-section">
+          <div class="info-row" *ngIf="!isEditingDateOfBirth">
+            <div class="info-label">
+              <i class="fas fa-birthday-cake"></i>
+              <span>Date of Birth</span>
+            </div>
+            <div class="info-value">
+              {{ dateOfBirth | date:'MMMM d, yyyy' }}
+              <i class="fas fa-edit edit-icon" (click)="toggleEditDateOfBirth()"></i>
+            </div>
+          </div>
+          
+          <div *ngIf="isEditingDateOfBirth" class="edit-section">
+            <div class="info-label">
+              <i class="fas fa-birthday-cake"></i>
+              <span>Date of Birth</span>
+            </div>
+            <div class="edit-controls">
+              <input type="date" [(ngModel)]="newDateOfBirth" class="form-control">
+              <div class="action-buttons">
+                <button class="btn btn-primary save-btn" (click)="submitDateOfBirthUpdate()">
+                  <i class="fas fa-check"></i> Save
+                </button>
+                <button class="btn btn-outline-secondary cancel-btn" (click)="toggleEditDateOfBirth()">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-row">
+            <div class="info-label">
+              <i class="fas fa-envelope"></i>
+              <span>Email</span>
+            </div>
+            <div class="info-value">
+              {{ email }}
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-row">
+            <div class="info-label">
+              <i class="fas fa-phone"></i>
+              <span>Phone</span>
+            </div>
+            <div class="info-value">
+              (123) 456-7890
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <div *ngIf="updateMessage" class="alert-message" 
+           [class.success]="!updateMessage.includes('Error')" 
+           [class.error]="updateMessage.includes('Error')">
+        <i class="fas" [class.fa-check-circle]="!updateMessage.includes('Error')" 
+           [class.fa-exclamation-circle]="updateMessage.includes('Error')"></i>
+        {{ updateMessage }}
+      </div>
+
+      <button class="logout-button" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sign Out
+      </button>
+    </div>
+  </div>
+</div>
+</div>

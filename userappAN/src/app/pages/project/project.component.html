@@ -32,6 +32,8 @@
       <div class="actions">
         <button class="view-button" (click)="viewProjectDetails(project.idProject)"*ngIf="project.idProject !== undefined">Details</button>
         <button class="delete-button" (click)="deleteProject(project.idProject)"*ngIf="project.idProject !== undefined">Delete</button>
+        <button class="add-task-button" (click)="addTasksToProject(project.idProject)" *ngIf="project.idProject !== undefined">Add tasks to this project</button>
+
       </div>
     </div>
   </div>

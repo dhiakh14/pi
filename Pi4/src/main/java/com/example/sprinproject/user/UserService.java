@@ -5,6 +5,7 @@ import com.example.sprinproject.role.RoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -48,6 +49,28 @@ public class UserService {
     }
 
 
+    public void updateFullName(Long idUser, String fullName) {
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (fullName != null && fullName.trim().contains(" ")) {
+            String[] parts = fullName.trim().split(" ", 2);
+            user.setFirstName(parts[0]);
+            user.setLastName(parts[1]);
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Full name must include first and last name separated by space.");
+        }
+    }
+
+    public void updateDateOfBirth(Long idUser, LocalDate newDateOfBirth) {
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setDateOfBirth(newDateOfBirth);
+        userRepository.save(user);
+    }
+
     public User getProfile(Long idUser){
         return userRepository.findById(idUser).orElse(null);
     }
@@ -60,23 +83,7 @@ public class UserService {
         userRepository.deleteById(idUser);
     }
 
-    public User updateUser(Long idUser, User updatedUser) {
-        return userRepository.findById(idUser).map(user -> {
-            user.setFirstName(updatedUser.getFirstName());
-            user.setLastName(updatedUser.getLastName());
-            user.setEmail(updatedUser.getEmail());
-            user.setDateOfBirth(updatedUser.getDateOfBirth());
-            return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User not found with ID: " + idUser));
-    }
 
-    public User updatePassword(Long idUser, User updatedUser) {
-        return userRepository.findById(idUser).map(user -> {
-            user.setPassword(updatedUser.getPassword());
-
-            return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User not found with ID: " + idUser));
-    }
 
     public void banUser(Long idUser, boolean lockStatus) {
         User user = userRepository.findById(idUser)

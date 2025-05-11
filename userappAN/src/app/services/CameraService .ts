@@ -1,12 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PredictionRequest } from './models/PredictionRequest';
+
+
+
+
+interface PredictionResponse {
+  predicted_duration_days?: number;
+  error?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CameraService {
+  private predictUrl = 'http://localhost:8086/planning/Task/predictDuration';
   private baseUrl = 'http://localhost:8086/planning/camera';
+
+  
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -45,5 +59,21 @@ export class CameraService {
 
       return () => clearInterval(intervalId);
     });
+  }
+
+  predictTaskDuration(
+    name: string,
+    description: string,
+    effectif: number,
+    niveauComplexity: 'low' | 'medium' | 'hard'
+  ): Observable<PredictionResponse> {
+    const requestBody: PredictionRequest = {
+      name: name.trim(),
+      description: description.trim(),
+      effectif: effectif,
+      niveau_complexity: niveauComplexity.toLowerCase() as 'low' | 'medium' | 'hard'
+    };
+
+    return this.http.post<PredictionResponse>(this.predictUrl, requestBody);
   }
 }

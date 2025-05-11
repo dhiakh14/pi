@@ -55,6 +55,11 @@ public class TaskService {
             task.setPlanned_end_date(updatedTask.getPlanned_end_date());
             task.setActual_end_date(updatedTask.getActual_end_date());
             task.setStatus(updatedTask.getStatus());
+            if (updatedTask.getProjectId() != null) {
+                task.setProjectId(updatedTask.getProjectId());
+            }
+
+
             return taskRepo.save(task);
         }).orElseThrow(() -> new RuntimeException("Task not found with ID: " + idTask));
     }
@@ -94,25 +99,32 @@ public class TaskService {
         List<Task> tasks = taskRepo.findByProjectId(projectId);
         taskRepo.deleteAll(tasks);}
 
-    public Double predictTaskDuration(String name, String description) {
+    public Double predictTaskDuration(String name, String description, int effectif, String niveauComplexity) {
         String url = "http://localhost:5000/predict";
 
         try {
-            Map<String, String> requestBody = new HashMap<>();
+            Map<String, Object> requestBody = new HashMap<>();
             requestBody.put("name", name);
             requestBody.put("description", description);
+            requestBody.put("effectif", effectif);
+            requestBody.put("niveau_complexity", niveauComplexity.toLowerCase());
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+            HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
 
             ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, requestEntity, Map.class);
 
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> responseBody = responseEntity.getBody();
                 if (responseBody != null && responseBody.containsKey("predicted_duration_days")) {
-                    return (Double) responseBody.get("predicted_duration_days");
+                    Object duration = responseBody.get("predicted_duration_days");
+                    if (duration instanceof Integer) {
+                        return ((Integer) duration).doubleValue();
+                    } else if (duration instanceof Double) {
+                        return (Double) duration;
+                    }
                 }
             }
         } catch (Exception e) {

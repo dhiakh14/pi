@@ -78,4 +78,9 @@ export class ProjectComponent implements OnInit {
   navigateToAddProject(): void {
     this.router.navigate(['/addproject']);
   }
+
+  addTasksToProject(projectId: number): void {
+    this.router.navigate(['/add-task'], { queryParams: { projectId: projectId } });
+  }
+  
 }

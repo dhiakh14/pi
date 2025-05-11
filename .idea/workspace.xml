@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/auth/ResetPasswordDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionPlanning/src/main/java/com/example/sprinproject/Controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GestionPlanning/src/main/java/com/example/sprinproject/Controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionPlanning/src/main/java/com/example/sprinproject/Service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GestionPlanning/src/main/java/com/example/sprinproject/Service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Controller/TaskController.class" beforeDir="false" afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Controller/TaskController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Service/TaskService.class" beforeDir="false" afterPath="$PROJECT_DIR$/GestionPlanning/target/classes/com/example/sprinproject/Service/TaskService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/auth/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/auth/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/auth/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/security/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/security/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/src/main/java/com/example/sprinproject/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +157,8 @@
       <workItem from="1746391400049" duration="2810000" />
       <workItem from="1746400893744" duration="5190000" />
       <workItem from="1746440490095" duration="5146000" />
-      <workItem from="1746574861817" duration="2301000" />
+      <workItem from="1746574861817" duration="19179000" />
+      <workItem from="1746964973291" duration="4552000" />
     </task>
     <servers />
   </component>

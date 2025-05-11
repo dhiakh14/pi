@@ -606,3 +606,90 @@ button:hover {
   }
 
 }
+
+
+
+.project-title {
+  /* Typography */
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+  
+  /* Layout & Spacing */
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.5rem;
+  position: relative;
+  
+  /* Background & Effects */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  /* Animation */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+  
+  /* Accent Bar */
+  overflow: hidden;
+}
+
+.project-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, #4a6bdf, #6a8bff);
+  border-radius: 3px 0 0 3px;
+  transition: all 0.4s ease;
+}
+
+.project-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(74, 107, 223, 0.8) 0%, 
+    rgba(74, 107, 223, 0.4) 50%, 
+    transparent 100%);
+}
+
+/* Hover Effects */
+.project-title:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.project-title:hover::before {
+  width: 6px;
+  background: linear-gradient(to bottom, #6a8bff, #8aabff);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-title {
+    font-size: 1.8rem;
+    padding: 0.6rem 1.2rem;
+    margin: 1rem 0;
+  }
+}
+
+/* Focus/Active State */
+.project-title:active {
+  transform: translateY(1px);
+  transition-duration: 0.1s;
+}
