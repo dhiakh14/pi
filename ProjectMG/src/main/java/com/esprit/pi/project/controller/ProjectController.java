@@ -119,4 +119,11 @@ public class ProjectController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping("/name/{name}")
+    public Project getProjectByName(@PathVariable String name) {
+        return projectService.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+    }
 }

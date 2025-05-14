@@ -1,39 +1,67 @@
-<!-- livrable-prediction.component.html -->
-<div class="livrable-prediction">
-    <h2>Livrable Status Prediction</h2>
-  
-    <!-- Display Loading Indicator -->
-    <div *ngIf="loading" class="loading">
-      <p>Loading...</p>
+<div class="prediction-container">
+  <h2>Livrable Status Prediction</h2>
+
+  <!-- Formulaire -->
+  <form (ngSubmit)="onSubmit()" #predictionForm="ngForm">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input id="title" [(ngModel)]="title" name="title" type="text" required />
     </div>
-  
-    <!-- Display Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
-      <p>{{ errorMessage }}</p>
+
+    <div class="form-group">
+      <label for="projectName">Project Name:</label>
+      <input id="projectName" [(ngModel)]="projectName" name="projectName" type="text" required />
     </div>
-  
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" [(ngModel)]="description" name="description" required></textarea>
-      </div>
-  
-      <div class="form-group">
-        <label for="createdAt">Created At:</label>
-        <input type="date" id="createdAt" [(ngModel)]="createdAt" name="createdAt" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" [(ngModel)]="dueDate" name="dueDate" required />
-      </div>
-  
-      <button type="submit">Predict Status</button>
-    </form>
-  
-    <!-- Display Predicted Status -->
-    <div *ngIf="predictedStatus">
-      <h3>Predicted Status: {{ predictedStatus }}</h3>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="description" name="description" required></textarea>
     </div>
+
+    <div class="form-group">
+      <label for="createdAt">Created At:</label>
+      <input id="createdAt" [(ngModel)]="createdAt" name="createdAt" type="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="dueDate">Due Date:</label>
+      <input id="dueDate" [(ngModel)]="dueDate" name="dueDate" type="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="completedCount">Completed Count:</label>
+      <input id="completedCount" [(ngModel)]="completedCount" name="completedCount" type="number" min="0" required />
+    </div>
+
+    <div class="form-group">
+      <label for="totalCount">Total Count:</label>
+      <input id="totalCount" [(ngModel)]="totalCount" name="totalCount" type="number" min="1" required />
+    </div>
+
+    <button type="submit" [disabled]="loading || !predictionForm.form.valid">
+      {{ loading ? 'Predicting...' : 'Get Prediction' }}
+    </button>
+  </form>
+
+  <!-- Résultat -->
+  <div *ngIf="predictedStatus" class="result">
+    <h3>Status Prediction: <span>{{ predictedStatus }}</span></h3>
   </div>
-  
+
+  <!-- Chargement -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading prediction...</p>
+  </div>
+
+  <!-- If the status is 'Completed', show a message and a button to navigate to Chatbot -->
+        <div *ngIf="predictedStatus === 'Completed'" class="mt-4">
+          <p>Wanna predict approval?</p>
+          <button class="btn btn-success w-100" (click)="navigateToChatbot()">Go to Chatbot</button>
+        </div>
+     
+
+  <!-- Erreur -->
+  <div *ngIf="errorMessage" class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>

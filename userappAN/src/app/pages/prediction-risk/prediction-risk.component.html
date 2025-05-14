@@ -1,0 +1,50 @@
+<div class="form-container">
+  <h2>Project Risk Level Prediction</h2>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <label>
+      Duration (days):
+      <input type="number" [(ngModel)]="project.duration_days" name="duration" #duration="ngModel" required min="1" />
+      <div class="error" *ngIf="duration.invalid && duration.touched">
+        Duration is required and must be at least 1 day.
+      </div>
+    </label>
+
+    <label>
+      Estimated Budget (KDT):
+      <input type="number" [(ngModel)]="project.estimated_budget_kdt" name="budget" #budget="ngModel" required min="1" />
+      <div class="error" *ngIf="budget.invalid && budget.touched">
+        Budget is required and must be a positive number.
+      </div>
+    </label>
+
+    <label>
+      Team Size:
+      <input type="number" [(ngModel)]="project.team_size" name="teamSize" #teamSize="ngModel" required min="1" />
+      <div class="error" *ngIf="teamSize.invalid && teamSize.touched">
+        Team size is required and must be at least 1.
+      </div>
+    </label>
+
+    <label>
+      Complexity (encoded):
+      <input type="number" [(ngModel)]="project.complexity_encoded" name="complexity" #complexity="ngModel" required min="0" max="3" />
+      <div class="error" *ngIf="complexity.invalid && complexity.touched">
+        Complexity is required and must be between 0 and 3.
+      </div>
+    </label>
+
+    <button type="submit" [disabled]="form.invalid">Predict</button>
+  </form>
+
+  <div *ngIf="predictionResult" class="result">
+  <h3>Prediction Result:</h3>
+  <p>Risk Level: <strong>{{ predictionResult }}</strong></p>
+  <p *ngIf="confidencePercent !== null">Confidence: <strong>{{ confidencePercent }}%</strong></p>
+</div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+</div>

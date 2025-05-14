@@ -1,0 +1,20 @@
+<div class="chatbot-container">
+  <h2>Project Review Assistant</h2>
+
+  <div class="chat-window">
+    <div class="chat-message" *ngFor="let message of chatHistory">
+      <div [ngClass]="{'bot-message': message.startsWith('Bot:'), 'user-message': message.startsWith('You:')}">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input" *ngIf="chatStarted">
+    <input [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type your answer..." />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+
+  <div class="start-button" *ngIf="!chatStarted">
+    <button (click)="startChat()">Start Chat</button>
+  </div>
+</div>

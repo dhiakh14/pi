@@ -16,4 +16,11 @@ public class PredictionResponseDTO {
     public void setPrediction(String prediction) {
         this.prediction = prediction;
     }
+
+    @Override
+    public String toString() {
+        return "PredictionResponseDTO{" +
+                "prediction='" + prediction + '\'' +
+                '}';
+    }
 }

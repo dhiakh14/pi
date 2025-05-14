@@ -161,6 +161,6 @@ export class AddTaskComponent {
   }
 
   Back(): void {
-    this.router.navigate(['/tasks'])
+    this.router.navigate(['/project'])
   }
 }

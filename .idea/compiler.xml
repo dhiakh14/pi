@@ -15,7 +15,6 @@
         <module name="GestionRessource" />
         <module name="KhalfaouiMohamedDhia" />
         <module name="nomPrenomClasseExamen" />
-        <module name="ProjectMG" />
       </profile>
       <profile name="Annotation profile for Supplier" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -25,6 +24,15 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
         </processorPath>
         <module name="Supplier" />
+      </profile>
+      <profile name="Annotation profile for ProjectMG" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="ProjectMG" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -39,18 +47,18 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Discovery" options="" />
+      <module name="Discovery" options="-parameters" />
       <module name="Gateway" options="" />
-      <module name="GestioPlanning" options="" />
+      <module name="GestioPlanning" options="-parameters" />
       <module name="GestioPlanning (1)" options="-parameters" />
       <module name="GestioPlanning (2)" options="-parameters" />
-      <module name="GestionLivrables" options="" />
-      <module name="GestionRessource" options="" />
-      <module name="KhalfaouiMohamedDhia" options="" />
-      <module name="ProjectMG" options="" />
+      <module name="GestionLivrables" options="-parameters" />
+      <module name="GestionRessource" options="-parameters" />
+      <module name="KhalfaouiMohamedDhia" options="-parameters" />
+      <module name="ProjectMG" options="-parameters" />
       <module name="Supplier" options="-parameters" />
-      <module name="config-server" options="" />
-      <module name="nomPrenomClasseExamen" options="" />
+      <module name="config-server" options="-parameters" />
+      <module name="nomPrenomClasseExamen" options="-parameters" />
       <module name="tachEtLivrable" options="-parameters" />
       <module name="tacheEtLivrable" options="-parameters" />
       <module name="userM" options="-parameters" />

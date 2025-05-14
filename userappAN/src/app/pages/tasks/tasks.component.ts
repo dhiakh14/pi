@@ -8,8 +8,9 @@ import * as XLSX from 'xlsx';
 import { SaveGanttChart$Params } from 'src/app/services1/fn/gantt-chart-controller/save-gantt-chart';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PredictDuration$Params } from 'src/app/services1/fn/task-controller/predict-duration';
-import { serviceFeignAD } from 'src/app/servicesAbir/services/serviceFeignAD';
+
 import { ProjectControllerService } from 'src/app/servicesAbir/services';
+import { serviceFeignAD } from 'src/app/servicesAbir/services/serviceFeignAD';
  
 
 
@@ -426,7 +427,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   addTask(): void{
-    this.router.navigate(['/addtask'])
+    this.router.navigate(['/project'])
   }
 
   navigateToTaskAssistant() {

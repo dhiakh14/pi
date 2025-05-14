@@ -7,59 +7,35 @@
     <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/GestionRessources/src/main/java/tn/esprit/exam/config/RestTemplateConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prediction/RF_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/RF_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Discovery/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Discovery/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionLivrables/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GestionLivrables/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionLivrables/src/main/java/com/example/gestionlivrables/controllers/LivrableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GestionLivrables/src/main/java/com/example/gestionlivrables/controllers/LivrableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionLivrables/src/main/java/com/example/gestionlivrables/services/PredictionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GestionLivrables/src/main/java/com/example/gestionlivrables/services/PredictionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestionPlanning/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GestionPlanning/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pi4/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Prediction/Task.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/Task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prediction/scaler.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/scaler.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/SupplierApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/config/AppConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/controller/EmailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/controller/PredictionController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/controller/SupplierController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/dto/SummarizeRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/dto/SupplierSummaryDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/model/MaterialResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/model/PredictionRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/model/PredictionResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/model/Status.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/model/Supplier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/repository/MaterialResourceRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/repository/SupplierRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/service/AISentimentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/service/AISummarizationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/service/EmailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/service/SupplierPredictionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/java/com/example/supplier/service/SupplierService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/SupplierApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/config/AppConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/EmailController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/PredictionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/controller/SupplierController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/dto/SummarizeRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/dto/SupplierSummaryDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/MaterialResource$Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/MaterialResource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/PredictionRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/PredictionResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/Status.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/model/Supplier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/repository/MaterialResourceRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/repository/SupplierRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/AISentimentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/AISummarizationService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/EmailService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/SupplierPredictionService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supplier/target/classes/com/example/supplier/service/SupplierService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/label_encoder.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction/label_encoder.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/label_encoderEmira.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/livrable_model.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prediction/vectorizerEmira.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/ProjectMgApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/ProjectMgApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/controller/ProjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/controller/StatusPredictionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/controller/RiskPredictionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/dto/PredictionResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/dto/PredictionResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/dto/ProjectDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/dto/ProjectDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/service/ProjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/service/ProjectService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/service/StatusPredictionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/src/main/java/com/esprit/pi/project/service/RiskPredictionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/ProjectMgApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/ProjectMgApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/controller/ProjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/controller/ProjectController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/controller/StatusPredictionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/dto/PredictionResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/dto/PredictionResponseDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/dto/ProjectDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/dto/ProjectDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectMG/target/classes/com/esprit/pi/project/service/StatusPredictionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lahmeraziz1/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lahmeraziz1/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,12 +80,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/moham/Documents/GitHub/pi/Supplier/pom.xml",
+    "last_opened_file_path": "C:/Users/moham/Documents/GitHub/pi",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -205,6 +184,10 @@
       <workItem from="1746440490095" duration="5146000" />
       <workItem from="1746574861817" duration="19179000" />
       <workItem from="1746964973291" duration="7123000" />
+      <workItem from="1747012261065" duration="2239000" />
+      <workItem from="1747044738477" duration="7721000" />
+      <workItem from="1747082266682" duration="166000" />
+      <workItem from="1747172788641" duration="1594000" />
     </task>
     <servers />
   </component>

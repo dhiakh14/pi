@@ -104,9 +104,10 @@ public class LivrableController {
     }
 
     @PostMapping("/predict")
-    public ResponseEntity<String> predictStatus(@RequestBody LivrableDTO livrableDTO) {
+    public ResponseEntity<Map<String, String>> predictStatus(@RequestBody LivrableDTO livrableDTO) {
         String prediction = predictionService.predictLivrableStatus(livrableDTO);
-        return ResponseEntity.ok(prediction);
+        // Sending the prediction as part of a map
+        return ResponseEntity.ok(Map.of("predicted_status", prediction));
     }
 
 

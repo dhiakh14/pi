@@ -18,6 +18,7 @@ import { connectedGuard } from './guards/connected.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TaskChatComponent } from './pages/task-chat/task-chat.component';
 import { CameraControlComponent } from './pages/camera-control/camera-control.component';
+
 import { ProjectComponent } from './pages/project/project.component';
 import { AddProjectComponent } from './pages/add-project/add-project.component';
 import { EditProjectComponent } from './pages/edit-project/edit-project.component';
@@ -25,7 +26,7 @@ import { ProjectDetailsComponent } from './pages/project-details/project-details
 import { ProjectStatsComponent } from './pages/project-stats/project-stats.component'
 import { ProjectLocationComponent } from './pages/project-location/project-location.component';
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
-import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
+
 import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
 import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
 import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
@@ -54,7 +55,8 @@ import { HrDetailsComponent } from './pages/hr-details/hr-details.component';
 import { AddMatComponent } from './pages/add-mat/add-mat.component';
 import { MaterialResourceListComponent } from './pages/materialslist/materialslist.component';
 import { SupplierPredictionDetailsComponent } from './pages/supplier-prediction-details/supplier-prediction-details.component';
-
+import { ChatbotComponent } from './pages/chatbot/chatbot.component';
+import { PredictionRiskComponent } from './pages/prediction-risk/prediction-risk.component';
 
 
 const routes: Routes = [
@@ -80,6 +82,7 @@ const routes: Routes = [
   { path: 'add-task', component: AddTaskComponent, canActivate:[connectedGuard] },
   { path: 'tasks/edit/:id', component: AddTaskComponent, canActivate:[connectedGuard] },
   {path:'camera', component:CameraControlComponent},
+
   { path: 'project', component:ProjectComponent},
   { path: 'addproject', component:AddProjectComponent},
   { path: 'editproject/:id', component:EditProjectComponent},
@@ -87,7 +90,8 @@ const routes: Routes = [
   { path: 'stats', component: ProjectStatsComponent },
   { path: 'map', component: ProjectLocationComponent },
   { path: 'duration', component: ProjectDurationComponent },
-  { path: 'predict', component: PredictionStatutComponent },
+  { path: 'predict', component:  PredictionRiskComponent},
+
   {path: 'facture', component: FactureListComponent},
   {path: 'addfacture', component: FactureFormComponent},
   { path: 'facture-details/:idF', component: FactureDetailsComponent },
@@ -113,6 +117,7 @@ const routes: Routes = [
   {path: 'matlist', component:MaterialResourceListComponent},
   { path: 'supp_prediction', component: SuppPredictionComponent },
   { path: 'prediction-details/:id', component: SupplierPredictionDetailsComponent },
+  {path: 'chatbot', component: ChatbotComponent},
 
 
   

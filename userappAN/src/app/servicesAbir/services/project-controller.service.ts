@@ -31,8 +31,6 @@ import { getRemainingDays } from '../fn/project-controller/get-remaining-days';
 import { GetRemainingDays$Params } from '../fn/project-controller/get-remaining-days';
 import { getStatisticsByStatus } from '../fn/project-controller/get-statistics-by-status';
 import { GetStatisticsByStatus$Params } from '../fn/project-controller/get-statistics-by-status';
-import { predictProjectStatus } from '../fn/project-controller/predict-project-status';
-import { PredictProjectStatus$Params } from '../fn/project-controller/predict-project-status';
 import { Project } from '../models/project';
 import { updateProject } from '../fn/project-controller/update-project';
 import { UpdateProject$Params } from '../fn/project-controller/update-project';
@@ -65,31 +63,6 @@ export class ProjectControllerService extends BaseService {
   updateProject(params: UpdateProject$Params, context?: HttpContext): Observable<Project> {
     return this.updateProject$Response(params, context).pipe(
       map((r: StrictHttpResponse<Project>): Project => r.body)
-    );
-  }
-
-  /** Path part for operation `predictProjectStatus()` */
-  static readonly PredictProjectStatusPath = '/project/predictStatus';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `predictProjectStatus()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  predictProjectStatus$Response(params: PredictProjectStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return predictProjectStatus(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `predictProjectStatus$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  predictProjectStatus(params: PredictProjectStatus$Params, context?: HttpContext): Observable<string> {
-    return this.predictProjectStatus$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

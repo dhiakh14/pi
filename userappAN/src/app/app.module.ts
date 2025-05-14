@@ -42,7 +42,6 @@ import { EditProjectComponent } from './pages/edit-project/edit-project.componen
 import { ProjectStatsComponent } from './pages/project-stats/project-stats.component';
 import { ProjectLocationComponent } from './pages/project-location/project-location.component';
 import { ProjectDurationComponent } from './pages/project-duration/project-duration.component';
-import { PredictionStatutComponent } from './pages/prediction-statut/prediction-statut.component';
 import { FactureDetailsComponent } from './pages/aziz1/facture-details/facture-details.component';
 import { FactureFormComponent } from './pages/aziz1/facture-form/facture-form.component';
 import { FactureListComponent } from './pages/aziz1/facture-list/facture-list.component';
@@ -82,7 +81,11 @@ import { AddMatComponent } from './pages/add-mat/add-mat.component';
 import { MaterialResourceListComponent } from './pages/materialslist/materialslist.component';
 import { PredictionComponent } from './prediction/prediction.component';
 import { SupplierPredictionDetailsComponent } from './pages/supplier-prediction-details/supplier-prediction-details.component';
-import { MatSelectModule } from '@angular/material/select'; 
+import { MatSelectModule } from '@angular/material/select';
+
+import { ChatbotComponent } from './pages/chatbot/chatbot.component';
+import { PredictionRiskComponent } from './pages/prediction-risk/prediction-risk.component';
+
 
 
 
@@ -133,7 +136,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProjectStatsComponent,
     ProjectLocationComponent,
     ProjectDurationComponent,
-    PredictionStatutComponent,
     FactureListComponent,
     FactureDetailsComponent,
     FactureFormComponent,
@@ -163,6 +165,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     PredictionComponent,
     SupplierPredictionDetailsComponent,
     SuppPredictionComponent,
+
+    ChatbotComponent,
+      PredictionRiskComponent,
 
 
 

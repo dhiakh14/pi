@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { ProjectControllerService } from './services/project-controller.service';
+import { RiskPredictionControllerService } from './services/risk-prediction-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -17,6 +18,7 @@ import { ProjectControllerService } from './services/project-controller.service'
   declarations: [],
   providers: [
     ProjectControllerService,
+    RiskPredictionControllerService,
     ApiConfiguration
   ],
 })

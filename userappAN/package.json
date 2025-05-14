@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "api-gen": "ng-openapi-gen --input ./src/openapi/openapi.json --output ./src/app/services",
-    "api-plan": "ng-openapi-gen --input ./src/openapi/plan.json --output ./src/app/services1"
+    "api-plan": "ng-openapi-gen --input ./src/openapi/plan.json --output ./src/app/services1",
+    "api-proj": "ng-openapi-gen --input ./src/openapi/project.json --output ./src/app/servicesAbir"
   },
   "private": true,
   "dependencies": {

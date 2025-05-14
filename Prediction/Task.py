@@ -29,17 +29,75 @@ model = joblib.load('xgboost_model.joblib')
 vectorizer = joblib.load('tfidf_vectorizer.joblib')
 rf_model = joblib.load('RF_model.joblib') 
 scaler = joblib.load('scaler.joblib') 
-modelAbir = joblib.load("decision_tree_model.pkl")
+modelAbir = joblib.load("classification_model.pkl")
 label_encoder = joblib.load("label_encoder.pkl")
 
-vectorizerEmira = joblib.load('vectorizerEmira.pkl')
-modelEmira = joblib.load('livrable_model.pkl')
-label_encoderEmira = joblib.load('label_encoderEmira.pkl')
+modelEmira = joblib.load('completed_vs_lateNewEmiraZr.pkl')
+vectorizerEmira = joblib.load('tfidf_vectorizerEmiraZr.pkl')
+scalerEmira = joblib.load('scalerNewEmiraZr.pkl')
 
 modelMaram = joblib.load('price_predictor (1).pkl')
 label_encodersMaram = joblib.load('label_encoders (1).pkl')
 
 features = ['sentiment', 'aiRating', 'clickCount', 'createdAt']
+
+stop_words = {
+    "and", "by", "for", "with", "in", "on", "at", "the", "to", "of", "a", "an", "this", "that",
+    "is", "was", "were", "be", "being", "been", "has", "have", "had", "do", "does", "did",
+    "doing", "or", "as", "if", "than", "how", "but", "so", "from", "up", "down", "into",
+    "off", "it", "its", "you", "he", "she", "we", "they", "all", "any", "some", "much",
+    "many", "few", "more", "most", "less", "least", "great", "little", "better", "best"
+}
+
+delay_keywords = [
+    'delay', 'late', 'postpone', 'hold up', 'deferred', 'overdue',
+    'uncompleted', 'failed', 'unrevised', 'unsubmitted', 'unreviewed'
+]
+progress_keywords = [
+    'in progress', 'working', 'ongoing', 'started', 'underway',
+    'in development', 'in review', 'in process', 'in production', 'in testing'
+]
+completion_keywords = ['completed', 'done', 'finished', 'approved', 'reviewed','finalized','final']
+
+def clean_description(text):
+    if pd.isnull(text):
+        return ""
+    text = text.lower()
+    text = re.sub(r'[^a-z\s]', '', text)
+    return " ".join([word for word in text.split() if word not in stop_words])
+
+def extract_features(data):
+    # Clean description
+    desc = clean_description(data.get('description', ''))
+
+    # Boolean features
+    contains_delay = any(k in desc for k in delay_keywords)
+    contains_progress = any(k in desc for k in progress_keywords)
+    contains_completion = any(k in desc for k in completion_keywords)
+
+    # Dates
+    created_at = pd.to_datetime(data.get('createdAt'), errors='coerce')
+    due_date = pd.to_datetime(data.get('due_date'), errors='coerce')
+    days_to_due = (due_date - created_at).days if pd.notnull(created_at) and pd.notnull(due_date) else 0
+    due_on_weekend = due_date.weekday() >= 5 if pd.notnull(due_date) else False
+
+    # Text combo
+    title = data.get('title', '')
+    project = data.get('projectName', '')
+    text_combo = f"{title} {project} {desc}"
+    text_vec = vectorizerEmira.transform([text_combo])
+
+    # **Add progress ratio**
+    completed_count = data.get('completed_count', 0)
+    total_count = data.get('total_count', 0)
+    progress_ratio = completed_count / total_count if total_count > 0 else 0  # Avoid division by zero
+
+    # Numerical features
+    num_features = np.array([[contains_delay, contains_progress, contains_completion, days_to_due, due_on_weekend,progress_ratio]])
+    num_scaled = scalerEmira.transform(num_features)
+
+    # Combine and return
+    return np.hstack([text_vec.toarray(), num_scaled])
 
 
 camera_state = {
@@ -106,51 +164,28 @@ def predict_price():
 
     return jsonify({'predicted_price': float(predicted_price)})
 
-@app.route('/predictEmira', methods=['POST'])
+@app.route('/predictNewEmira', methods=['POST'])
 def predictEmira():
-    try:
-        data = request.get_json()
+    data = request.get_json()
+    features = extract_features(data)
+    prediction = modelEmira.predict(features)[0]
 
-        description = data.get('description')
-        created_at = data.get('createdAt')
-        due_date = data.get('due_date')
+    # Calculate progress ratio from raw input
+    completed_count = data.get('completed_count', 0)
+    total_count = data.get('total_count', 0)
+    progress_ratio = completed_count / total_count if total_count > 0 else 0
 
-        if not description or not created_at or not due_date:
-            return jsonify({'error': 'Missing required fields'}), 400
+    # Clean description for keywords
+    description = clean_description(data.get('description', ''))
+    contains_completion = any(k in description for k in completion_keywords)
 
-        description_cleaned = clean_text(description)
-        contains_delay, contains_progress, contains_completion = extract_flags(description_cleaned)
+    # Rule-based override
+    if progress_ratio < 0.5 and not contains_completion:
+        label = 'Late'
+    else:
+        label = 'Late' if prediction == 1 else 'Completed'
 
-        df = pd.DataFrame({
-            'description_clean': [description_cleaned],
-            'contains_delay': [contains_delay],
-            'contains_progress': [contains_progress],
-            'contains_completion': [contains_completion],
-            'createdAt': [created_at],
-            'due_date': [due_date]
-        })
-
-        df['createdAt'] = pd.to_datetime(df['createdAt'], errors='coerce')
-        df['due_date'] = pd.to_datetime(df['due_date'], errors='coerce')
-        if df['createdAt'].isnull().any() or df['due_date'].isnull().any():
-            return jsonify({'error': 'Invalid date format'}), 400
-
-        df['days_to_due'] = (df['due_date'] - df['createdAt']).dt.days
-        df['due_on_weekend'] = df['due_date'].dt.weekday >= 5
-
-        description_vectorized = vectorizerEmira.transform(df['description_clean'])
-        X = np.hstack([
-            description_vectorized.toarray(),
-            df[['contains_delay', 'contains_progress', 'contains_completion', 'days_to_due', 'due_on_weekend']].values
-        ])
-
-        prediction = modelEmira.predict(X)
-        predicted_status = label_encoderEmira.inverse_transform(prediction)[0]
-
-        return jsonify({'predicted_status': predicted_status})
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
+    return jsonify({'prediction': label})
 
 def run_camera():
     camera_state["camera_capture"] = cv2.VideoCapture(0)
@@ -358,20 +393,27 @@ def predictsupp():
 
     
 
-@app.route('/predict/project_status', methods=['POST'])
-def predict_status():
+@app.route('/predict/risk_level', methods=['POST'])
+def predict_risk_level():
     data = request.get_json()
-    duration = data.get("duration", None)
-    
-    if duration is None:
-        return jsonify({"error": "duration is required"}), 400
 
-    X_input = pd.DataFrame([[duration]], columns=["duration"])
+    try:
+        duration = float(data["duration_days"])
+        budget = float(data["estimated_budget_kdt"])
+        team = int(data["team_size"])
+        complexity = int(data["complexity_encoded"])
+    except (KeyError, ValueError):
+        return jsonify({
+            "error": "Les champs requis sont : duration_days, estimated_budget_kdt, team_size, complexity_encoded"
+        }), 400
+
+    X_input = pd.DataFrame([[duration, budget, team, complexity]],
+                           columns=["duration_days", "estimated_budget_kdt", "team_size", "complexity_encoded"])
+
     prediction = modelAbir.predict(X_input)
-    status_label = label_encoder.inverse_transform(prediction)[0]
+    predicted_label = label_encoder.inverse_transform(prediction)[0]
 
-    return jsonify({"predicted_status": status_label})
-
+    return jsonify({"predicted_risk_level": predicted_label})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True)
+    app.run(debug=True, port=5000)
