@@ -2,11 +2,10 @@ pipeline {
     agent any
     options { skipDefaultCheckout() } // prevents Jenkins from automatically checking out the repo
 
-    stages { // <-- all stages must go inside this
+    stages {
         stage('Git') {
             steps {
                 script {
-                    // Fix Windows Git large transfer issues
                     bat 'git config --global http.postBuffer 524288000'
                     bat 'git config --global core.compression 0'
 
@@ -17,8 +16,7 @@ pipeline {
                         credentialsId: 'git-token'
                       ]],
                       extensions: [
-                          [$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true],
-                          [$class: 'RetryCheckout', retryCount: 3]
+                          [$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true]
                       ]
                     ])
                 }
