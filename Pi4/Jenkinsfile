@@ -1,22 +1,18 @@
 pipeline {
     agent any
 
-
     stages {
-        // 1️⃣ Stage Git : Récupérer le code depuis Git
-        stage('Git') {
+        stage('Checkout Git') {
             steps {
-                script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],  // Branche correcte
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/dhiakh14/pi.git'
-                        ]]
-                    ])
-                }
+                // Simple checkout Git
+                git branch: 'main', url: 'https://github.com/dhiakh14/pi.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Le code a été récupéré avec succès !"
             }
         }
     }
-
 }
