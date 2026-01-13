@@ -9,6 +9,7 @@ pipeline {
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: '*/main']],
+                        extensions: [[$class: 'CloneOption', depth: 1, shallow: true]],
                         userRemoteConfigs: [[
                             url: 'https://github.com/dhiakh14/pi.git'
                         ]]

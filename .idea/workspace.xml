@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pi4/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/Jenkinsfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +50,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "D:/pi",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -159,7 +160,7 @@
       <workItem from="1747044738477" duration="7721000" />
       <workItem from="1747082266682" duration="166000" />
       <workItem from="1747172788641" duration="1594000" />
-      <workItem from="1768329471646" duration="7941000" />
+      <workItem from="1768329471646" duration="8698000" />
     </task>
     <servers />
   </component>
