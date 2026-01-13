@@ -16,11 +16,14 @@ pipeline {
                         credentialsId: 'git-token'
                       ]],
                       extensions: [
-                          [$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true]
+                          [$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true, noTags: true],
+                          [$class: 'PruneStaleBranch']
                       ]
                     ])
                 }
             }
+        }
+
         }
 
         stage('Maven Build') {
