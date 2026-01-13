@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         // 1️⃣ Stage Git : Récupérer le code depuis Git
         stage('Git') {
@@ -9,7 +8,7 @@ pipeline {
                 script {
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: '*/main']],  // Branche correcte
+                        branches: [[name: '*/main']],
                         userRemoteConfigs: [[
                             url: 'https://github.com/dhiakh14/pi.git'
                         ]]
@@ -17,6 +16,26 @@ pipeline {
                 }
             }
         }
-    }
 
+        // 2️⃣ Stage Build : Build du projet avec Maven
+        stage('Maven Build') {
+            steps {
+                script {
+                    // Use 'bat' on Windows
+                    bat 'mvn clean install'
+                }
+            }
+        }
+
+        // 3️⃣ Stage Test : Lancer les tests Maven
+        stage('Test') {
+            steps {
+                script {
+                    bat 'mvn test'
+                }
+            }
+        }
+    }
 }
+
+
