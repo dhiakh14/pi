@@ -5,42 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pi4/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pi4/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/Jenkinsfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/SprinProjectApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/SprinProjectApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest$AuthenficationRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest$AuthenficationRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse$AuthenficationResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse$AuthenficationResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenficationResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/AuthenticationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest$RegistrationRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest$RegistrationRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/auth/RegistrationRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/config/BeansConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/config/BeansConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailTemplateName.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/email/EmailTemplateName.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/BusinessErrorCodes.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/BusinessErrorCodes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse$ExceptionResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse$ExceptionResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/ExceptionResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/handler/GlobalExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role$RoleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role$RoleBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/Role.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/role/RoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/JwtService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/UserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/security/UserDetailsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token$TokenBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token$TokenBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/Token.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/TokenRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/TokenRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User$UserBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/userRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pi4/target/classes/com/example/sprinproject/user/userRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "last_opened_file_path": "D:/pi",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -194,7 +159,7 @@
       <workItem from="1747044738477" duration="7721000" />
       <workItem from="1747082266682" duration="166000" />
       <workItem from="1747172788641" duration="1594000" />
-      <workItem from="1768329471646" duration="7793000" />
+      <workItem from="1768329471646" duration="7941000" />
     </task>
     <servers />
   </component>
