@@ -1,0 +1,11 @@
+com\esprit\pi\project\repository\ProjectRepository.class
+com\esprit\pi\project\TaskDTO\TaskDTO.class
+com\esprit\pi\project\TaskClient\TaskClient.class
+com\esprit\pi\project\entity\Status.class
+com\esprit\pi\project\TaskDTO\Status.class
+com\esprit\pi\project\config\WebConfig.class
+com\esprit\pi\project\entity\Project.class
+com\esprit\pi\project\ProjectMgApplication.class
+com\esprit\pi\project\controller\ProjectController.class
+com\esprit\pi\project\service\ProjectService$1.class
+com\esprit\pi\project\service\ProjectService.class
