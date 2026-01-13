@@ -6,14 +6,15 @@ pipeline {
         stage('Git') {
             steps {
                 script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],
-                        extensions: [[$class: 'CloneOption', depth: 1, shallow: true]],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/dhiakh14/pi.git'
-                        ]]
+                    checkout([$class: 'GitSCM',
+                      branches: [[name: '*/main']],
+                      userRemoteConfigs: [[
+                        url: 'https://github.com/dhiakh14/pi.git',
+                        credentialsId: 'git-token'
+                      ]],
+                      extensions: [[$class: 'CloneOption', timeout: 20, honorRefspec: true]]
                     ])
+
                 }
             }
         }
