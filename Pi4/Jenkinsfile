@@ -2,17 +2,26 @@ pipeline {
     agent any
     options { skipDefaultCheckout() } // prevents Jenkins from automatically checking out the repo
 
-    stages {
+    stages { // <-- all stages must go inside this
         stage('Git') {
             steps {
-                checkout([$class: 'GitSCM',
-                  branches: [[name: '*/main']],
-                  userRemoteConfigs: [[
-                    url: 'https://github.com/dhiakh14/pi.git',
-                    credentialsId: 'git-token'
-                  ]],
-                  extensions: [[$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true]]
-                ])
+                script {
+                    // Fix Windows Git large transfer issues
+                    bat 'git config --global http.postBuffer 524288000'
+                    bat 'git config --global core.compression 0'
+
+                    checkout([$class: 'GitSCM',
+                      branches: [[name: '*/main']],
+                      userRemoteConfigs: [[
+                        url: 'https://github.com/dhiakh14/pi.git',
+                        credentialsId: 'git-token'
+                      ]],
+                      extensions: [
+                          [$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true],
+                          [$class: 'RetryCheckout', retryCount: 3]
+                      ]
+                    ])
+                }
             }
         }
 
