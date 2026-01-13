@@ -1,43 +1,27 @@
 pipeline {
     agent any
+    options { skipDefaultCheckout() } // prevents Jenkins from automatically checking out the repo
 
     stages {
-        // 1️⃣ Stage Git : Récupérer le code depuis Git
         stage('Git') {
             steps {
-                script {
-                    checkout([$class: 'GitSCM',
-                      branches: [[name: '*/main']],
-                      userRemoteConfigs: [[
-                        url: 'https://github.com/dhiakh14/pi.git',
-                        credentialsId: 'git-token'
-                      ]],
-                      extensions: [[$class: 'CloneOption', timeout: 20, honorRefspec: true]]
-                    ])
-
-                }
+                checkout([$class: 'GitSCM',
+                  branches: [[name: '*/main']],
+                  userRemoteConfigs: [[
+                    url: 'https://github.com/dhiakh14/pi.git',
+                    credentialsId: 'git-token'
+                  ]],
+                  extensions: [[$class: 'CloneOption', depth: 1, timeout: 20, honorRefspec: true]]
+                ])
             }
         }
 
-        // 2️⃣ Stage Build : Build du projet avec Maven
         stage('Maven Build') {
-            steps {
-                script {
-                    // Use 'bat' on Windows
-                    bat 'mvn clean install'
-                }
-            }
+            steps { bat 'mvn clean install' }
         }
 
-        // 3️⃣ Stage Test : Lancer les tests Maven
         stage('Test') {
-            steps {
-                script {
-                    bat 'mvn test'
-                }
-            }
+            steps { bat 'mvn test' }
         }
     }
 }
-
-
