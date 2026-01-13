@@ -2,7 +2,8 @@ pipeline {
     agent any
     options { skipDefaultCheckout() } // prevents Jenkins from automatically checking out the repo
 
-    stages {
+    stages {  // all stages must be inside this block
+
         stage('Git') {
             steps {
                 script {
@@ -24,8 +25,6 @@ pipeline {
             }
         }
 
-        }
-
         stage('Maven Build') {
             steps { bat 'mvn clean install' }
         }
@@ -33,5 +32,6 @@ pipeline {
         stage('Test') {
             steps { bat 'mvn test' }
         }
-    }
+
+    } // end of stages
 }
