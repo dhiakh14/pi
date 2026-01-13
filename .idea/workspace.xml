@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66a54e77-99c8-49e5-93bd-15811bb503ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pi4/Jenkinsfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/..bfg-report/2025-05-07/01-20-21/cache-stats.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/..bfg-report/2025-05-07/01-20-21/deleted-files.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/..bfg-report/2025-05-07/01-20-21/object-id-map.old-new.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GestionLivrables/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GestionLivrables/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bfg-1.15.0.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +162,7 @@
       <workItem from="1747044738477" duration="7721000" />
       <workItem from="1747082266682" duration="166000" />
       <workItem from="1747172788641" duration="1594000" />
-      <workItem from="1768329471646" duration="2190000" />
+      <workItem from="1768329471646" duration="3891000" />
     </task>
     <servers />
   </component>
